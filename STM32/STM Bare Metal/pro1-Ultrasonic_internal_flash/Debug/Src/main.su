@@ -1,0 +1,14 @@
+../Src/main.c:23:6:delay_us	16	static
+../Src/main.c:31:6:delay_ms	16	static
+../Src/main.c:34:6:UART2_Init_using_driver	24	static
+../Src/main.c:62:6:UART2_SendString	24	static
+../Src/main.c:69:6:App_GPIO_Init	24	static
+../Src/main.c:102:6:TIM1_InputCapture_Init	4	static
+../Src/main.c:115:6:Flash_Unlock	4	static
+../Src/main.c:123:6:Flash_Lock	4	static
+../Src/main.c:124:6:Flash_EraseSector	16	static
+../Src/main.c:135:6:Flash_Write64	24	static
+../Src/main.c:144:10:Flash_Read32	16	static
+../Src/main.c:147:10:Ultrasonic_Measure	24	static
+../Src/main.c:174:6:Print_Logged_Data	72	static
+../Src/main.c:189:5:main	104	static

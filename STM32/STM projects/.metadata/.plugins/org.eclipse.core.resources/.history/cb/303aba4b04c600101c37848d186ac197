@@ -1,0 +1,178 @@
+#include "w25qxx.h"
+#include "stm32l4xx_hal.h"
+#include <string.h>
+
+/* EXTERN SPI HANDLE */
+extern SPI_HandleTypeDef hspi2;
+
+/* ----------- LOW LEVEL HELPERS ----------- */
+
+#define csLOW()   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET)
+#define csHIGH()  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET)
+
+void SPI_Write(uint8_t *data, uint16_t size)
+{
+    HAL_SPI_Transmit(&hspi2, data, size, 100);
+}
+
+void SPI_Read(uint8_t *data, uint16_t size)
+{
+    HAL_SPI_Receive(&hspi2, data, size, 100);
+}
+
+/* ------------ FLASH BASIC COMMANDS --------------- */
+
+void write_enable(void)
+{
+    uint8_t cmd = 0x06;
+    csLOW();
+    SPI_Write(&cmd, 1);
+    csHIGH();
+}
+
+void write_disable(void)
+{
+    uint8_t cmd = 0x04;
+    csLOW();
+    SPI_Write(&cmd, 1);
+    csHIGH();
+}
+
+uint8_t Flash_ReadStatus(void)
+{
+    uint8_t cmd = 0x05;
+    uint8_t status;
+
+    csLOW();
+    SPI_Write(&cmd, 1);
+    SPI_Read(&status, 1);
+    csHIGH();
+
+    return status;
+}
+
+/* ------------ RESET & READ ID ---------------- */
+
+void W25Q_RESET(void)
+{
+    uint8_t cmd1 = 0x66;
+    uint8_t cmd2 = 0x99;
+
+    csLOW();
+    SPI_Write(&cmd1, 1);
+    csHIGH();
+
+    HAL_Delay(1);
+
+    csLOW();
+    SPI_Write(&cmd2, 1);
+    csHIGH();
+
+    HAL_Delay(2);
+}
+
+uint32_t W25_ReadID(void)
+{
+    uint8_t cmd = 0x9F;
+    uint8_t id[3];
+
+    csLOW();
+    SPI_Write(&cmd, 1);
+    SPI_Read(id, 3);
+    csHIGH();
+
+    return (id[0] << 16) | (id[1] << 8) | id[2];
+}
+
+/* ---------------- ERASE FUNCTIONS ---------------- */
+
+void Flash_Erase_Sector(uint16_t sector)
+{
+    uint8_t cmd[4];
+    uint32_t addr = sector * 4096;
+
+    write_enable();
+
+    cmd[0] = 0x20;
+    cmd[1] = (addr >> 16) & 0xFF;
+    cmd[2] = (addr >> 8) & 0xFF;
+    cmd[3] = addr & 0xFF;
+
+    csLOW();
+    SPI_Write(cmd, 4);
+    csHIGH();
+
+    while (Flash_ReadStatus() & 0x01);
+
+    write_disable();
+}
+
+/* ----------- CORRECTED PAGE WRITE FUNCTION ------------ */
+
+uint16_t bytes_to_write(uint32_t size, uint16_t offset)
+{
+    if ((size + offset) <= 256) return size;
+    return 256 - offset;
+}
+
+void flash_write(uint32_t page, uint16_t offset, uint32_t size, uint8_t *tdata)
+{
+    uint8_t data[266];
+
+    /* ALWAYS ERASE THE CORRECT SECTOR */
+    uint16_t sector = page / 16;  // 1 sector = 16 pages
+    Flash_Erase_Sector(sector);
+
+    uint32_t startpage = page;
+    uint32_t endpage   = startpage + ((size + offset - 1) / 256);
+    uint32_t numpages  = endpage - startpage + 1;
+
+    uint32_t dataposition = 0;
+
+    for (uint32_t i = 0; i < numpages; i++)
+    {
+        uint32_t memAddr = (startpage * 256) + offset;
+        uint16_t bytesremaining = bytes_to_write(size, offset);
+
+        write_enable();
+
+        data[0] = 0x02; // Page program
+        data[1] = (memAddr >> 16) & 0xFF;
+        data[2] = (memAddr >> 8) & 0xFF;
+        data[3] = memAddr & 0xFF;
+
+        for (uint16_t j = 0; j < bytesremaining; j++)
+            data[4 + j] = tdata[dataposition + j];
+
+        csLOW();
+        SPI_Write(data, 4 + bytesremaining);
+        csHIGH();
+
+        while (Flash_ReadStatus() & 0x01);
+
+        write_disable();
+
+        startpage++;
+        offset = 0;
+        size -= bytesremaining;
+        dataposition += bytesremaining;
+    }
+}
+
+/* ---------------- READ FUNCTION ---------------- */
+
+void W25q_Read(uint32_t startpage, uint8_t offset, uint32_t size, uint8_t *rData)
+{
+    uint32_t memAddr = (startpage * 256) + offset;
+
+    uint8_t cmd[4];
+    cmd[0] = 0x03; // read
+    cmd[1] = (memAddr >> 16) & 0xFF;
+    cmd[2] = (memAddr >> 8)  & 0xFF;
+    cmd[3] = memAddr & 0xFF;
+
+    csLOW();
+    SPI_Write(cmd, 4);
+    SPI_Read(rData, size);
+    csHIGH();
+}

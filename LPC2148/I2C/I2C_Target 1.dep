@@ -1,0 +1,23 @@
+Dependencies for Project 'I2C', Target 'Target 1': (DO NOT MODIFY !)
+F (.\Startup.s)(0x532C14EA)(--cpu ARM7TDMI --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Philips--list .\startup.lst --xref -o .\startup.o --depend .\startup.d)
+F (.\delay.c)(0x6909A3C1)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Philips-o .\delay.o --omf_browse .\delay.crf --depend .\delay.d)
+I (C:\Keil\ARM\Inc\Philips\lpc214x.h)(0x532C1500)
+F (.\ds1307.c)(0x6909A367)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Philips-o .\ds1307.o --omf_browse .\ds1307.crf --depend .\ds1307.d)
+I (i2c.h)(0x6909A3D4)
+I (ds1307.h)(0x6909A3F8)
+F (.\eeprom.c)(0x6909A4D0)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Philips-o .\eeprom.o --omf_browse .\eeprom.crf --depend .\eeprom.d)
+I (i2c.h)(0x6909A3D4)
+I (eeprom.h)(0x6909A408)
+F (.\i2c.c)(0x6909A35C)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Philips-o .\i2c.o --omf_browse .\i2c.crf --depend .\i2c.d)
+I (C:\Keil\ARM\Inc\Philips\lpc214x.h)(0x532C1500)
+I (i2c.h)(0x6909A3D4)
+F (.\lcd.c)(0x6909A378)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Philips-o .\lcd.o --omf_browse .\lcd.crf --depend .\lcd.d)
+I (C:\Keil\ARM\Inc\Philips\lpc214x.h)(0x532C1500)
+I (lcd.h)(0x6909A43C)
+I (delay.h)(0x6909A531)
+F (.\main.c)(0x6909A35E)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Philips-o .\main.o --omf_browse .\main.crf --depend .\main.d)
+I (C:\Keil\ARM\Inc\Philips\lpc214x.h)(0x532C1500)
+I (lcd.h)(0x6909A43C)
+I (i2c.h)(0x6909A3D4)
+I (ds1307.h)(0x6909A3F8)
+I (eeprom.h)(0x6909A408)

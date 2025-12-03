@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;SD_CARD&apos;" deleteContents="false" description="Delete resource &apos;SD_CARD&apos;" element1="/SD_CARD" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1764070818486"/>
+</session>

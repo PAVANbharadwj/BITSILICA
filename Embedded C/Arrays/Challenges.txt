@@ -1,0 +1,62 @@
+Challenges
+1. Find the subarray with the maximum sum (Kadane’s Algorithm)
+Implement an efficient algorithm to find the contiguous subarray within a one-dimensional array of numbers that has the largest sum.
+
+Example: Input: [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+Output: 6 (subarray: [4, -1, 2, 1])
+
+2. Rearrange array elements so that positive and negative numbers are placed alternatively
+Without changing the relative order of positive and negative numbers, rearrange them alternately. Extra space should be avoided if possible.
+
+Example: Input: [1, 2, -3, -1, -2, 3]
+Output: [1, -3, 2, -1, 3, -2]
+
+3. Find the duplicate number in an array of n+1 integers (each from 1 to n)
+Use Floyd’s Cycle Detection or other space-efficient methods to detect a repeated number in the array without modifying the input.
+
+Example: Input: [3, 1, 3, 4, 2]
+Output: 3
+
+4. Rotate an array by 'k' positions to the right
+Efficiently rotate an array of size n by k steps. Implement both brute force and optimized solutions (like reversal algorithm).
+
+Example: Input: [1, 2, 3, 4, 5, 6, 7], k = 3
+Output: [5, 6, 7, 1, 2, 3, 4]
+
+5. Find the intersection of two unsorted arrays
+Return common elements between two arrays without using additional space, or use a hash-set for optimized solution.
+
+Example: Input: A = [1, 2, 4, 5], B = [2, 3, 5, 7]
+Output: [2, 5]
+
+6. Find the first missing positive integer in an unsorted array
+Write an efficient algorithm to find the smallest missing positive integer from an unsorted array (in O(n) time and constant space).
+
+Example: Input: [3, 4, -1, 1]
+Output: 2
+
+7. Merge two sorted arrays without using extra space
+Merge two sorted arrays A[] and B[] such that A contains the first n elements and B the rest, and after merging both are still sorted.
+
+Example: Input: A = [1, 3, 5], B = [2, 4, 6]
+Output: A = [1, 2, 3], B = [4, 5, 6]
+
+8. Find the majority element (element that appears more than n/2 times)
+Use Moore’s Voting Algorithm to identify the majority element if it exists.
+
+Example: Input: [2, 2, 1, 1, 2, 2, 2]
+Output: 2
+
+9. Find the longest subarray with equal number of 0s and 1s
+Transform the problem using 0 → -1 and use hashmap to find the longest subarray with zero sum.
+
+Example: Input: [0, 1, 0, 1, 1, 1, 0]
+Output: Length = 6
+
+10. Find all pairs in the array whose sum is equal to a given number
+Given an array and a number, find all pairs whose sum equals the given number. Optimize for time complexity using hash map.
+
+http://192.168.1.101/link/290#bkmrk-example%3A-input%3A-%5B1%2C--2
+ 
+Example: Input: [1, 5, 7, -1, 5], Sum = 6
+Output: Pairs (1,5), (7,-1), (1,5)

@@ -1,0 +1,162 @@
+/* Includes ------------------------------------------------------------------*/
+#include "main.h"
+#include <stdio.h>
+
+/* Private variables ---------------------------------------------------------*/
+TIM_HandleTypeDef htim2;
+volatile uint32_t ic_rise = 0, ic_fall = 0;
+volatile uint8_t capture_done = 0;
+
+/* Function prototypes -------------------------------------------------------*/
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_TIM2_Init(void);
+void HC_SR04_Trigger(void);
+
+/* Retarget printf to SWO ----------------------------------------------------*/
+int _write(int file, char *ptr, int len)
+{
+    for (int i = 0; i < len; i++)
+        ITM_SendChar(*ptr++);
+    return len;
+}
+
+/* Main ----------------------------------------------------------------------*/
+int main(void)
+{
+    HAL_Init();
+    SystemClock_Config();
+    MX_GPIO_Init();
+    MX_TIM2_Init();
+
+    /* Enable DWT for microsecond timing */
+    CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+    DWT->CYCCNT = 0;
+    DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
+
+    HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_1);
+
+    printf("Ultrasonic Distance Measurement Started...\r\n");
+
+    while (1)
+    {
+        HC_SR04_Trigger();
+        HAL_Delay(100);
+
+        if (capture_done)
+        {
+            uint32_t ticks;
+            if (ic_fall >= ic_rise)
+                ticks = ic_fall - ic_rise;
+            else
+                ticks = (htim2.Init.Period - ic_rise) + ic_fall + 1;
+
+            float distance_cm = ticks / 58.0f;
+            printf("Distance: %d cm\r\n", distance_cm);
+
+            capture_done = 0;
+        }
+    }
+}
+
+/* Trigger 10µs pulse --------------------------------------------------------*/
+void HC_SR04_Trigger(void)
+{
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_RESET);
+    HAL_Delay(2);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_SET);
+
+    uint32_t start = DWT->CYCCNT;
+    uint32_t ticks = (HAL_RCC_GetHCLKFreq() / 1000000) * 10; // 10 µs
+    while ((DWT->CYCCNT - start) < ticks);
+
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_RESET);
+}
+
+/* Timer Input Capture Callback ---------------------------------------------*/
+void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
+{
+    static uint8_t edge = 0;
+
+    if (htim->Instance == TIM2 && htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1)
+    {
+        if (edge == 0)
+        {
+            ic_rise = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+            __HAL_TIM_SET_CAPTUREPOLARITY(htim, TIM_CHANNEL_1, TIM_INPUTCHANNELPOLARITY_FALLING);
+            edge = 1;
+        }
+        else
+        {
+            ic_fall = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+            __HAL_TIM_SET_CAPTUREPOLARITY(htim, TIM_CHANNEL_1, TIM_INPUTCHANNELPOLARITY_RISING);
+            edge = 0;
+            capture_done = 1;
+        }
+    }
+}
+
+/* TIM2 Initialization -------------------------------------------------------*/
+static void MX_TIM2_Init(void)
+{
+    TIM_IC_InitTypeDef sConfigIC = {0};
+
+    htim2.Instance = TIM2;
+    htim2.Init.Prescaler = 83;  // 1 MHz timer
+    htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
+    htim2.Init.Period = 0xFFFF;
+    htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+    HAL_TIM_IC_Init(&htim2);
+
+    sConfigIC.ICPolarity  = TIM_INPUTCHANNELPOLARITY_RISING;
+    sConfigIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
+    sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
+    sConfigIC.ICFilter    = 0;
+    HAL_TIM_IC_ConfigChannel(&htim2, &sConfigIC, TIM_CHANNEL_1);
+}
+
+/* GPIO Initialization ------------------------------------------------------*/
+static void MX_GPIO_Init(void)
+{
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+    // TRIG Pin (PA1)
+    GPIO_InitStruct.Pin = GPIO_PIN_1;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+}
+
+/* System Clock -------------------------------------------------------------*/
+void SystemClock_Config(void)
+{
+    RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+    RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+
+    __HAL_RCC_PWR_CLK_ENABLE();
+    __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE2);
+
+    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+    RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+    RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+    RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+    RCC_OscInitStruct.PLL.PLLM = 8;
+    RCC_OscInitStruct.PLL.PLLN = 336;
+    RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV4;
+    RCC_OscInitStruct.PLL.PLLQ = 7;
+    HAL_RCC_OscConfig(&RCC_OscInitStruct);
+
+    RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
+                                | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+    RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+    RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+    RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
+    RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+
+    HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2);
+}
+
+/* USER CODE END */

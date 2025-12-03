@@ -1,0 +1,124 @@
+Worksheet 2
+-------------
+
+C Pointer Activities
+
+1. Pointer Declaration and Initialization
+Goal: Declare pointers for various data types and initialize them properly to point to existing variables or dynamically allocated memory. Use pointer arithmetic and typecasting appropriately.
+
+Activity:
+
+Declare pointers to different data types (int, float, char).
+Dynamically allocate memory for these pointers.
+Assign addresses of variables to pointers and access their values through the pointers.
+Perform pointer arithmetic to move through allocated memory blocks.
+Use typecasting to convert pointers between compatible types.
+
+2. Array and Pointer Arithmetic
+Goal: Traverse and manipulate arrays by using pointers and pointer arithmetic instead of array indexing.
+
+Activity:
+
+Log Session an array of integers.
+Use a pointer to iterate through the array elements by incrementing the pointer.
+Perform operations like summing the elements or modifying them using only the pointer (no array indices).
+Implement a function that receives a pointer and size to reverse the array elements in place.
+
+3. Pointer to Pointer (Double Pointer)
+Goal: Understand how to use double pointers for indirect referencing and dynamic memory management.
+
+Activity:
+
+Declare a double pointer and use it to dynamically allocate memory for a single variable or an array.
+Access and modify the allocated memory via the double pointer.
+Pass double pointers to functions to dynamically allocate or modify memory inside the function.
+
+4. Pointer and Function
+Goal: Use pointers to pass variables or arrays to functions so that the function can modify the original data.
+
+Activity:
+
+Write a function that takes pointers as parameters to swap two integer variables.
+Log Session a function that modifies the elements of an array via a pointer.
+Pass a pointer to a function to update the contents of a structure or a dynamically allocated memory block.
+
+5. Dynamic Memory Allocation
+Goal: Allocate, reallocate, and free memory dynamically for different data types and structures while avoiding memory leaks.
+
+Activity:
+
+Allocate memory for an array using malloc.
+Expand or shrink the allocated memory using realloc.
+Initialize the allocated memory using calloc.
+Free allocated memory after use.
+Handle cases where allocation fails.
+
+6. Character Pointer and String Handling
+Goal: Manipulate strings using character pointers and standard string library functions.
+
+Activity:
+
+Declare a character pointer and assign it to a string literal or dynamically allocated memory.
+Use pointer arithmetic to traverse and modify the string.
+Implement functions to concatenate, copy, or reverse strings using only pointers.
+Understand how strings are stored and accessed in memory via pointers.
+
+7. Memory Management and Buffer Overflow Prevention
+Goal: Implement safe memory handling practices to prevent buffer overflows and related security issues.
+
+Activity:
+
+Allocate buffers dynamically to match expected input sizes.
+Use safe input functions that limit the number of characters read.
+Validate input sizes before copying or appending to buffers.
+Practice freeing memory correctly to avoid leaks or dangling pointers.
+
+8. Pointer and Multi-Dimensional Arrays
+Goal: Access and manipulate elements of multi-dimensional arrays using pointers and pointer arithmetic.
+
+Activity:
+
+Declare a 2D array.
+Use pointers to iterate through rows and columns.
+Implement operations such as matrix transpose or addition using pointer arithmetic only.
+Pass multi-dimensional arrays as pointers to functions and manipulate elements.
+
+9. Pointer and Structures
+Goal: Use pointers to access and modify structure members efficiently, including passing structures to functions.
+
+Activity:
+
+Define a structure and create a pointer to it.
+Use the pointer to read and modify structure members.
+Pass structure pointers to functions that update structure data.
+Dynamically allocate memory for structures and handle them via pointers.
+
+10. Pointer and File I/O
+Goal: Use pointers and dynamic memory to efficiently read and write data of variable sizes to files.
+
+Activity:
+
+Open a file for reading and writing.
+Determine the size of the file or data to read.
+Dynamically allocate a buffer to hold file data.
+Use pointers to read the data into memory and write data back to a file.
+Close the file and free allocated memory.
+
+11. Pointer and Linked List
+Goal: Implement a singly linked list using pointers for node management and dynamic memory allocation.
+
+Activity:
+
+Define a node structure with data and next pointer.
+Log Session functions to add nodes at the beginning, end, or middle of the list using pointers.
+Traverse the list using pointers to access and print data.
+Delete nodes and free memory dynamically.
+
+12. Pointer and Recursion
+Goal: Use pointers within recursive functions to manipulate data structures or strings.
+
+Activity:
+
+Write a recursive function to reverse a string using pointers.
+Implement a recursive traversal of a linked list using pointers.
+Use recursion to perform operations such as summing elements of an array via pointer traversal.

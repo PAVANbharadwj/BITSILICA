@@ -1,0 +1,37 @@
+#include <Arduino.h>
+
+const int redPin = 14; // GPIO pin connected to the red LED
+const int greenPin = 27; // GPIO pin connected to the green LED
+const int bluePin = 26; // GPIO pin connected to the blue LED
+
+void setup() {
+  pinMode(redPin, OUTPUT); // Set the red LED pin as output
+  pinMode(greenPin, OUTPUT); // Set the green LED pin as output
+  pinMode(bluePin, OUTPUT); // Set the blue LED pin as output
+}
+
+void loop() {
+  // Set the LED to red
+  analogWrite(redPin, 255);
+  analogWrite(greenPin, 0);
+  analogWrite(bluePin, 0);
+  delay(200); // Wait for 1 second
+
+  // Set the LED to green
+  analogWrite(redPin, 0);
+  analogWrite(greenPin, 255);
+  analogWrite(bluePin, 0);
+  delay(200); // Wait for 1 second
+
+  // Set the LED to blue
+  analogWrite(redPin, 0);
+  analogWrite(greenPin, 0);
+  analogWrite(bluePin, 255);
+  delay(200); // Wait for 1 second
+
+  // Set the LED to white
+  analogWrite(redPin, 255);
+  analogWrite(greenPin, 255);
+  analogWrite(bluePin, 255);
+  delay(200); // Wait for 1 second
+}

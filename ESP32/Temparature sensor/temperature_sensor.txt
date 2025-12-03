@@ -1,0 +1,70 @@
+#include "DHT.h"
+
+#define DHTPIN 4       
+#define DHTTYPE DHT22 
+
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  Serial.begin(115200);
+  dht.begin();
+  Serial.println("DHT22 test started...");
+}
+
+void loop() {
+  float tempC = dht.readTemperature();
+  float tempF = dht.readTemperature(true);
+  float hum = dht.readHumidity();
+
+  if (isnan(tempC) || isnan(hum)) {
+    Serial.println("Failed to read from DHT22 sensor!");
+    return;
+  }
+
+  Serial.print("Temperature: ");
+  Serial.print(tempC);
+  Serial.print(" °C  /  ");
+  Serial.print(tempF);
+  Serial.print(" °F");
+  Serial.print("   Humidity: ");
+  Serial.print(hum);
+  Serial.println(" %");
+
+  delay(2000); 
+
+}
+#include "DHT.h"
+
+#define DHTPIN 4       
+#define DHTTYPE DHT22 
+
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  Serial.begin(115200);
+  dht.begin();
+  Serial.println("DHT22 test started...");
+}
+
+void loop() {
+  float tempC = dht.readTemperature();
+  float tempF = dht.readTemperature(true);
+  float hum = dht.readHumidity();
+
+  if (isnan(tempC) || isnan(hum)) {
+    Serial.println("Failed to read from DHT22 sensor!");
+    return;
+  }
+
+  Serial.print("Temperature: ");
+  Serial.print(tempC);
+  Serial.print(" °C  /  ");
+  Serial.print(tempF);
+  Serial.print(" °F");
+  Serial.print("   Humidity: ");
+  Serial.print(hum);
+  Serial.println(" %");
+
+  delay(2000); 
+
+}

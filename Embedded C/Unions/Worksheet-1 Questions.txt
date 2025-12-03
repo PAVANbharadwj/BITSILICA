@@ -1,0 +1,44 @@
+Worksheet-1
+------------ 
+
+1.Union Declaration and Initialization
+Declare a union named Data with an int, a float, and a char array of size 20.
+Write a program to initialize and print each member, one after the other. Observe and explain the output.
+
+2.Size of Union
+Write a program to declare a union containing an int, a double, and a char.
+Print the size of this union using sizeof. Compare the result with the size of a structure having the same members.
+
+3.Accessing Union Members
+Using the union from exercise 1, assign values to more than one member at a time and print all members.
+Observe which value is retained and explain why.
+
+4.Nested Union
+Log Session a union called Number which contains an int and a nested union with a float and a char.
+Write code to assign and access values from both the outer and inner union members.
+
+5.Anonymous Union
+Declare an anonymous union inside a structure.
+Initialize and access its members without using a union name.
+Demonstrate how this simplifies access in code.
+
+6.Pointer to a Union
+Write a program that defines a union called Sample with an int and a float.
+Declare a pointer to the union. Assign values using the pointer and print the results.
+
+7.Unions in Structures
+Log Session a structure Student with a union inside it that can hold either an int roll_number or a char id[10].
+Add a member char type to indicate which member is active.
+Write functions to initialize and display the data for both types of students.
+
+8.Structure Inside a Union
+Define a union that contains a structure (for example, struct { int x, y; }) and an int.
+Write a program to set and access the structure members through the union.
+
+9.Union Array
+Declare an array of unions, each holding an int, a float, or a char.
+Write a program to assign values of different types to each element and display them. Observe any issues.
+
+10.Use Case – Variant Data Storage
+Design a simple employee record system using a structure with a union that can store either salary (float) or hourly wage (float), depending on employee type.
+Add code to input and print details for a list of employees.

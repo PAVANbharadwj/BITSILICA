@@ -1,0 +1,5 @@
+../drivers/src/timer_ic.c:16:6:TIM3_IC_Init	8	static
+../drivers/src/timer_ic.c:44:10:TIM3_GetCapture_us	4	static
+../drivers/src/timer_ic.c:49:6:TIM3_StartCapture	4	static
+../drivers/src/timer_ic.c:58:6:TIM3_StopCapture	4	static
+../drivers/src/timer_ic.c:64:10:TIM3_WaitForRisingThenFalling_us	32	static

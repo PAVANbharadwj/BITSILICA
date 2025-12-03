@@ -1,0 +1,52 @@
+Challenges
+---------------------
+ 
+1.What happens when a C function returns a local array? Why?
+
+2.How would you pass a function as a parameter to another function in C?
+
+3.What’s the difference between inline and static in function declarations?
+
+4.Can you explain the difference between function declaration, definition, and prototype?
+
+5.What is the effect of using static inside a function? What about outside?
+
+6.What is tail-call optimization and does C support it?
+
+7.What happens if you call a function before its prototype is defined?
+
+8.Write a variadic function that accepts any number of integers and returns the maximum. What issues might arise?
+
+9.How does the compiler handle type safety in variadic functions? Can it?
+
+10.Why are va_list, va_start, and va_arg macros required, and how do they work under the hood?
+
+11.What are the dangers of calling a variadic function with fewer arguments than expected?
+
+12.Why is it a bad idea to pass floating-point numbers to variadic functions? What workaround exists?
+
+13.How would you simulate anonymous functions in C (which does not support them natively)?
+
+14.Log Session a function pointer array for arithmetic operations (+, -, *, /) and use it.
+
+15.What are the implications of assigning a function to a pointer and calling it from different files?
+
+16.How do you declare and call a function pointer to a function returning void and accepting (int, char*) as arguments?
+
+17.Can you dynamically switch the behaviour of a C program at runtime using function pointers? How?
+
+18.What’s the maximum depth of recursion you can safely perform in C? How is it determined?
+
+19.How would you rewrite a recursive function into an iterative one using an explicit stack?
+
+20.Demonstrate mutual recursion with two or more functions. How does the compiler handle it?
+
+21.What is tail recursion? Give an example and explain how a compiler might optimize it.
+
+22.What problems in real-world applications are best solved using recursion (instead of loops)? Why?
+
+23.Design a recursive variadic function to parse nested expressions like sum(1, sum(2, 3), 4).
+
+24.Use function pointers and recursion together to build a custom command parser.
+
+25.Explain how function pointers and recursion can lead to stack overflows if not handled carefully.

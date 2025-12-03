@@ -1,0 +1,113 @@
+/*
+ * 010_usart_tx.c
+ *
+ *  Created on: Nov 19, 2025
+ *      Author: pavan
+ */
+
+
+#include "stm32l476xx_usart_driver.h"
+#include "stm32l476xx_gpio_driver.h"
+#include <string.h>
+
+/*
+ * PA2	 -->		UART_TX
+ * PA3  -->			UART_RX
+ * Baud Rate --> 9600
+ */
+
+USART_Handle_t uarthandle;
+USART_Handle_t *pUARTHandle = &uarthandle;
+
+
+void delay(uint32_t n)
+{
+	uint32_t i,j;
+	for(i=0; i<n;i++)
+		for(j=0;j<1000;j++);
+}
+
+void UART_GPIOInits(void)
+{
+
+	GPIO_PeriClockControl(GPIOA, ENABLE);
+
+	GPIO_Handle_t UARTPins;
+
+	UARTPins.pGPIOx = GPIOA;
+	UARTPins.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_ALTFN;
+	UARTPins.GPIO_PinConfig.GPIO_PinAltFunMode = 7;
+	UARTPins.GPIO_PinConfig.GPIO_PinOPType = GPIO_OP_TYPE_PP;
+	UARTPins.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
+	UARTPins.GPIO_PinConfig.GPIO_PinSpeed = GPIO_HIGH_SPEED;
+
+	//UART_Tx
+	UARTPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_9;
+	GPIO_Init(&UARTPins);
+
+	//UART_Rx
+	UARTPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_10;
+	GPIO_Init(&UARTPins);
+}
+
+void uart_init(void)
+{
+	pUARTHandle->pUSARTx = USART1;
+	pUARTHandle->USART_Config.USART_Mode = USART_MODE_TXRX;
+	pUARTHandle->USART_Config.USART_WordLength = USART_WORDLEN_8BITS;
+	pUARTHandle->USART_Config.USART_Baud = USART_STD_BAUD_9600;
+	pUARTHandle->USART_Config.USART_HWFlowControl = USART_HW_FLOW_CTRL_NONE;
+	pUARTHandle->USART_Config.USART_NoOfStopBits =  USART_STOPBITS_1;
+	pUARTHandle->USART_Config.USART_ParityControl = USART_PARITY_DISABLE;
+
+	USART_Init(pUARTHandle);
+
+}
+
+void btn_init(void)
+{
+	GPIO_Handle_t pGPIOBtn;
+
+	GPIO_PeriClockControl(GPIOC, ENABLE);
+
+
+	pGPIOBtn.pGPIOx = GPIOC;
+	pGPIOBtn.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_13;
+	pGPIOBtn.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_IN;
+	pGPIOBtn.GPIO_PinConfig.GPIO_PinSpeed = GPIO_HIGH_SPEED;
+	pGPIOBtn.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
+
+	GPIO_Init(&pGPIOBtn);
+}
+
+uint8_t tx_buffer[] = "STM32 Request\r\n";
+uint8_t rx_buffer[32];
+uint8_t len;
+
+int main(void)
+{
+    UART_GPIOInits();
+    uart_init();
+
+    delay(100);
+
+    while (1)
+    {
+        len = strlen((char*)tx_buffer);
+
+        // Send data
+        USART_SendData(pUARTHandle, tx_buffer, len);
+
+        // Small delay so that RX gets filled (UART async)
+        delay(10);
+
+        // Receive same number of bytes
+        USART_ReceiveData(pUARTHandle, rx_buffer, len);
+
+        // Optionally send received data back to terminal for debugging
+        USART_SendData(pUARTHandle, rx_buffer, len);
+
+        delay(1000);
+    }
+}
+

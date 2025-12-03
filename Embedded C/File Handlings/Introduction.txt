@@ -1,0 +1,186 @@
+Concepts
+-------------------
+
+What is File Handling in C?
+
+File handling in C involves creating, opening, reading, writing, and closing files using functions like fopen(), fwrite(), fread(), fseek(), and fprintf(). It allows programs to store data persistently on secondary storage like hard disks.
+
+Why File Handling is Needed?
+
+Program data in RAM is temporary and lost after execution ends.
+
+File handling stores program data permanently on disk for later use.
+
+
+Common C File Operations
+
+Log Session a new file
+
+Open an existing file
+
+Read from a file
+
+Write to a file
+
+Move within a file (seek)
+
+Close a file
+
+
+Key Concepts in File Handling
+-------------------------------
+
+File Types:
+
+Text Files: Store ASCII characters, editable by text editors, .txt extension, lines end with \n.
+
+Binary Files: Store data in binary form, not human-readable, .bin extension, more secure.
+
+
+File Pointer:
+
+A reference pointing to a location in a file.
+
+Declared with FILE* pointer_name; from <stdio.h> header.
+
+Used in nearly all file operations.
+
+
+Important File Operation Functions
+
+
+Function	           Description
+--------------          -------------------
+
+fopen()			Opens or creates a file
+
+fclose()		Closes a file
+
+fread()			Reads bytes from a binary file
+
+fwrite()		Writes bytes to a binary file
+
+fprintf()		Writes formatted text to a file
+
+fscanf()		Reads formatted input from a file
+
+fgets()			Reads a line from a file
+
+fputs()			Writes a string to a file
+
+fgetc()			Reads a single character from a file
+
+fputc()			Writes a single character to a file
+
+fseek()			Moves file pointer to a specific position
+
+
+Opening a File — fopen()
+
+FILE* fopen(const char *file_name, const char *access_mode);
+
+file_name: Name/path of file.
+
+access_mode: Mode to open file (r, w, a, rb, wb, etc.).
+
+Returns: File pointer if success, NULL if fails.
+
+
+Common File Access Modes
+
+Mode		Description
+
+r		Open for reading (text mode)
+
+rb		Open for reading (binary mode)
+
+w		Open for writing (text mode), overwrite existing or create new
+
+wb		Open for writing (binary mode)
+
+a		Open for appending (text mode)
+
+ab		Open for appending (binary mode)
+
+r+		Open for reading and writing (text)
+
+rb+		Open for reading and writing (binary)
+
+w+		Open for reading and writing (overwrite or create new, text)
+
+wb+		Open for reading and writing (binary)
+
+a+		Open for reading and appending (text)
+
+ab+		Open for reading and appending (binary)
+
+Append 'b' for binary modes.
+
+
+
+Example: Opening a File in Read Mode
+
+FILE* fptr = fopen("filename.txt", "r");
+if (fptr == NULL) {
+    printf("File not opened.\n");
+} else {
+    printf("File opened successfully.\n");
+}
+
+Creating a File
+
+Use w, w+, a, a+, or binary equivalents to create a file if it doesn’t exist.
+
+FILE* fptr = fopen("file.txt", "w");
+if (fptr == NULL) {
+    printf("File not created.\n");
+} else {
+    printf("File created successfully.\n");
+}
+
+Writing to a File
+
+Functions: fprintf(), fputs(), fputc(), fwrite()
+
+Example using fputs():
+
+FILE* fptr = fopen("file.txt", "w");
+if (fptr != NULL) {
+    fputs("Hello, File Handling in C!\n", fptr);
+    fclose(fptr);
+}
+
+Reading from a File
+
+Functions: fscanf(), fgets(), fgetc(), fread()
+
+Example using fgets():
+
+char data[100];
+FILE* fptr = fopen("file.txt", "r");
+if (fptr != NULL) {
+    while (fgets(data, sizeof(data), fptr) != NULL) {
+        printf("%s", data);
+    }
+    fclose(fptr);
+}
+
+Closing a File
+
+Always close files after use to free resources:
+
+fclose(fptr);
+
+Moving the File Pointer — fseek()
+
+fseek(fptr, offset, position);
+offset: Number of bytes to move (positive or negative)
+
+position: SEEK_SET (start), SEEK_CUR (current position), or SEEK_END (end)
+
+
+
+
+
+https://www.youtube.com/playlist?list=PLfVsf4Bjg79BOmLYBRTwqCIkGPiOWb7xj
+

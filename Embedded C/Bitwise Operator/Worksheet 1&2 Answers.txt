@@ -1,0 +1,1472 @@
+1.What are the functions of bitwise operators AND, OR, XOR, and shift operations?
+
+1. Bitwise AND (&)
+🔹 Truth Table
+A	B	A & B
+0	0	0
+0	1	0
+1	0	0
+1	1	1
+
+🔹 Example: 5 & 3
+
+Decimal:   5     3
+Binary : 0101 & 0011
+Result :      = 0001 (1)
+
+🧠 Use Case: Used to mask bits (e.g., check if a bit is set).
+
+2. Bitwise OR (|)
+🔹 Truth Table
+A	B	A | B
+0	0	0
+0	1	1
+1	0	1
+1	1	1
+
+🔹 Example: 5 | 3
+
+Decimal:   5     3
+Binary : 0101 | 0011
+Result :      = 0111 (7)
+
+🧠 Use Case: Set specific bits in a value.
+
+3. Bitwise XOR (^)
+🔹 Truth Table
+A	B	A ^ B
+0	0	0
+0	1	1
+1	0	1
+1	1	0
+
+🔹 Example: 5 ^ 3
+
+Decimal:   5     3
+Binary : 0101 ^ 0011
+Result :      = 0110 (6)
+🧠 Use Case: Toggle bits or simple encryption.
+
+4. Left Shift (<<)
+🔹 Function: Moves bits to the left. Each shift = multiply by 2.
+🔹 Example: 5 << 1
+
+Decimal: 5
+Binary : 00000101 << 1
+Result : 00001010 → 10
+Shifted 1 bit left → Multiply by 2¹ = 10
+
+🧠 Use Case: Fast multiplication by powers of 2
+
+5. Right Shift (>>)
+🔹 Function: Moves bits to the right. Each shift = divide by 2.
+🔹 Example: 8 >> 1
+
+Decimal: 8
+Binary : 00001000 >> 1
+Result : 00000100 → 4
+Shifted 1 bit right → Divide by 2¹ = 4
+
+🧠 Use Case: Fast division by powers of 2
+
+
+Summary Table
+
+| Operation   | Symbol | Example | Result (Binary) | Result (Decimal) | Use         |          |
+| ----------- | ------ | ------- | --------------- | ---------------- | ----------- | -------- |
+| AND         | `&`    | 5 & 3   | `0001`          | `1`              | Masking     |          |
+| OR          | \`     | \`      | 5 \| 3          | `0111`           | `7`         | Set bits |
+| XOR         | `^`    | 5 ^ 3   | `0110`          | `6`              | Toggle bits |          |
+| Left Shift  | `<<`   | 5 << 1  | `1010`          | `10`             | Multiply    |          |
+| Right Shift | `>>`   | 8 >> 1  | `0100`          | `4`              | Divide      |          |
+
+
+
+
+2.Write a program to perform the following operations on the Least and Most Significant Bits (LSB/MSB) of a given integer:
+
+Set the LSB to 1
+Clear the LSB (set to 0)
+Toggle the LSB
+Set the MSB to 1
+Clear the MSB (set to 0)
+Toggle the MSB
+Set a specific bit to 1
+Clear a specific bit
+Toggle a specific bit
+
+
+#include <stdio.h>
+
+int main() {
+    unsigned int n;
+    printf("Enter a number: ");
+    scanf("%u", &n);  // use %u for unsigned input
+
+    // LSB operations
+    unsigned int res = n | 1;
+    printf("Set the LSB to 1: %u", res);
+
+    unsigned int res1 = n & (~1);
+    printf("\nClear the LSB (set to 0): %u", res1);
+
+    unsigned int res2 = n ^ 1;
+    printf("\nToggle the LSB: %u", res2);
+
+    // MSB operations
+    unsigned int res3 = n | (1U << 31);
+    printf("\nSet the MSB to 1: %u", res3);
+
+    unsigned int r = n & ~(1U << 31);
+    printf("\nClear the MSB (set to 0): %u", r);
+
+    unsigned int a = n ^ (1U << 31);
+    printf("\nToggle the MSB: %u", a);
+
+    // Specific bit operations
+    unsigned int pos;
+    printf("\nEnter position: ");
+    scanf("%u", &pos);
+
+    unsigned int s = n | (1U << pos);
+    printf("Set bit %u to 1: %u", pos, s);
+
+    unsigned int pos1;
+    printf("\nEnter position: ");
+    scanf("%u", &pos1);
+
+    unsigned int s1 = n & ~(1U << pos1);
+    printf("Clear bit %u: %u", pos1, s1);
+
+    unsigned int pos3;
+    printf("\nEnter position: ");
+    scanf("%u", &pos3);
+
+    unsigned int s2 = n ^ (1U << pos3);
+    printf("Toggle bit %u: %u\n", pos3, s2);
+
+    return 0;
+}
+
+
+
+3.Write a program to modify specific portions of a given integer:
+
+Set all bits in the Least Significant Byte (LSB) to 1
+Set all bits in the Most Significant Byte (MSB) to 1
+Set all bits in the Least Significant Nibble to 1
+Set all bits in the Most Significant Nibble to 1
+Set n bits to 1 (user input)
+Clear n bits (set to 0), with n as input
+Toggle n bits (user input)
+
+
+#include <stdio.h>
+
+void print_binary(unsigned int num) {
+    for (int i = 31; i >= 0; i--) {
+        printf("%d", (num >> i) & 1);
+        if (i % 8 == 0 && i != 0) printf(" ");
+    }
+    printf("\n");
+}
+
+int main() {
+    unsigned int n;
+    int k;
+
+    printf("Enter an unsigned integer: ");
+    scanf("%u", &n);
+
+    printf("\nOriginal number (binary): ");
+    print_binary(n);
+
+    // 1. Set all bits in the Least Significant Byte (LSB) to 1
+    unsigned int lsb_set = n | 0xFF;
+    printf("\nSet LSB (Byte) to 1: ");
+    print_binary(lsb_set);
+
+    // 2. Set all bits in the Most Significant Byte (MSB) to 1
+    unsigned int msb_set = n | (0xFF << 24);
+    printf("Set MSB (Byte) to 1: ");
+    print_binary(msb_set);
+
+    // 3. Set all bits in the Least Significant Nibble to 1
+    unsigned int lsn_set = n | 0xF;
+    printf("Set LSB Nibble to 1: ");
+    print_binary(lsn_set);
+
+    // 4. Set all bits in the Most Significant Nibble to 1
+    unsigned int msn_set = n | (0xF << 28);
+    printf("Set MSB Nibble to 1: ");
+    print_binary(msn_set);
+
+    // 5. Set n bits (from LSB) to 1
+    printf("\nEnter number of bits to set from LSB: ");
+    scanf("%d", &k);
+    unsigned int set_n = n | ((1U << k) - 1);
+    printf("Set %d bits from LSB to 1: ", k);
+    print_binary(set_n);
+
+    // 6. Clear n bits (from LSB)
+    printf("\nEnter number of bits to clear from LSB: ");
+    scanf("%d", &k);
+    unsigned int clear_n = n & ~((1U << k) - 1);
+    printf("Clear %d bits from LSB: ", k);
+    print_binary(clear_n);
+
+    // 7. Toggle n bits (from LSB)
+    printf("\nEnter number of bits to toggle from LSB: ");
+    scanf("%d", &k);
+    unsigned int toggle_n = n ^ ((1U << k) - 1);
+    printf("Toggle %d bits from LSB: ", k);
+    print_binary(toggle_n);
+
+    return 0;
+}
+
+
+
+4.Write a program to check bit status in an integer:
+Check if LSB is set (1) or not (0)
+Check if MSB is set (1) or not (0)
+Check if the nth bit is set (1) or not (0) (user input)
+
+
+#include <stdio.h>
+
+int main() {
+    unsigned int n;
+    int pos;
+
+    printf("Enter an unsigned integer: ");
+    scanf("%u", &n);
+
+    // Check LSB (bit 0)
+    if (n & 1)
+        printf("LSB is set (1)\n");
+    else
+        printf("LSB is not set (0)\n");
+
+    // Check MSB (bit 31)
+    if (n & (1U << 31))
+        printf("MSB is set (1)\n");
+    else
+        printf("MSB is not set (0)\n");
+
+    // Check nth bit (user input)
+    printf("Enter bit position (0 to 31): ");
+    scanf("%d", &pos);
+
+    if (pos < 0 || pos > 31) {
+        printf("Invalid bit position!\n");
+        return 1;
+    }
+
+    if (n & (1U << pos))
+        printf("Bit %d is set (1)\n", pos);
+    else
+        printf("Bit %d is not set (0)\n", pos);
+
+    return 0;
+}
+
+
+5.Write macros to set, clear, and toggle the nth bit using bitwise operators.
+
+
+#include <stdio.h>
+
+#define SET_BIT(num, n)     ((num) | (1U << (n)))
+#define CLEAR_BIT(num, n)   ((num) & ~(1U << (n)))
+#define TOGGLE_BIT(num, n)  ((num) ^ (1U << (n)))
+
+int main() {
+    unsigned int num;
+    printf("Enter an unsigned integer: ");
+    scanf("%u", &num);
+    int bit_pos = 1;
+    printf("Set bit %d: %u\n", bit_pos, SET_BIT(num, bit_pos));
+    printf("Clear bit %d: %u\n", bit_pos, CLEAR_BIT(num, bit_pos));
+    printf("Toggle bit %d: %u\n", bit_pos, TOGGLE_BIT(num, bit_pos));
+
+    return 0;
+}
+
+
+
+6.Write a C program to count the number of set bits in an unsigned integer.
+
+#include <stdio.h>
+
+int countSetBits(unsigned int n) {
+    int count = 0;
+    while (n) {
+        count += (n & 1); 
+        n >>= 1;          
+    }
+    return count;
+}
+
+int main() {
+    unsigned int num;
+    printf("Enter an unsigned integer: ");
+    scanf("%u", &num);
+
+    int result = countSetBits(num);
+    printf("Number of set bits: %d\n", result);
+
+    return 0;
+}
+
+
+
+7.How can you count the number of set bits in a floating-point number?
+
+
+#include <stdio.h>
+
+int countSetBits(unsigned int n) {
+    int count = 0;
+    while (n) {
+        count += (n & 1); 
+        n >>= 1;          
+    }
+    return count;
+}
+
+int main() {
+    float num;
+    printf("Enter an unsigned integer: ");
+    scanf("%f", &num);
+    
+    union {
+        float f;
+        unsigned int u;
+    } bits;
+
+    bits.f = num;
+
+    printf("Bit pattern (hex): 0x%X\n", bits.u);
+    int result = countSetBits(bits.u);
+    printf("Number of set bits: %d\n", result);
+    return 0;
+}
+
+
+8.Write a C program to count the number of bits set to 1 in an integer. Also compare different methods. Additionally, check if the 20th bit of a 32-bit integer is set.
+
+#include <stdio.h>
+
+int countBits1(unsigned int n) {
+    int count = 0;
+    while (n) {
+        count += (n & 1);
+        n >>= 1;
+    }
+    return count;
+}
+
+int countBits2(unsigned int n) {
+    int count = 0;
+    while (n) {
+        n = n & (n - 1);
+        count++;
+    }
+    return count;
+}
+
+int countBits3(unsigned int n) {
+    return __builtin_popcount(n);
+}
+
+void check20thBit(unsigned int n) {
+    if (n & (1U << 20))
+        printf("The 20th bit is SET (1)\n");
+    else
+        printf("The 20th bit is NOT SET (0)\n");
+}
+
+int main() {
+    unsigned int num;
+    printf("Enter a 32-bit unsigned integer: ");
+    scanf("%u", &num);
+
+    printf("\nUsing Simple Loop: %d set bits\n", countBits1(num));
+    printf("Using Kernighan’s Method: %d set bits\n", countBits2(num));
+    printf("Using __builtin_popcount: %d set bits\n", countBits3(num));
+
+    printf("\nChecking 20th bit...\n");
+    check20thBit(num);
+
+    return 0;
+}
+
+
+9.Write a C program to check whether a number is a power of 2 using bitwise operations.
+
+
+#include<stdio.h>
+int main(){
+    unsigned int n;
+    printf("Enter unsigned integer:");
+    scanf("%u",&n);
+    if (n != 0 && (n & (n - 1)) == 0) {
+        printf("%u is a power of 2.\n", n);
+    } else {
+        printf("%u is NOT a power of 2.\n", n);
+    }
+    return 0;
+}
+
+
+
+10.Write a C program to determine whether a number is odd or even using bitwise operators.
+
+
+#include<stdio.h>
+int main(){
+    unsigned int n;
+    printf("Enter unsigned integer:");
+    scanf("%u",&n);
+    if ((n & 1)==0) {
+        printf("%u is a even number\n", n);
+    } else {
+        printf("%u is a odd number", n);
+    }
+    return 0;
+}
+
+
+11.Implement the function setbits(x, p, n, y) that sets n bits in x starting at position p with the rightmost n bits of y.
+
+#include <stdio.h>
+
+unsigned int setbits(unsigned int x, int p, int n, unsigned int y) {
+    unsigned int y_bits = y & ((1U << n) - 1);         
+    y_bits <<= p;                                      
+    unsigned int mask = ~(((1U << n) - 1) << p);       
+    return (x & mask) | y_bits;                        
+}
+
+
+int main() {
+    unsigned int x;
+    unsigned int y;
+    int p,n;
+    
+    printf("Enter values of x & y: ");
+    scanf("%u%u",&x,&y);
+    printf("Enter p & n values: ");
+    scanf("%d%d",&p,&n);
+    
+    unsigned int result = setbits(x, p, n, y);
+
+    printf("Result: %u\n", result);
+    return 0;
+}
+
+
+
+12.Given two integers A and B, write a program to count the number of bits that need to be flipped to convert A into B.
+
+
+#include <stdio.h>
+
+int setbits(int a, int  b){
+    int n = a ^ b;
+    int count = 0;
+
+    while (n) {
+        count+=(n&1);
+	n>>=1;
+    }
+
+    return count;
+}
+
+int main() {
+    unsigned int x;
+    unsigned int y;
+    
+    printf("Enter values of x & y: ");
+    scanf("%u%u",&x,&y);
+    
+    unsigned int result = setbits(x, y);
+
+    printf("Result: %u\n", result);
+    return 0;
+}
+
+
+
+13.Write a program to reverse all bits in an integer.
+
+
+#include <stdio.h>
+
+int reverse(int a){
+    unsigned int rev = 0;
+
+    for (int i = 0; i < 32; i++) {
+        rev <<= 1;          
+        rev |= (a & 1);     
+        a >>= 1;        
+    }
+
+    return rev;
+}
+
+int main() {
+    unsigned int a;
+
+    printf("Enter values of a: ");
+    scanf("%u",&a);
+    
+    unsigned int result = reverse(a);
+
+    printf("Result: %u\n", result);
+    return 0;
+}
+
+
+
+14.Write a program to reverse:
+
+Bits at odd positions
+Bits at even positions
+
+
+#include<stdio.h>
+
+unsigned int revEvenOdd(unsigned int n, int isOdd){
+unsigned int res = 0;
+
+    for (int i = 0; i < 32; i += 2) {
+        int from = isOdd ? i + 1 : i;
+        int to = isOdd ? 31 - (i + 1) : 30 - i;
+
+        if (from < 32 && ((n >> from) & 1)) {
+            res |= (1U << to);
+        }
+    }
+
+    return res;
+}
+
+void printBinary(unsigned int n) {
+    for (int i = 31; i >= 0; i--) {
+        printf("%d", (n >> i) & 1);
+        if (i % 4 == 0) printf(" ");
+    }
+    printf("\n");
+}
+
+int main(){
+    unsigned int n;
+    printf("Enter n value: ");
+    scanf("%u",&n);
+    printf("The original bits: ");
+    printBinary(n);
+    
+    unsigned int revOdd  = revEvenOdd(n, 1);
+    unsigned int revEven = revEvenOdd(n, 0);
+
+    printf("Odd bits reversed: ");
+    printBinary(revOdd);
+
+    printf("Even bits reversed: ");
+    printBinary(revEven);
+    return 0;
+}
+
+
+
+15.Write a program to multiply a number by 9 using bitwise shift operations.
+
+
+#include<stdio.h>
+
+int multiply(unsigned int n) {
+    return (n<<3)+n;
+}
+
+int main(){
+    unsigned int n;
+    printf("Enter n value: ");
+    scanf("%u",&n);
+    int res = multiply(n);
+    printf("The %d * 9 is: %d",n,res);
+    return 0;
+}
+
+
+
+16.Write a program to determine the size (in bits) of an integer using bit shifts.
+
+
+#include <stdio.h>
+
+int sizebits() {
+    unsigned int x = 1;
+    int count = 0;
+
+    while (x != 0) {
+        x <<= 1;
+        count++;
+    }
+
+    return count;
+}
+
+int main() {
+    int size = sizebits();
+    printf("Size of int in bits: %d\n", size);
+    return 0;
+}
+
+
+
+17.Write a program to convert a Little Endian integer to its Big Endian equivalent.
+
+
+
+
+
+
+
+
+Workseet-2
+-----------------
+
+
+1. Check Least Significant Bit (LSB) of a number is set or not
+Question: Write a C program to check if the Least Significant Bit (LSB) of a number is set (1) or not.
+Sample data: Input: 5 (binary 0101)
+Expected output: LSB of 5 is set (1)
+
+
+#include <stdio.h>
+
+int main(){
+    
+    unsigned int n;
+    printf("Enter n value: ");
+    scanf("%u",&n);
+    
+    if(n & 1){
+        printf("LSB of %d is set(1)",n);
+    }
+    else{
+        printf("LSB of %d is not set(1)",n);
+    }
+    return 0;
+}
+
+
+
+2. Check Most Significant Bit (MSB) of a number is set or not
+Question: Write a C program to check if the Most Significant Bit (MSB) of a number is set (1) or not.
+Sample data: Input: 128 (binary 10000000 for 8-bit number)
+Expected output: MSB of 128 is set (1)
+
+#include <stdio.h>
+
+int main(){
+    
+    unsigned int n;
+    printf("Enter n value: ");
+    scanf("%u",&n);
+    
+    if(n & (1<<7)){
+        printf("MSB of %d is set(1)",n);
+    }
+    else{
+        printf("MSB of %d is not set(1)",n);
+    }
+    return 0;
+}
+
+
+
+3. Get nth bit of a number
+Question: Write a C program to get the value of the nth bit of a number.
+Sample data: Input number: 10 (binary 1010), bit position: 2
+Expected output: Bit 2 of 10 is 1
+
+#include <stdio.h>
+
+int main(){
+    
+    unsigned int n;
+    printf("Enter n value: ");
+    scanf("%u",&n);
+    
+    int p;
+    printf("Enter bit position: ");
+    scanf("%d",&p);
+    
+    int pos=(n>>p)&1;
+    printf("Bit %u of %u is %d\n", p, n, pos);
+    return 0;
+}
+
+
+4. Set nth bit of a number
+Question: Write a C program to set (make 1) the nth bit of a number.
+Sample data: Input number: 10 (binary 1010), bit position: 1
+Expected output: Number after setting bit 1: 10 (binary 1010) — no change
+Input number: 8 (binary 1000), bit position: 0
+Expected output: Number after setting bit 0: 9 (binary 1001)
+
+
+#include <stdio.h>
+
+int main(){
+    
+    unsigned int n;
+    printf("Enter n value: ");
+    scanf("%u",&n);
+    
+    int p;
+    printf("Enter bit position: ");
+    scanf("%d",&p);
+    
+    int pos=n|(1<<p);
+    printf("Number after setting bit %u: %u", p, pos);
+    return 0;
+}
+
+
+5. Clear nth bit of a number
+Question: Write a C program to clear (make 0) the nth bit of a number.
+Sample data: Input number: 10 (binary 1010), bit position: 3
+Expected output: Number after clearing bit 3: 2 (binary 0010)
+
+
+#include <stdio.h>
+
+int main(){
+    
+    unsigned int n;
+    printf("Enter n value: ");
+    scanf("%u",&n);
+    
+    int p;
+    printf("Enter bit position: ");
+    scanf("%d",&p);
+    
+    int pos=n&~(1<<p);
+    printf("Number after setting bit %u: %u", p, pos);
+    return 0;
+}
+
+
+6. Toggle nth bit of a number
+Question: Write a C program to toggle (flip) the nth bit of a number.
+Sample data: Input number: 10 (binary 1010), bit position: 1
+Expected output: Number after toggling bit 1: 8 (binary 1000)
+
+
+#include <stdio.h>
+
+int main(){
+    
+    unsigned int n;
+    printf("Enter n value: ");
+    scanf("%u",&n);
+    
+    int p;
+    printf("Enter bit position: ");
+    scanf("%d",&p);
+    
+    int pos=n^(1<<p);
+    printf("Number after setting bit %u: %u", p, pos);
+    return 0;
+}
+
+
+7. Get highest set bit of a number
+Question: Write a C program to find the position of the highest set bit in a number.
+Sample data: Input: 18 (binary 10010)
+Expected output: Highest set bit of 18 is at position 4 (zero-based)
+
+
+#include <stdio.h>
+
+int main(){
+    
+    unsigned int n;
+    int p=-1;
+    printf("Enter n value: ");
+    scanf("%u",&n);
+    
+    for(int i=0;n!=0;i++){
+        if(n&1)
+            p=i;
+    n>>=1;
+    }
+    
+    if(p!=-1)
+        printf("Highest set bit is at position %d\n",p);
+    else
+        printf("No highest set bit");
+    return 0;
+}
+
+
+8. Get lowest set bit of a number
+Question: Write a C program to find the position of the lowest set bit in a number.
+Sample data: Input: 18 (binary 10010)
+Expected output: Lowest set bit of 18 is at position 1 (zero-based)
+
+
+#include <stdio.h>
+
+int main(){
+    
+    unsigned int n;
+    int p=-1;
+    printf("Enter n value: ");
+    scanf("%u",&n);
+    
+    for(int i=0;n!=0;i++){
+        if(n&1){
+            p=i;
+            break;
+        }
+    n>>=1;
+    }
+    
+    if(p!=-1)
+        printf("Lowest set bit is at position %d\n",p);
+    else
+        printf("No lowest set bit");
+    return 0;
+}
+
+
+
+9. Count trailing zeros in a binary number
+Question: Write a C program to count the number of trailing zeros in the binary representation of a number.
+Sample data: Input: 40 (binary 101000)
+Expected output: Number of trailing zeros: 3
+
+
+#include <stdio.h>
+
+int countZeros(unsigned int n) {
+    if (n == 0)
+        return 0;
+        
+    int count = 0;
+    while ((n & 1) == 0) {
+        count++;
+        n >>= 1;
+    }
+    return count;
+}
+
+int main() {
+    unsigned int num;
+    printf("Enter a number: ");
+    scanf("%u", &num);
+
+    int zeros = countZeros(num);
+    printf("Number of trailing zeros: %d\n", zeros);
+
+    return 0;
+}
+
+
+
+10. Count leading zeros in a binary number
+Question: Write a C program to count the number of leading zeros in the binary representation of a number (assuming 32-bit integer).
+Sample data: Input: 16 (binary 00000000000000000000000000010000)
+Expected output: Number of leading zeros: 27
+
+
+#include <stdio.h>
+
+int countZeros(unsigned int n) {
+    if (n == 0)
+        return 32; 
+
+    int count = 0;
+    for (int i = 31; i >= 0; i--) {
+        if ((n >> i) & 1)
+            break;
+        count++;
+    }
+    return count;
+}
+
+int main() {
+    unsigned int num;
+    printf("Enter a number: ");
+    scanf("%u", &num);
+
+    int zeros = countZeros(num);
+    printf("Number of trailing zeros: %d\n", zeros);
+
+    return 0;
+}
+
+
+
+11. Flip bits of a binary number using bitwise operator
+Question: Write a C program to flip all bits of a number using bitwise operators.
+Sample data: Input: 5 (binary 00000101)
+Expected output: Flipped bits: 250 (binary 11111010) (assuming 8-bit)
+
+
+#include <stdio.h>
+
+int main() {
+    unsigned char n; // Use unsigned char for 8-bit input
+    printf("Enter an 8-bit number (0-255): ");
+    scanf("%hhu", &n);  // %hhu is for unsigned char
+
+    unsigned char flipped = ~n & 0xFF;  // Flip and mask to 8 bits
+
+    printf("Original binary: ");
+    for (int i = 7; i >= 0; i--)
+        printf("%d", (n >> i) & 1);
+
+    printf("\nFlipped  binary: ");
+    for (int i = 7; i >= 0; i--)
+        printf("%d", (flipped >> i) & 1);
+
+    printf("\nFlipped value: %u\n", flipped);
+
+    return 0;
+}
+
+
+12. Count total zeros and ones in a binary number
+Question: Write a C program to count the total number of zeros and ones in the binary representation of a number.
+Sample data: Input: 15 (binary 00001111)
+Expected output: Number of ones: 4, Number of zeros: 4 (assuming 8-bit)
+
+
+#include <stdio.h>
+
+int main() {
+    unsigned int n; 
+    printf("Enter n value: ");
+    scanf("%u", &n);  
+
+    int ones=0, zeros=0;
+    while(n!=0){
+        if((n&1)==0)
+            zeros+=1;
+        else
+            ones+=1;
+    n>>=1;
+    }
+
+    printf("Ones count is: %d\nZeros count is: %d",ones,zeros);
+    return 0;
+}
+
+
+
+13. Rotate bits of a given number
+Question: Write a C program to rotate bits of a number to the left or right by a given number of positions.
+Sample data: Input: number=16 (binary 00010000), rotate left by 2
+Expected output: Result after rotation: 64 (binary 01000000)
+
+
+#include <stdio.h>
+
+int main() {
+    unsigned int n; 
+    printf("Enter n value: ");
+    scanf("%u", &n);  
+
+    int r;
+    printf("Enter number of rotations: ");
+    scanf("%d",&r);
+    
+    for(int i=0;i>=0;i--){
+        int f=n<<r;
+    printf("Result after rotation: %d",f);
+    }
+    return 0;
+}
+
+
+14. Convert decimal to binary using bitwise operator
+Question: Write a C program to convert a decimal number to binary representation using bitwise operators.
+Sample data: Input: 13
+Expected output: Binary representation: 1101
+
+
+#include <stdio.h>
+
+int main() {
+    unsigned int n;
+    printf("Enter n value: ");
+    scanf("%u", &n);
+    int started = 0;
+    printf("Binary representation: ");
+    for (int i = 31; i >= 0; i--) {
+        if ((n >> i) & 1) {
+            printf("1");
+            started = 1;
+        } else if(started) {
+            printf("0");
+        }
+    }
+    if (!started)
+        printf("0");
+    return 0;
+}
+
+
+
+15. Swap two numbers using bitwise operator
+Question: Write a C program to swap two numbers using bitwise XOR operator without using a temporary variable.
+Sample data: Input: a=5, b=9
+Expected output: After swapping: a=9, b=5
+
+
+#include <stdio.h>
+
+int main() {
+    unsigned int a,b;
+    printf("Enter values of a and b: ");
+    scanf("%u%u", &a,&b);
+    a=a^b;
+    b=a^b;
+    a=a^b;
+    printf("After swapping: a=%d, b=%d",a,b);
+    return 0;
+}
+
+
+
+16. Check whether a number is even or odd using bitwise operator
+Question: Write a C program to check whether a number is even or odd using bitwise AND operator.
+Sample data: Input: 7
+Expected output: 7 is odd
+
+
+
+#include <stdio.h>
+
+int main() {
+    unsigned int a;
+    printf("Enter value of a: ");
+    scanf("%u", &a);
+    if((a&1)==0)
+        printf("%d is even",a);
+    else
+        printf("%d is odd",a);
+    return 0;
+}
+
+
+Challenges
+-----------------
+
+
+
+1)Given an array where every element appears exactly three times except one element that appears only once, find that unique element.
+
+
+#include <stdio.h>
+
+int findUnique(int arr[], int n) {
+    int Unique = 0, dups = 0;
+
+    for (int i = 0; i < n; i++) {
+        int num = arr[i];
+        dups |= Unique & num;
+        Unique ^= num;
+        int common = Unique & dups;
+        Unique &= ~common;
+        dups &= ~common;
+    }
+
+    return Unique;
+}
+
+int main() {
+    int n;
+    printf("Enter size of array: ");
+    scanf("%d",&n);
+    int arr[n];
+    printf("Enter array elements: ");
+    for(int i=0;i<n;i++)
+        scanf("%d",&arr[i]);
+    
+    printf("Unique element is: %d\n", findUnique(arr, n));
+    return 0;
+}
+
+
+input: 4
+	2 2 2 4
+
+output: 4
+
+
+//To find unique element in array
+
+
+#include <stdio.h>
+
+int findUnique(int arr[], int n) {
+    int result=0;
+    for (int i = 0; i < n; i++) {
+        result ^= arr[i]; 
+    }
+    return result;
+    }
+
+int main() {
+    int n;
+    printf("Enter size of array: ");
+    scanf("%d",&n);
+    int arr[n];
+    printf("Enter array elements: ");
+    for(int i=0;i<n;i++){
+        scanf("%d",&arr[i]);
+    }
+    int Unique=findUnique(arr, n);
+    printf("Unique element is: %d\n",Unique);
+    return 0;
+}
+
+
+Input: 1 2 3 1 2
+Output: 3
+
+
+2)In an array where all numbers appear twice except two numbers that appear once, identify those two unique numbers.
+
+
+#include <stdio.h>
+
+void findTwoUniques(int arr[], int n) {
+    int xorAll = 0;
+
+    for (int i = 0; i < n; i++)
+        xorAll ^= arr[i];
+
+    int rightmostSetBit = xorAll & -xorAll;
+
+    int num1 = 0, num2 = 0;
+
+    for (int i = 0; i < n; i++) {
+        if (arr[i] & rightmostSetBit)
+            num1 ^= arr[i];
+        else
+            num2 ^= arr[i];
+    }
+
+    printf("The two unique elements are: %d and %d\n", num1, num2);
+}
+
+int main() {
+    int n;
+    printf("Enter size of array: ");
+    scanf("%d", &n);
+
+    int arr[n];
+    printf("Enter array elements: ");
+    for (int i = 0; i < n; i++)
+        scanf("%d", &arr[i]);
+
+    findTwoUniques(arr, n);
+
+    return 0;
+}
+
+
+3)Calculate the total count of set bits (1s) in the binary representation of all numbers from 1 up to a given number n.
+
+
+#include <stdio.h>
+
+int countSetBits(unsigned int n){
+    int count=0;
+    for(int i=0;i<=n;i++){
+        int num=i;
+        while(num!=0){
+            count+=num&1;
+            num>>=1;
+        }
+    }
+    return count;
+}
+
+int main() {
+    int n;
+    printf("Enter number n: ");
+    scanf("%d", &n);
+
+    printf("Total set bits from 1 to %d is: %d\n", n, countSetBits(n));
+    return 0;
+}
+
+
+4)Determine whether a given integer is a power of two using efficient bitwise operations.
+
+
+#include <stdio.h>
+
+void power(unsigned int n){
+    if(n>0 && (n&(n-1))==0){
+        printf("%d is a power of 2.\n", n);
+    }
+    else{
+        printf("%d is NOT a power of 2.\n", n);
+    }
+}
+
+int main() {
+    int n;
+    printf("Enter number n: ");
+    scanf("%d", &n);
+    power(n);
+    return 0;
+}
+
+
+
+5)For a number that has exactly one set bit (i.e., is a power of two), find the position/index of that set bit.
+
+
+#include <stdio.h>
+
+void power(unsigned int n) {
+    int pos = 0;
+    unsigned int original = n;
+
+    if (n > 0 && (n & (n - 1)) == 0) {
+        while ((n >>= 1) != 0)
+            pos++;
+
+        printf("%u is a power of 2 and the set bit is at position %d\n", original, pos);
+    } else {
+        printf("%u is NOT a power of 2.\n", n);
+    }
+}
+
+int main() {
+    unsigned int n;
+    printf("Enter number n: ");
+    scanf("%u", &n);
+    power(n);
+    return 0;
+}
+
+
+
+6)Given an array where every element appears twice except two elements appearing once, find those two unique elements using XOR operations.
+
+
+
+#include <stdio.h>
+
+void findTwoUniques(int arr[], int n) {
+    int xorAll = 0;
+
+    for (int i = 0; i < n; i++)
+        xorAll ^= arr[i];
+
+    int rightmostSetBit = xorAll & -xorAll;
+
+    int num1 = 0, num2 = 0;
+
+    for (int i = 0; i < n; i++) {
+        if (arr[i] & rightmostSetBit)
+            num1 ^= arr[i];
+        else
+            num2 ^= arr[i];
+    }
+
+    printf("The two unique elements are: %d and %d\n", num1, num2);
+}
+
+int main() {
+    int n;
+    printf("Enter size of array: ");
+    scanf("%d", &n);
+
+    int arr[n];
+    printf("Enter array elements: ");
+    for (int i = 0; i < n; i++)
+        scanf("%d", &arr[i]);
+
+    findTwoUniques(arr, n);
+
+    return 0;
+}
+
+
+
+7)Given two integers, calculate how many bits differ between them (i.e., bits that need flipping to convert one number into the other).
+
+
+
+#include <stdio.h>
+
+int countBit(int a,int b){
+    int n=a^b;
+    int count=0;
+    while(n){
+        count+=n&1;
+        n>>=1;
+    }
+    return count;
+}
+
+int main() {
+    int a, b;
+    printf("Enter two integers: ");
+    scanf("%d %d", &a, &b);
+
+    int flips = countBit(a, b);
+    printf("Number of bits to flip to convert %d to %d is: %d\n", a, b, flips);
+
+    return 0;
+}
+
+
+8)Compute the XOR of all integers in the range from 1 up to n without iterating over the entire range.
+
+
+#include <stdio.h>
+
+int xorOfBits(int n){
+    if(n % 4 == 0)  return n;
+    if(n % 4 == 1)  return 1;
+    if(n % 4 == 2)  return n+1;
+    if(n % 4 == 3)  return 0;
+}
+
+int main() {
+    int a;
+    printf("Enter a value: ");
+    scanf("%d", &a);
+
+    int res = xorOfBits(a);
+    printf("The final result of XOR upto %d is: %d", a, res);
+
+    return 0;
+}
+
+
+
+9)Given an array, find the XOR of all elements excluding a particular specified element.
+
+
+
+#include <stdio.h>
+
+int xorOfBits(int arr[],int n,int index){
+    int total=0;
+    for(int i=0;i<n;i++){
+        total^=arr[i];
+    }
+    return total^arr[index];
+} 
+
+int main() {
+    int n;
+    printf("Enter size of array: ");
+    scanf("%d", &n);
+
+    int arr[n];
+    printf("Enter array elements: ");
+    for (int i = 0; i < n; i++)
+        scanf("%d", &arr[i]);
+    
+    int index;
+
+    printf("Enter index to exclude: ");
+    scanf("%d", &index);
+
+    if (index < 0 || index >= n) {
+        printf("Invalid index.\n");
+        return 1;
+    }
+    
+    int res=xorOfBits(arr, n, index);
+    printf("The XOR of all bits exclude one particular index: %d",res);
+
+    return 0;
+}
+
+
+
+10)Given a number and two bit positions, swap the bits at those positions using bitwise operations.
+
+
+#include<stdio.h>
+
+int swap(int n, unsigned int p1, unsigned int p2){
+    int bit1= (n>>p1) & 1;
+    int bit2= (n>>p2) & 1;
+    if(bit1!=bit2){
+        int mask= (1 << p1) | (1 << p2);
+        n^=mask;
+    }
+    return n;
+}
+
+int main(){
+    int n;
+    printf("Enter n value: ");
+    scanf("%d",&n);
+    
+    unsigned int p1,p2;
+    printf("Enter p1 and p2 values: ");
+    scanf("%u %u",&p1, &p2);
+    
+    int res=swap(n,p1,p2);
+    printf("Number after swapping bits at positions %u and %u: %d\n", p1, p2, res);
+    
+    return 0;
+}
+
+
+11)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Bit swap performed 
+-------------------
+
+#include <stdio.h>
+
+int main(){
+    unsigned int a;
+    printf("Enter a value: ");
+    scanf("%x",&a);
+    a=((a>>24)&0x000000FF)|((a>>8)&0x0000FF00)|((a<<8)&0x00FF0000)|((a<<24)&0xFF000000);
+    printf("Bit swap is performed: 0x%08X",a);
+    return 0;
+}

@@ -1,0 +1,110 @@
+Worksheet 2
+ 
+1)Swap the contents of two strings without using any extra temporary string variables. The strings' values should be exchanged completely.
+Input: str1 = "hello", str2 = "world"
+Output: str1 = "world", str2 = "hello"
+2)Sort an array of strings in alphabetical order. The sorted array should list strings from A to Z.
+Input: {"John", "Alice", "Bob"}
+Output: {"Alice", "Bob", "John"}
+3)Check whether a given string is a palindrome, i.e., it reads the same forwards and backwards.
+Input: "madam"
+Output: Palindrome
+4)Find the character that appears most frequently in the input string and print it.
+Input: "sample string"
+Output: 's'
+5)Remove all duplicate characters from a string, keeping only the first occurrence of each character.
+Input: "programming"
+Output: "progamin"
+6)Print all characters that occur more than once in a string.
+Input: "programming"
+Output: r g m
+7)Remove from the first string all characters that appear in the second string.
+Input: str1 = "hello world", str2 = "low"
+Output: "he rd"
+8)Check if one string is a rotation of another, i.e., one string can be shifted to get the other.
+Input: "abcd", "cdab"
+Output: Yes
+9)Print the reverse of a string using recursion.
+Input: "hello"
+Output: "olleh"
+10)Print all permutations of a given string. All possible arrangements of characters should be printed.
+Input: "ABC"
+Output: "ABC", "ACB", "BAC", "BCA", "CAB", "CBA"
+11)Divide a string into N equal parts and print each part separately.
+Input: "abcdefgh", N=4
+Output: "ab", "cd", "ef", "gh"
+12)Find the first non-repeating character in a string and print it.
+Input: "swiss"
+Output: 'w'
+13)Given a list of strings and a word, print the strings containing all characters of that word.
+Input: Word = "act", List = ["cat", "tac", "act", "dog"]
+Output: "cat", "tac", "act"
+14)Reverse the order of words in a sentence without reversing the words themselves.
+Input: "Hello world"
+Output: "world Hello"
+15)Compress a string using run-length encoding by replacing repeated characters with the character and count.
+Input: "aaabbcc"
+Output: "a3b2c2"
+16)Find the smallest substring in a string containing all characters of another string.
+Input: str1 = "this is a test string", str2 = "tist"
+Output: "t stri"
+17)Implement naive pattern searching to find all occurrences of a pattern in a text.
+Input: Text = "hello world", Pattern = "lo"
+Output: Pattern found at index 3
+18)Implement Rabin-Karp algorithm using hashing to find patterns in a text efficiently.
+Input: Text = "abcxabcdabcdabcy", Pattern = "abcdabcy"
+Output: Pattern found at index 8
+19)Find the length of the longest substring with no repeating characters.
+Input: "abcabcbb"
+Output: 3
+20)Print all possible interleavings of two strings, preserving the relative order of characters in each string.
+Input: str1 = "AB", str2 = "CD"
+Output: "ABCD", "ACBD", "ACDB", "CABD", "CADB", "CDAB"
+21)Check if a string is an interleaving of two other strings, i.e., formed by merging them maintaining order.
+Input: s1 = "abc", s2 = "def", s3 = "adbcef"
+Output: True
+22)Check if two strings are anagrams of each other by comparing character counts.
+Input: "listen", "silent"
+Output: True
+23)Implement Boyer-Moore pattern searching algorithm with bad character heuristic to search a pattern in a text.
+Input: Text = "here is a simple example", Pattern = "example"
+Output: Pattern found at index 17
+24)Partition a string into the minimum number of palindromic substrings (Palindrome Partitioning).
+Input: "ababbbabbababa"
+Output: 3
+25)Find the longest palindromic substring inside a given string.
+Input: "babad"
+Output: "bab" or "aba"
+26)Group a list of words so that anagrams are together.
+Input: ["cat", "tac", "act", "dog"]
+Output: ["cat", "tac", "act"], ["dog"]
+27)Count the number of words in a string separated by spaces.
+Input: "Hello world"
+Output: 2
+28)Match a string against a pattern containing wildcards '*' (any sequence) and '?' (single character).
+Input: Pattern = "g*ks", String = "geeks"
+Output: Match
+29)Convert a numeric string to an integer without using built-in functions.
+Input: "1234"
+Output: 1234
+30)Find the longest substring common to two given strings.
+Input: "abcdxyz", "xyzabcd"
+Output: "abcd"
+31)Remove all occurrences of character 'b' and substring "ac" from a string.
+Input: "abacb"
+Output: "a"
+32)Use dynamic programming to check if a string is an interleaving of two other strings.
+Input: s1 = "abc", s2 = "def", s3 = "adbcef"
+Output: True
+33)For a stream of characters, print the first non-repeating character at each step.
+Input stream: "aabc"
+Output: "a a b b"
+34)Recursively remove all adjacent duplicate characters from a string until no duplicates remain.
+Input: "azxxzy"
+Output: "ay"
+35)Rearrange characters in a string so that the same characters are at least d distance apart.
+Input: "aabbcc", d=2
+Output: "abcabc"
+36)Find the character with the second highest frequency in a string.
+Input: "aabababa"
+Output: 'b'

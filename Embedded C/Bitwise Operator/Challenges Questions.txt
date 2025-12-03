@@ -1,0 +1,42 @@
+Challenges
+-----------------
+
+1.Given an array where every element appears exactly three times except one element that appears only once, find that unique element.
+
+2.In an array where all numbers appear twice except two numbers that appear once, identify those two unique numbers.
+
+3.Calculate the total count of set bits (1s) in the binary representation of all numbers from 1 up to a given number n.
+
+4.Determine whether a given integer is a power of two using efficient bitwise operations.
+
+5.For a number that has exactly one set bit (i.e., is a power of two), find the position/index of that set bit.
+
+6.Given an array where every element appears twice except two elements appearing once, find those two unique elements using XOR operations.
+
+7.Given two integers, calculate how many bits differ between them (i.e., bits that need flipping to convert one number into the other).
+
+8.Compute the XOR of all integers in the range from 1 up to n without iterating over the entire range.
+
+9.Given an array, find the XOR of all elements excluding a particular specified element.
+
+10.Given a number and two bit positions, swap the bits at those positions using bitwise operations.
+
+11.Find the XOR of all numbers between L and R (inclusive) without iterating through each number.
+
+12.Efficiently calculate the minimum number of bit flips required to convert integer A into integer B.
+
+13.In an array where all numbers occur an even number of times except two numbers that occur an odd number of times, find those two numbers.
+
+14.Given a number, find the next smallest number larger than it that has the same count of set bits.
+
+15.Given a number, find the immediate next greater number that has the same number of 1s in its binary representation.
+
+16.Determine whether a given number is a power of four efficiently.
+
+17.In an array where every element appears twice except one, find that single unique number.
+
+18.Given a number N, find the greatest power of two that is less than or equal to N.
+
+19.A number is called sparse if there are no two adjacent set bits in its binary representation. Check whether a given number is sparse.
+
+20.Given an array of size n-1 containing numbers from 1 to n with one missing, find the missing number using XOR.

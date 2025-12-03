@@ -1,0 +1,120 @@
+#include <SPI.h>
+#include <SD.h>
+#include <DHT.h>
+
+// Define pins for sensors
+#define LDR_PIN 32
+#define DHTPIN 15
+#define RAINPIN 34
+#define SD_CS   5   // Chip Select pin for SD card
+
+// Initialize the DHT22 sensor
+DHT dht(DHTPIN, DHT22);
+
+// File object for SD card
+File dataFile;
+
+void setup() {
+  // Debug console
+  Serial.begin(115200);
+
+  // Initialize DHT sensor
+  dht.begin();
+
+  // Set pin modes
+  pinMode(LDR_PIN, INPUT);
+  pinMode(RAINPIN, INPUT);
+
+  // Configure analog read resolution
+  analogReadResolution(12);
+
+  // Initialize SD card
+  if (!SD.begin(SD_CS)) {
+    Serial.println("SD card initialization failed!");
+    while (1);
+  }
+  Serial.println("SD card initialized.");
+
+  // Run the sensors update once in setup
+  logDHTValues();
+  logRainSensor();
+  logLDRsensor();
+}
+
+// Get the DHT22 sensor values
+void logDHTValues() {
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+
+  if (isnan(h) || isnan(t)) {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+
+  // Print to Serial
+  Serial.print("Temperature: ");
+  Serial.print(t);
+  Serial.print(" °C, Humidity: ");
+  Serial.print(h);
+  Serial.println(" %");
+
+  // Write to SD card
+  dataFile = SD.open("data.txt", FILE_APPEND);
+  if (dataFile) {
+    dataFile.print("Temperature: ");
+    dataFile.print(t);
+    dataFile.print(" C, Humidity: ");
+    dataFile.print(h);
+    dataFile.println(" %");
+    dataFile.close();
+  }
+}
+
+// Get the rain sensor values
+void logRainSensor() {
+  int Rvalue = analogRead(RAINPIN);
+  Rvalue = map(Rvalue, 0, 4095, 0, 100);
+  Rvalue = (Rvalue * -1) + 100;
+
+  Serial.print("Rain: ");
+  Serial.print(Rvalue);
+  Serial.println(" %");
+
+  dataFile = SD.open("data.txt", FILE_APPEND);
+  if (dataFile) {
+    dataFile.print("Rain: ");
+    dataFile.print(Rvalue);
+    dataFile.println(" %");
+    dataFile.close();
+  }
+}
+
+// Get the LDR sensor values
+void logLDRsensor() {
+  int value = analogRead(LDR_PIN);
+
+  Serial.print("Light: ");
+  Serial.println(value);
+
+  dataFile = SD.open("data.txt", FILE_APPEND);
+  if (dataFile) {
+    dataFile.print("Light: ");
+    dataFile.print(value);
+    if (value > 2000) {
+      dataFile.println(" (High)");
+    } else {
+      dataFile.println(" (Low)");
+    }
+    dataFile.close();
+  }
+}
+
+void loop() {
+  // Continuously update the sensors and log to SD
+  logDHTValues();
+  logRainSensor();
+  logLDRsensor();
+
+  // Add a delay to avoid flooding
+  delay(2000);
+}

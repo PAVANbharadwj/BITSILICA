@@ -1,0 +1,217 @@
+Worksheet 1
+----------------
+
+1. Merge Sorted Lists Challenges
+Question:
+Write a C program to merge two sorted singly linked lists into a single sorted linked list.
+
+Sample data:
+List 1: 1 3 5 7
+List 2: 2 4 6
+
+Expected output:
+Merged list: 1 2 3 4 5 6 7
+
+2. Loop Detection Challenges
+Question:
+Write a C program to detect and remove a loop in a singly linked list.
+
+Sample data:
+List: 1 → 2 → 3 → 4 → 5 → (loop to 2)
+
+Expected output:
+Loop detected and removed.
+List after removal: 1 2 3 4 5
+
+3. Palindrome Check Variants
+Question:
+Write a C program to check if a singly linked list is a palindrome.
+
+Sample data:
+List: 1 2 2 1
+
+Expected output:
+Linked list is a palindrome.
+
+4. Copy with Random Pointers Challenges
+Question:
+Write a C program to create a deep copy of a singly linked list where each node has a random pointer.
+
+Sample data:
+List: 1 2 3 5 7
+Random pointers: 1→3, 2→5, 3→7, 5→1, 7→3
+
+Expected output:
+New list with same data and random pointers correctly mapped.
+
+5. Intersection Finder Variants
+Question:
+Write a C program to find the intersection point of two singly linked lists.
+
+Sample data:
+List A: 1 2 → 3 4
+List B: 5 → 3 4
+
+Expected output:
+Intersection found at node with data: 3
+
+6. Partitioning with Dual Pivots
+Question:
+Write a C program to partition a linked list around a value x.
+
+Sample data:
+List: 3 5 7 5 9 2 1
+x = 5
+
+Expected output:
+Reordered list: 3 2 1 5 7 5 9
+
+7. Linked List Addition Variants
+Question:
+Write a C program to add two numbers represented by linked lists.
+
+Sample data:
+List 1: 8 7 9 2
+List 2: 2 1 2 3
+
+Expected output:
+Result: 0 9 1 6 (carry handled)
+
+8. List Rotation Challenges
+Question:
+Write a C program to rotate a linked list to the right by k places.
+
+Sample data:
+List: 1 3 4 7 9
+k = 2
+
+Expected output:
+Rotated list: 4 7 9 1 3
+
+9. Kth Node Swapping Variants
+Question:
+Write a C program to swap Kth node from beginning and end.
+
+Sample data:
+List: 1 2 3 4 5
+k = 2
+Expected output:
+Swapped list: 1 4 3 2 5
+
+10. Linked List Sorting Challenges
+Question:
+Write a C program to sort a singly linked list using merge sort.
+
+Sample data:
+List: 2 3 1 7 5
+
+Expected output:
+Sorted list: 1 2 3 5 7
+
+11. Nth Node from End Variants
+Question:
+Write a C program to retrieve the nth node from the end.
+
+Sample data:
+List: 1 3 5 11
+n = 3
+
+Expected output:
+Result: 3
+
+12. Merging K Sorted Lists Challenges
+Question:
+Write a C program to merge K sorted linked lists.
+
+Sample data:
+List-1: 10 20 50
+List-2: 30 40 60
+List-3: 10 70 100
+
+Expected output:
+Merged list: 10 10 20 30 40 50 60 70 100
+
+13. Reordering by Parity Challenges
+Question:
+Write a C program to place all even-numbered nodes after odd-numbered nodes.
+
+Sample data:
+List: 1 2 3 4 5 6
+
+Expected output:
+Reordered list: 1 3 5 2 4 6
+
+14. Pairwise Reversal Challenges
+Question:
+Write a C program to reverse nodes in pairs.
+
+Sample data:
+List: 1 2 3 4 5
+
+Expected output:
+Reversed in pairs: 2 1 4 3 5
+
+15. Block Reversal Variants
+Question:
+Write a C program to reverse nodes in blocks of size k.
+
+Sample data:
+List: 1 2 3 4 5 6
+k = 3
+
+Expected output:
+Reversed: 3 2 1 6 5 4
+
+16. Alternate K-Node Reversal Challenges
+Question:
+Write a C program to reverse alternate k nodes.
+
+Sample data:
+List: 1 2 3 4 5 6 7 8
+k = 2
+
+Expected output:
+Reversed: 2 1 3 4 6 5 7 8
+
+17. Halving the List Challenges
+Question:
+Write a C program to split a list into two halves.
+
+Sample data:
+List: 1 2 3 4 5 6
+
+Expected output:
+First half: 1 2 3
+Second half: 4 5 6
+
+18. Alternate Node Merging Challenges
+Question:
+Write a C program to merge alternate nodes of two linked lists.
+
+Sample data:
+List1: 9 7 5
+List2: 10 8 6
+
+Expected output:
+Merged list: 9 10 7 8 5 6
+
+19. Alternate Interleaving Challenges
+Question:
+Write a C program to interleave two lists alternatively.
+
+Sample data:
+List1: 1 3 5
+List2: 2 4 6
+
+Expected output:
+Result: 1 2 3 4 5 6
+
+20. Adjacent Node Swapping Variants
+Question:
+Write a C program to swap every two adjacent nodes.
+
+Sample data:
+List: 1 2 3 4 5
+
+Expected output:
+Swapped list: 2 1 4 3 5

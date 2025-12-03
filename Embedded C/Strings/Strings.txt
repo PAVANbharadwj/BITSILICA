@@ -1,0 +1,180 @@
+Strings
+--------------
+
+Introduction
+---------------
+A String in C programming is a sequence of characters terminated with a null character '\0'. A C string works as an array of characters. The key difference between a character array and a C string is that a string is always terminated with '\0'.
+
+Declaration
+-------------
+Declaring a string in C is similar to declaring a one-dimensional array of characters:
+
+char string_name[size];
+
+string_name: Name given to the string variable
+
+size: Number of characters the string can store
+ 
+We can skip the size if initializing directly:
+
+char array_name[];
+
+Initialization
+ 
+Strings can be initialized using a character list or a string literal:
+
+// Using character list
+char str[] = {'G', 'e', 'e', 'k', 's', '\0'};
+
+// Using string literal
+char str[] = "Geeks";
+
+Note: When a string literal is used, the null character is automatically appended.
+
+Accessing Characters
+ 
+Characters in a string can be accessed using the index:
+
+#include <stdio.h>
+
+int main() {
+    char str[] = "Geeks";
+    printf("%c", str[0]); // Output: G
+    return 0;
+}
+
+Updating Characters
+ 
+A character in a string can be updated by using its index:
+
+#include <stdio.h>
+
+int main() {
+    char str[] = "Geeks";
+    str[0] = 'R';
+    printf("%c", str[0]); // Output: R
+    return 0;
+}
+
+String Length
+ 
+To get the length of a string, use strlen() from <string.h>:
+
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char str[] = "Geeks";
+    printf("%d", strlen(str)); // Output: 5
+    return 0;
+}
+
+Reading Strings from Input
+1. Using scanf()
+
+#include <stdio.h>
+
+int main() {
+    char str[5];
+    scanf("%s", str);
+    printf("%s", str);
+    return 0;
+}
+
+Limitation: Stops at whitespace.
+
+2. Using scanf() with Scanset
+
+#include <stdio.h>
+
+int main() {
+    char str[20];
+    scanf("%[^\n]s", str);
+    printf("%s", str);
+    return 0;
+}
+
+Allows reading until newline.
+
+3. Using fgets()
+
+#include <stdio.h>
+
+int main() {
+    char str[20];
+    fgets(str, 20, stdin);
+    printf("%s", str);
+    return 0;
+}
+
+Reads entire line including spaces.
+
+Passing Strings to Functions
+ 
+Strings can be passed to functions like arrays:
+
+#include <stdio.h>
+
+void printStr(char str[]) {
+    printf("%s", str);
+}
+
+int main() {
+    char str[] = "GeeksforGeeks";
+    printStr(str);
+    return 0;
+}
+
+Strings and Pointers
+A pointer can be used to access string characters:
+
+#include <stdio.h>
+
+int main() {
+    char str[20] = "Geeks";
+    char* ptr = str;
+    while (*ptr != '\0') {
+        printf("%c", *ptr);
+        ptr++;
+    }
+    return 0;
+}
+
+Memory Representation of Strings
+Each character in a string occupies one byte. The null character \0 is added at the end to indicate the termination of the string.
+
+Standard Library: <string.h> Functions
+
+
+Function			Description
+
+strlen()	Returns the length of the string (excluding \0).
+
+strcpy()	Copies one string to another.
+
+strcmp()	Compares two strings. Returns 0 if equal.
+
+strcat()	Concatenates two strings.
+
+strlwr()	Converts string to lowercase.
+
+strupr()	Converts string to uppercase.
+
+strstr()	Finds the first occurrence of a substring.
+
+
+Note: strlwr() and strupr() are non-standard and may not be supported in all compilers.
+Summary
+Strings are arrays of characters ending in \0
+
+Can be declared, initialized, and updated like arrays
+
+Can be read using scanf, fgets, or with scansets
+
+Standard library provides powerful string manipulation functions
+
+
+
+https://www.youtube.com/watch?v=bVa3gmCcn5A&list=PLk6CEY9XxSICY0vpYUdMlv-1Gk5CzuyQQ&index=3
+
+https://www.youtube.com/watch?v=Ujg3405hRIQ

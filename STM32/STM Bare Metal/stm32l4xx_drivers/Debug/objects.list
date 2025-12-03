@@ -1,0 +1,8 @@
+"./Src/syscalls.o"
+"./Src/sysmem.o"
+"./Src/ultrasonic_sd_card.o"
+"./Startup/startup_stm32l476rgtx.o"
+"./drivers/Src/stm32l476xx_gpio_driver.o"
+"./drivers/Src/stm32l476xx_i2c_driver.o"
+"./drivers/Src/stm32l476xx_spi_driver.o"
+"./drivers/Src/stm32l476xx_usart_driver.o"

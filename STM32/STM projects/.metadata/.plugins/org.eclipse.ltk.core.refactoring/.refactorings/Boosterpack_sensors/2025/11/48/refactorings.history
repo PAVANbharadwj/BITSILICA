@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;Boosterpack_sensors/Core/Src/main.c&apos; to &apos;light_sensor.c&apos;" description="Rename resource &apos;main.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Core/Src/main.c" name="light_sensor.c" stamp="1764165927633" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;Boosterpack_sensors/Core/Src/gyro.c&apos; to &apos;environmental.c&apos;" description="Rename resource &apos;gyro.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Core/Src/gyro.c" name="environmental.c" stamp="1764227092506" updateReferences="true"/>
+</session>

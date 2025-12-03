@@ -1,0 +1,153 @@
+Worksheet1
+------------
+
+1.Make a new file and save some text entered by the user.
+Input: File name: test.txt
+Text: Hello, this is my first file!
+Output: File 'test.txt' created and saved.
+
+2.Open an existing file and display its contents on the screen.
+Input: File name: test.txt
+Output: Hello, this is my first file!
+
+3.Take several lines from the user and write all of them into a file.
+Input: File name: lines.txt
+Number of lines: 3
+Lines: Line one, Line two, Line three
+Output: All lines saved in 'lines.txt'.
+
+4.Read every line from a file and store those lines in an array.
+Input: File name: lines.txt
+Output: Line one, Line two, Line three (as array elements)
+
+5.Add more lines to the end of a file without erasing its current content.
+Input: File name: lines.txt
+Number of new lines: 2
+New lines: Line four, Line five
+Output: File now contains: Line one, Line two, Line three, Line four, Line five
+
+6.Copy everything from one file and save it into another file.
+Input: Source file: lines.txt
+Destination file: copy.txt
+Output: File 'lines.txt' copied to 'copy.txt'.
+
+7.Delete a file from the computer.
+Input: File name: temp.txt
+Output: File 'temp.txt' deleted.
+
+8.Read a value from a file into a variable, and also write a variable’s value back into a file.
+Input: File name: number.txt (contains: 42)
+Output: Read variable: 42; After writing value 100, file now contains: 100
+
+9.Count how many lines are present in a text file.
+Input: File name: lines.txt
+Output: Total lines: 5
+
+10.Count both the number of words and the number of characters in a file.
+Input: File name: info.txt (content: This is a test file.)
+Output: Words: 5
+Characters: 21
+
+11.Show all the contents in a file and also print the total number of lines.
+Input: File name: lines.txt
+Output: (shows all lines)
+Total lines: 5
+
+12.Remove a specific line (by line number) from a file.
+Input: File name: lines.txt
+Line to remove: 2
+Output: File now contains all lines except line 2.
+
+13.Change a particular line in a file to some new text.
+Input: File name: lines.txt
+Line number: 3
+New text: This line has been changed!
+Output: File now contains new text at line 3.
+
+14.Replace every use of a chosen word in a file with a different word.
+Input: File name: info.txt
+Word to replace: file
+Replacement: document
+Output: Content after: This is a test document.
+
+15.Change all the letters in a file to uppercase.
+Input: File name: info.txt (content: Hello World!)
+Output: HELLO WORLD!
+
+16.Change all the letters in a file to lowercase.
+Input: File name: info.txt (content: Hello World!)
+Output: hello world!
+
+17.Capitalize the first letter of each word in a file.
+Input: File name: info.txt (content: hello world!)
+Output: Hello World!
+
+18.Display the lines of a file in reverse order (from last to first).
+Input: File name: lines.txt
+Output: Shows lines from bottom to top
+
+19.Encrypt (scramble) a file’s content so it can’t be read easily.
+Input: File name: secret.txt (content: my password)
+Output: File now contains: (garbled/encrypted text)
+
+20.Decrypt a scrambled (encrypted) file and make it readable again.
+Input: File name: secret.txt (content: encrypted)
+Output: File now contains: my password
+
+21.Join two files together and save the result in a new file.
+Input: File 1: a.txt (AAA)
+File 2: b.txt (BBB)
+New file: ab.txt
+Output: ab.txt content: AAA
+BBB
+
+22.Merge alternate lines from two files into a third file.
+Input: File 1: a.txt (A1, A2)
+File 2: b.txt (B1, B2)
+New file: merge.txt
+Output: merge.txt: A1, B1, A2, B2
+
+23.Take everything from one file and append it to the end of another file.
+Input: File1: main.txt (Main)
+File2: extra.txt (Extra)
+Output: main.txt now contains: Main, Extra
+
+24.Check if two files are exactly the same or not.
+Input: File1: a.txt, File2: b.txt
+Output: Files are identical or Files are different
+
+25.List all the files found inside a directory (folder).
+Input: Directory: myfolder/
+Output: file1.txt, file2.txt, notes.doc
+
+26.Find out how big a file is (in bytes).
+Input: File name: a.txt
+Output: Size: 36 bytes
+
+27.Show the last modification date and time of a file.
+Input: File name: a.txt
+Output: Last modified: Sat Nov 26 17:32:15 2022
+
+28.Find the common folder path among a group of file paths.
+Input: /home/user/docs/a.txt, /home/user/docs/b.txt, /home/user/docs/old/c.txt
+Output: /home/user/docs
+
+29.Store employee details in a file and update them as needed.
+Input: Add new employee: Name: John, Age: 25
+Output: Employee added (info saved in file)
+
+30.Log Session a grocery store inventory where you can add, update, or remove items using a file.
+Input: Add item: Milk, 2 litres, Rs.40
+Output: Inventory file now includes the new item
+
+31.Add up numbers given as command line arguments and write the answer into a file.
+Input: Arguments: 3 4 5, Output file: sum.txt
+Output: sum.txt contains: 12
+
+32.Count how many lines in a file end with a semicolon.
+Input: File: data.txt (lines, some end with ;)
+Output: Lines ending with semicolon: 2
+
+33.Count how many empty (blank) lines are in a file.
+Input: File: data.txt
+Output: Blank lines: 1

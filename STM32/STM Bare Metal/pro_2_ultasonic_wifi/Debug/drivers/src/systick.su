@@ -1,0 +1,6 @@
+C:/Users/pavan/Documents/STM Bare Metal/pro_2_ultasonic_wifi/drivers/inc/stm32l476xx.h:227:20:NVIC_SetPriority	24	static
+../drivers/src/systick.c:21:6:Systick_Init	16	static
+../drivers/src/systick.c:37:6:SysTick_Handler	4	static
+../drivers/src/systick.c:42:6:delay_ms	24	static,ignoring_inline_asm
+../drivers/src/systick.c:49:6:delay_us	24	static,ignoring_inline_asm
+../drivers/src/systick.c:56:10:millis	4	static

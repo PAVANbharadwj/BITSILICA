@@ -1,0 +1,4 @@
+../drivers/src/gpio.c:11:6:GPIOA_Config_Output	24	static
+../drivers/src/gpio.c:26:6:GPIOA_Config_Input	24	static
+../drivers/src/gpio.c:33:6:GPIOA_WritePin	16	static
+../drivers/src/gpio.c:39:9:GPIOA_ReadPin	16	static

@@ -1,0 +1,119 @@
+Worksheet 1
+-----------------
+
+C Pointers Activities
+
+1. Pointer Declaration and Initialization
+Goal: Understand how to declare a pointer and store the address of a variable.
+
+Activity:
+
+Declare an integer variable: int a = 5;
+Declare a pointer to int: int *ptr;
+Assign the address of a to ptr: ptr = &a;
+Print both a and *ptr using printf.
+
+2. Using & (Address-of) Operator
+Goal: Learn how to find and print the memory address of variables.
+
+Activity:
+
+Declare variables of different types: int x;, float y;, char z;
+Print their memory addresses using &x, &y, and &z.
+
+3. Using * (Dereference) Operator
+Goal: Learn how to access or modify a variable's value using a pointer.
+
+Activity:
+
+Declare int a = 10;
+Log Session int *p = &a;
+Change the value at the pointer: *p = 20;
+Print a and *p to verify both are 20.
+
+4. Swapping Two Numbers Using Pointers
+Goal: Understand how to pass variables by reference to functions using pointers.
+
+Activity:
+
+Write a swap function: void swap(int *a, int *b)
+In main(), declare two integers and call swap(&x, &y);
+Print values before and after swapping.
+
+5. Pointer Arithmetic with Arrays
+Goal: Learn how to access array elements using pointer arithmetic.
+
+Activity:
+
+Declare: int arr[5] = {10, 20, 30, 40, 50};
+Use int *p = arr;
+Use a loop to print all elements via *(p + i).
+
+6. Array Index vs Pointer Arithmetic
+Goal: Understand that arr[i] and *(arr + i) give the same result.
+
+Activity:
+
+Use both arr[i] and *(arr + i) to print array elements.
+Confirm outputs are the same.
+
+7. Modify Array Elements Using Pointers
+Goal: Learn to modify values in an array using pointer operations.
+
+Activity:
+
+Log Session int arr[] = {2, 4, 6};
+Use pointer arithmetic to increase each element by 1.
+Print modified array.
+
+8. NULL Pointer Safety
+Goal: Learn to avoid dereferencing NULL pointers.
+
+Activity:
+
+Declare: int *p = NULL;
+Use a condition if (p != NULL) before dereferencing.
+Later, assign p = &a; and access safely.
+
+9. Passing Array to Function
+Goal: Learn how arrays are passed to functions as pointers.
+
+Activity:
+
+Write void display(int *arr, int n);
+Inside the function, loop using pointer arithmetic to print elements.
+
+10. Visualizing Memory Addresses
+Goal: Visualize how memory is arranged for variables.
+
+Activity:
+
+Declare three local variables.
+Print their addresses using printf.
+Observe the increasing/decreasing pattern.
+
+11. Pointer to Pointer (int **)
+Goal: Learn how to use a pointer to another pointer.
+
+Activity:
+
+Declare int a = 5;, int *p = &a;, and int **pp = &p;
+Print a, *p, and **pp to understand levels of indirection.
+
+12. Garbage Pointer
+Goal: Understand what happens when a pointer is used without initialization.
+
+Activity:
+
+Declare an uninitialized pointer int *p;
+Try printing *p and observe the issue (garbage value or crash).
+Then fix by assigning a valid address.
+
+13. Pointer Type Compatibility
+Goal: Understand the importance of matching pointer types.
+
+Activity:
+
+Declare int *ip; and float *fp;
+Try assigning fp = ip; and observe compiler warning.
+Correct the mismatch using proper types or casting.

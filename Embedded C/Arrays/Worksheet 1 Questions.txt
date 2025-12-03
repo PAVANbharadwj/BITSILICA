@@ -1,0 +1,166 @@
+Worksheet 1
+Questions 1-25
+Question: Print elements of an array
+Question description: Write a C program to read n elements into an array and display them.
+Sample data:
+Enter the number of elements: 5
+Enter the elements: 10 20 30 40 50
+Expected output:
+Elements in array are: 10 20 30 40 50
+Question: Sum of all elements in array
+Question description: Write a C program to find the sum of all array elements entered by the user.
+Sample data:
+Input: 1 2 3 4 5
+Expected output:
+Sum = 15
+Question: Find maximum and minimum element
+Question description: Write a C program to find the largest and smallest element in the array.
+Sample data:
+Input: 8 3 15 6 2
+Expected output:
+Maximum = 15
+Minimum = 2
+Question: Count even and odd elements
+Question description: Write a C program to count how many even and odd numbers are in the array.
+Sample data:
+Input: 4 7 9 10 22
+Expected output:
+Even: 3
+Odd: 2
+Question: Copy array elements
+Question description: Write a C program to copy all elements from one array to another.
+Sample data:
+Input: 1 2 3 4 5
+Expected output:
+Copied array: 1 2 3 4 5
+Question: Count negative elements
+Question description: Write a C program to count total number of negative elements in an array.
+Sample data:
+Input: -1 3 -4 5 0 -7
+Expected output:
+Total negative elements: 3
+Question: Find for an element
+Question description: Write a C program to search for a number in an array and print its index.
+Sample data:
+Array: 10 20 30 40 50
+Find: 30
+Expected output:
+Element found at index: 2
+Question: Reverse an array
+Question description: Write a C program to reverse an array in-place.
+Sample data:
+Input: 10 20 30 40 50
+Expected output:
+Reversed array: 50 40 30 20 10
+Question: Insert element at position
+Question description: Write a C program to insert a number at a given position in an array.
+Sample data:
+Array: 10 20 30 40
+Insert: 25 at position 2
+Expected output:
+Array after insertion: 10 20 25 30 40
+Question: Delete element at position
+Question description: Write a C program to delete a number at a given position in an array.
+Sample data:
+Array: 10 20 30 40
+Delete at position: 2
+Expected output:
+Array after deletion: 10 20 40
+Question: Sort array in ascending order
+Question description: Write a C program to sort elements in ascending order.
+Sample data:
+Input: 20 5 10 8
+Expected output:
+Sorted array: 5 8 10 20
+Question: Sort array in descending order
+Question description: Write a C program to sort array elements in descending order.
+Sample data:
+Input: 7 2 9 4
+Expected output:
+Sorted array: 9 7 4 2
+Question: Merge two arrays
+Question description: Write a C program to merge two arrays into a third array.
+Sample data:
+Array 1: 1 2 3
+Array 2: 4 5 6
+Expected output:
+Merged array: 1 2 3 4 5 6
+Question: Frequency of each element
+Question description: Write a C program to count the frequency of each element in an array.
+Sample data:
+Input: 1 2 2 3 3 3
+Expected output:
+1 occurs 1 time
+2 occurs 2 times
+3 occurs 3 times
+Question: Remove duplicate elements
+Question description: Write a C program to remove duplicate elements from an array.
+Sample data:
+Input: 2 3 2 4 3 5
+Expected output:
+Array after removing duplicates: 2 3 4 5
+Question: Find duplicate elements
+Question description: Write a C program to find all duplicate elements in an array.
+Sample data:
+Input: 1 2 3 2 4 1
+Expected output:
+Duplicate elements: 1 2
+Question: Find second largest element
+Question description: Write a C program to find the second largest number in the array.
+Sample data:
+Input: 10 20 50 40
+Expected output:
+Second largest: 40
+Question: Difference between max and min
+Question description: Write a C program to find the difference between largest and smallest elements in an array.
+Sample data:
+Input: 5 1 9 3 6
+Expected output:
+Difference: 8
+Question: Left rotate array by n
+Question description: Write a C program to rotate an array to the left by n positions.
+Sample data:
+Array: 1 2 3 4 5
+Rotate by: 2
+Expected output:
+Rotated array: 3 4 5 1 2
+Question: Right rotate array by n
+Question description: Write a C program to rotate an array to the right by n positions.
+Sample data:
+Array: 1 2 3 4 5
+Rotate by: 2
+Expected output:
+Rotated array: 4 5 1 2 3
+Question: Sum of even numbers
+Question description: Write a C program to find the sum of all even numbers in an array.
+Sample data:
+Input: 2 3 4 5 6
+Expected output:
+Sum of even numbers: 12
+Question: Count prime numbers
+Question description: Write a C program to count and display all prime numbers in an array.
+Sample data:
+Input: 2 4 5 6 7 8
+Expected output:
+Primes: 2 5 7
+Count: 3
+Question: Count duplicate elements
+Question description: Write a C program to count how many duplicate values are in the array.
+Sample data:
+Input: 1 2 3 1 4 2
+Expected output:
+Total duplicate elements: 2
+Question: Split array into halves
+Question description: Write a C program to split the array into two halves and print them separately.
+Sample data:
+Input: 1 2 3 4 5 6
+Expected output:
+First half: 1 2 3
+Second half: 4 5 6
+Question: Segregate even and odd
+Question description: Write a C program to arrange all even numbers first and then all odd numbers.
+Sample data:
+Input: 1 2 3 4 5 6
+Expected output:
+Even numbers: 2 4 6
+Odd numbers: 1 3 5

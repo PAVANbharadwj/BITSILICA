@@ -1,0 +1,72 @@
+Worksheet 3
+
+
+Fill in the Blanks
+
+The header file required to work with variadic functions is __________.
+The macro __________ is used to initialize the variable argument list.
+__________ is used to fetch each argument from the variadic list.
+The macro used to clean up the variable argument list is __________.
+Function __________ is a common example of a variadic function in C.
+
+Multiple Choice Questions (MCQs)
+
+Which of the following is NOT a valid macro in <stdarg.h>?
+a) va_list
+b) va_arg
+c) va_copy
+d) va_get
+
+What is the main risk in using variadic functions?
+a) Memory leaks
+b) Compilation errors
+c) Lack of type safety
+d) High CPU usage
+
+In a variadic function, how does the function know how many arguments are passed?
+a) It automatically counts
+b) A counter argument must be passed
+c) It checks null terminator
+d) It uses sizeof operator
+
+Short Code Writing
+
+ 
+Write a variadic function called printStrings that takes an integer count followed by that many strings, and prints each one on a new line.
+
+// Your function definition here
+
+int main() {
+    printStrings(3, "apple", "banana", "cherry");
+    return 0;
+}
+
+
+Debug the Code
+Find and correct the error(s) in the following code:
+
+
+#include <stdio.h>
+#include <stdarg.h>
+
+void wrongSum(int count, ...) {
+    va_list args;
+    int sum = 0;
+    for (int i = 0; i < count; i++) {
+        sum += va_arg(args, int);
+    }
+    va_end(args);
+    printf("Sum = %d\n", sum);
+}
+
+
+Conceptual Questions
+
+
+Why is it important to use va_end() at the end of a variadic function?
+
+Can we pass arrays to a variadic function? If yes, what should we be careful about?
+
+List two advantages and two drawbacks of using variadic functions.
+
+Write a variadic function that calculates the average of any number of integers.

@@ -1,0 +1,17 @@
+12:35:03 **** Incremental Build of configuration Debug for project 12_SPI_DMA_DRIVER ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F411xE -c -I"C:/Users/pavan/Documents/STM HAL workspace/12_SPI_DMA_DRIVER/Inc" -I"C:/Users/pavan/Documents/STM HAL workspace/12_SPI_DMA_DRIVER/Drivers/CMSIS/Include" -I"C:/Users/pavan/Documents/STM HAL workspace/12_SPI_DMA_DRIVER/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"C:/Users/pavan/Documents/STM HAL workspace/12_SPI_DMA_DRIVER/Drivers/STM32F4xx_HAL_Driver/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "12_SPI_DMA_DRIVER.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\pavan\Documents\STM HAL workspace\12_SPI_DMA_DRIVER\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="12_SPI_DMA_DRIVER.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 12_SPI_DMA_DRIVER.elf
+ 
+arm-none-eabi-size  12_SPI_DMA_DRIVER.elf 
+arm-none-eabi-objdump -h -S 12_SPI_DMA_DRIVER.elf  > "12_SPI_DMA_DRIVER.list"
+   text	   data	    bss	    dec	    hex	filename
+   7448	     24	   1936	   9408	   24c0	12_SPI_DMA_DRIVER.elf
+Finished building: default.size.stdout
+ 
+Finished building: 12_SPI_DMA_DRIVER.list
+ 
+
+12:35:04 Build Finished. 0 errors, 0 warnings. (took 1s.219ms)
+

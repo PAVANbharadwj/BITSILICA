@@ -1,0 +1,922 @@
+Worksheet-1
+-------------
+
+
+1. Program: Reverse order of words in a given string
+          Input: "hello world from C"
+
+         Output: "C from world hello"
+
+
+#include<stdio.h>
+#include<string.h>
+int main(){
+    int i=0,j=0,k=0,l;
+    char str[100], temp[50][50];
+    printf("enter string:");
+    fgets(str,sizeof(str),stdin);
+    str[strcspn(str,"\n")]='\0';
+    int len=strlen(str);
+    while(i<=len){
+        if(str[i]!='\0' && str[i]!=' '){
+            temp[k][j++]=str[i];
+        }
+        else{
+            temp[k][j]='\0';
+            k++;
+            j=0;
+        }
+        i++;
+    }
+    temp[k][j]='\0';
+    for(l=k;l>=0;l--){
+        printf("%s",temp[l]);
+        if(l!=0){
+            printf(" ");
+        }
+    }
+    return 0;
+}
+
+
+
+2. Program: Remove all repeated characters from a given string
+         Input: "programming"
+
+        Output: "progamin"
+
+
+#include<stdio.h>
+#include<string.h>
+int main(){
+    int i,j,k=0,found;
+    char str[100], result[100];
+    printf("enter string:");
+    fgets(str,sizeof(str),stdin);
+    str[strcspn(str,"\n")]='\0';
+    int len=strlen(str);
+    for(i=0;str[i]!='\0';i++){
+        found=0;
+        for(j=0;j<k;j++){
+            if(str[i]==result[j]){
+                found=1;
+                break;
+        }
+    }
+    if(!found){
+        result[k++]=str[i];
+    }
+    }
+    result[k]='\0';
+    printf("%s",result);
+    return 0;
+}
+
+
+3. Program: Find highest frequency character in a string
+          Input: "engineering"
+
+          Output: 'e' appears 3 times
+
+#include<stdio.h>
+#include<string.h>
+int main(){
+    char str[100];
+    int freq[256]={0};
+    int i,max=0;
+    char maxchar;
+    printf("enter string:");
+    scanf("%[^\n]s",str);
+    int len=strlen(str);
+    for(i=0;str[i]!='\0';i++){
+        freq[(unsigned char)str[i]]++;
+    }
+    for(i=0;str[i]!='\0';i++){
+        if(freq[(unsigned char)str[i]]>max){
+            max=freq[(unsigned char)str[i]];
+            maxchar=str[i];
+        }
+    }
+    printf("%c appears %d times\n",maxchar,max);
+    return 0;
+}
+
+
+
+4. Program: Find lowest frequency character in a string
+          Input: "engineering"
+
+         Output: 'g', 'r', 'n' each appear once
+
+
+#include<stdio.h>
+#include<string.h>
+int main(){
+    char str[100];
+    int freq[256]={0};
+    int i,minFreq=9999;
+    char maxchar;
+    printf("enter string:");
+    scanf("%[^\n]s",str);
+    int len=strlen(str);
+    for(i=0;str[i]!='\0';i++){
+        freq[(unsigned char)str[i]]++;
+    }
+    for (i = 0; i < 256; i++) {
+        if (freq[i] != 0 && freq[i] < minFreq) {
+            minFreq = freq[i];
+        }
+    }
+    for (i = 0; i < 256; i++) {
+        if (freq[i] == minFreq) {
+            printf("'%c' ", i);
+        }
+    }
+    return 0;
+}
+
+
+5. Program: Reverse a string without using library functions
+         Input: "OpenAI"
+
+         Output: "IAnepO"
+#include<stdio.h>
+#include<string.h>
+int main(){
+    char str[100];
+    int i=0,len=0;
+    printf("enter string:");
+    scanf("%[^\n]s",str);
+    while(str[len]!='\0'){
+        if(str[len]=='\n'){
+            str[len]='\0';
+            break;
+        }
+        len++;
+    }
+    printf("Reversed string: ");
+    for (i = len - 1; i >= 0; i--) {
+        printf("%c", str[i]);
+    }
+    return 0;
+}
+
+
+6. Program: Remove all extra blank spaces from a given string
+         Input: " This is ChatGPT "
+
+         Output: "This is ChatGPT"
+#include<stdio.h>
+#include<string.h>
+int main(){
+    char str[100],result[100];
+    int i=0,j=0,found=0;
+    printf("enter string:");
+    scanf("%[^\n]",str);
+    while(str[i]==' ')i++;
+    for(;str[i]!='\0';i++){
+        if(str[i]!=' '){
+            result[j++]=str[i];
+            found=0;
+        }
+        else{
+            if(!found){
+                result[j++]=' ';
+                found=1;
+        }
+    }
+    }
+    if(j>0 && result[j-1]==' ')j--;
+    result[j]='\0';
+    printf("%s",result);
+    return 0;
+}
+
+
+7. Program: Replace all occurrences of a character with another in a string
+         Input: "banana", replace 'a' with 'o'
+
+         Output: "bonono"
+
+
+#include<stdio.h>
+#include<string.h>
+int main(){
+    char str[100];
+    int i;
+    char ch,oldch;
+    printf("enter string:");
+    scanf("%[^\n]",str);
+    printf("enter old char to replace:");
+    scanf(" %c",&oldch);
+    printf("enter ch to replace:");
+    scanf(" %c",&ch);
+    for(i=0;str[i]!='\0';i++){
+        if(str[i]==oldch){
+            str[i]=ch;
+        }
+    }
+    printf("%s",str);
+    return 0;
+}
+
+8. Program: Count frequency of each character in a string
+         Input: "success"
+
+         Output:
+          s = 3
+         u = 1
+         c = 2
+         e = 1
+
+#include<stdio.h>
+#include<string.h>
+int main(){
+    char str[100];
+    int freq[256] = {0};
+    int i;
+    printf("Enter a string: ");
+    scanf("%s", str);
+    for (i = 0; str[i] != '\0'; i++) {
+        freq[(unsigned char)str[i]]++;
+    }
+    printf("Character frequencies:\n");
+    for (i = 0; str[i] != '\0'; i++) {
+        if (freq[(unsigned char)str[i]] != 0) {
+            printf("%c = %d\n", str[i], freq[(unsigned char)str[i]]);
+            freq[(unsigned char)str[i]] = 0; 
+        }
+    }
+    return 0;
+}
+
+
+9. Program: Find first occurrence of a word in a given string
+         Input: "this is a test string", word: "test"
+
+         Output: Found at position 11
+
+
+#include<stdio.h>
+#include<string.h>
+int main(){
+    char str[100],word[100];
+    printf("ener string:");
+    scanf("%[^\n]",str);
+    printf("enter string to find:");
+    scanf(" %s",word);
+    char *pos=strstr(str,word);
+    if(pos!=NULL){
+        int index=pos-str;
+        printf("%d",index);
+    }
+    else{
+        printf("NOT FOUND");
+    }
+    return 0;
+}
+
+
+10)Program: Remove all occurrence of a word in given string
+           Input: "hello world hello universe", remove: "hello"
+
+          Output: "world universe"
+
+
+#include<stdio.h>
+#include<string.h>
+int main(){
+    char str[100],word[100],result[100],temp[100];
+    int i=0,j=0,k=0;
+    printf("ener string:");
+    scanf("%[^\n]",str);
+    printf("enter string to find:");
+    scanf(" %s",word);
+    result[0]='\0';
+    while (str[i] != '\0') {
+        j = 0;
+        while (str[i] != ' ' && str[i] != '\0') {
+            temp[j++] = str[i++];
+        }
+        temp[j] = '\0';
+        if (strcmp(temp, word) != 0) {
+            strcat(result, temp);
+            strcat(result, " ");
+        }
+
+        if (str[i] == ' ') i++;
+    }
+    int len = strlen(result);
+    if (len > 0 && result[len - 1] == ' ')
+        result[len - 1] = '\0';
+
+    printf("Output: \"%s\"\n", result);
+    return 0;
+}
+
+
+11. Program: Count total number of words in a string
+          Input: "C programming is fun"
+
+          Output: 4
+
+
+#include<stdio.h>
+#include<string.h>
+int main(){
+    char str[100];
+    int i=0,count=0,inword=0;
+    printf("ener string:");
+    scanf("%[^\n]",str);
+    while (str[i] !='\0') {
+        if(str[i]!=' ' && inword==0){
+            count++;
+            inword=1;
+        }
+        else if(str[i]==' '){
+            inword=0;
+        }
+    i++;
+    }
+    printf("Output: %d", count);
+    return 0;
+}
+
+
+12. Program: Toggle case of each character of a string
+         Input: "HeLLo"
+
+         Output: "hEllO"
+
+
+#include<stdio.h>
+#include<string.h>
+int main(){
+    char str[100];
+    int i;
+    printf("ener string:");
+    scanf("%[^\n]",str);
+    for(i=0;str[i]!='\0';i++){
+        if(str[i]>='A' && str[i]<='Z'){
+            str[i]=str[i]+32;
+        }
+        else if(str[i]>='a' && str[i]<='z'){
+            str[i]=str[i]-32;
+        }
+    }
+    printf("%s",str);
+    return 0;
+}
+
+
+
+13. Program: Remove last occurrence of a character from string
+          Input: "mississippi", remove 's'
+
+          Output: "missipippi"
+
+
+
+#include <stdio.h>
+#include <string.h>
+ 
+int main()
+{
+  	char str[100], ch;
+  	int i, index=-1;
+ 
+  	printf("\n Please Enter any String :  ");
+  	scanf("%[^\n]",str);
+  	
+  	printf("\n Please Enter the Character that you want to remove :  ");
+  	scanf(" %c", &ch);
+  	
+  	for(i=0;str[i]!='\0';i++){
+  	    if(str[i]==ch){
+  	        index=i;
+  	    }
+  	 }
+  	 if(index!=-1){
+  	     for(i=index;str[i]!='\0';i++){
+  	        str[i]=str[i+1];
+  	    }
+  	   printf("%s",str);
+  	}
+  	return 0;
+}
+
+
+
+
+14. Program: Replace first occurrence of a character with another in a string
+         Input: "google", replace 'o' with 'a'
+
+         Output: "gaagle"
+
+
+#include <stdio.h>
+#include <string.h>
+ 
+int main()
+{
+  	char str[100], ch, oldch;
+  	int i;
+ 
+  	printf("\nEnter any String :  ");
+  	scanf("%[^\n]",str);
+  	
+  	printf("\nEnter char to replace :  ");
+  	scanf(" %c",&oldch);
+  	
+  	printf("\nEnter the new Character :  ");
+  	scanf(" %c", &ch);
+  	
+  	for(i=0;str[i]!='\0';i++){
+        if(str[i]==oldch){
+            str[i]=ch;
+            break;
+        }
+    }
+
+  	
+  	printf("%s",str);
+  	return 0;
+}
+
+
+15. Program: Count occurrences of a word in a given string
+          Input: "hi hello hi hey hi", word: "hi"
+
+         Output: 3
+
+
+#include <stdio.h>
+#include <string.h>
+ 
+int main()
+{
+  	char str[100], word[100],temp[100];
+  	int i=0,count=0,j=0;
+ 
+  	printf("\nEnter any String :  ");
+  	scanf("%[^\n]",str);
+  	
+  	printf("\nEnter the word to count :  ");
+  	scanf(" %s", &word);
+  	
+  	 while (str[i] != '\0') {
+        j = 0;
+        while (str[i] != ' ' && str[i] != '\0') {
+            temp[j++] = str[i++];
+        }
+        temp[j] = '\0';
+        if (strcmp(temp, word) == 0) {
+            count++;
+        }
+        if (str[i] == ' ') {
+            i++;
+        }
+    }
+  	printf("%d",count);
+  	return 0;
+}
+
+
+
+16. Program: Check whether a string is palindrome or not
+        Input: "madam"
+
+       Output: "Palindrome"
+
+#include <stdio.h>
+#include <string.h>
+ 
+int main()
+{
+  	char str[100];
+  	int i,isPalindrome=1;
+ 
+  	printf("\nEnter any String :  ");
+  	scanf("%[^\n]",str);
+  	int len=strlen(str);
+  	for (i = 0; i < len / 2; i++) {
+        if (str[i] != str[len - i - 1]) {
+            isPalindrome = 0;
+            break;
+        }
+    }
+    if(isPalindrome){
+        printf("Palindrome");
+    }
+    else{
+        printf("Not Palindrome");
+    }
+  	return 0;
+}
+
+
+
+
+17. Program: Find last occurrence of a character in a string
+        Input: "ababcabc", find 'b'
+
+        Output: Position: 6
+
+
+
+#include <stdio.h>
+#include <string.h>
+ 
+int main()
+{
+  	char str[100],ch;
+  	int i,index=-1;
+ 
+  	printf("\nEnter any String :  ");
+  	scanf("%[^\n]",str);
+  	
+  	printf("Enter char :");
+  	scanf(" %c",&ch);
+  	
+  	for(i=0;str[i]!='\0';i++){
+  	    if(str[i]==ch){
+  	        index=i;
+  	    }
+  	}
+    if(index!=-1){
+        printf("%d",index);
+    }
+    else{
+        printf("Not found");
+    }
+  	return 0;
+}
+
+
+18. Program: Trim both leading and trailing white space characters from given string
+        Input: " Hello World "
+
+        Output: "Hello World"
+
+
+
+#include <stdio.h>
+#include <string.h>
+ 
+int main()
+{
+  	char str[100],trimmed[100];
+  	int i=0,start=0,end=0,j=0;
+ 
+  	printf("\nEnter any String :  ");
+  	scanf("%[^\n]",str);
+  	
+  	while(str[start]==' '){
+  	    start++;
+  	}
+  	
+  	i = start;
+    while (str[i] != '\0') {
+        if (str[i] != ' ') {
+            end = i;
+        }
+        i++;
+    }
+    for (i = start; i <= end; i++) {
+        trimmed[j++] = str[i];
+    }
+    trimmed[j] = '\0'; 
+  	printf("%s",trimmed);
+  	
+  	return 0;
+}
+
+
+19. Program: Find first occurrence of a character in a given string
+       Input: "elephant", find 'e'
+
+        Output: Position: 0
+
+
+#include <stdio.h>
+#include <string.h>
+ 
+int main()
+{
+  	char str[100],ch;
+  	int i,index=-1;
+ 
+  	printf("\nEnter any String :  ");
+  	scanf("%[^\n]",str);
+  	
+  	printf("Enter char to search : ");
+  	scanf(" %c",&ch);
+  	
+  	for(i=0;str[i]!='\0';i++){
+  	    if(str[i]==ch){
+  	        index=i;
+  	        break;
+  	    }
+  	}
+  	printf("%d",index);
+
+  	return 0;
+}
+
+
+20. Program: Find all occurrences of a word in given string
+        Input: "the sky is the limit in the sky", search "the"
+ 
+       Output: Found at positions: 0, 15, 30
+
+
+#include <stdio.h>
+#include <string.h>
+ 
+int main()
+{
+  	char str[100], word[100],temp[100];
+  	int i=0,j=0,k=0,pos=0;
+  	printf("\nEnter any String :  ");
+  	scanf("%[^\n]",str);
+  	printf("Enter word to search: ");
+    scanf("%s", word);
+    printf("Found at positions: ");
+    while (str[i] != '\0') {
+        while (str[i] == ' ') {
+            i++;
+        }
+        j = 0;
+        pos = i;
+        while (str[i] != ' ' && str[i] != '\0') {
+            temp[j++] = str[i++];
+        }
+        temp[j] = '\0';
+        if (strcmp(temp, word) == 0) {
+            printf("%d ", pos);
+        }
+    }
+  	return 0;
+}
+
+
+Worksheet-2
+----------------
+
+
+1)Swap the contents of two strings without using any extra temporary string variables. The strings' values should be exchanged completely.
+Input: str1 = "hello", str2 = "world"
+Output: str1 = "world", str2 = "hello"
+
+
+
+#include<stdio.h>
+#include<string.h>
+int main(){
+    char str1[100],str2[100];
+    int i=0,j=0;
+    
+    printf("Enter ele of str1 :");
+    scanf("%[^\n]",str1);
+    printf("Enter ele of str2 :");
+    scanf(" %[^\n]",str2);
+    
+    while(str1[i]!='\0'){
+        i++;
+    }
+    while(str2[j]!='\0'){
+        str1[i]=str2[j];
+        i++;
+        j++;
+    }
+    str1[i]='\0';
+    int total_len = i;
+    int len2 = j;
+    int len1 = total_len - len2;
+    
+    for(i=0;i<len1;i++){
+        str2[i]=str1[i];
+    }
+    str2[i]='\0';
+    for(j=0;j<len2;j++){
+        str1[j]=str1[len1+j];
+    }
+    str1[j]='\0';
+    printf("\nArray after swapping :\n");
+    printf("Str1:%s\n",str1);
+    printf("Str2:%s",str2);
+    return 0;
+}
+
+
+
+2)Sort an array of strings in alphabetical order. The sorted array should list strings from A to Z.
+Input: {"John", "Alice", "Bob"}
+Output: {"Alice", "Bob", "John"}
+
+
+#include<stdio.h>
+#include<string.h>
+int main(){
+    char str[50][50],temp[50];
+    int i=0,j=0,n;
+    
+    printf("Enter no.of strings : ");
+    scanf("%d",&n);
+    printf("\nEnter %d strings : ",n);
+    for(i=0;i<n;i++){
+        scanf(" %s", str[i]);
+    }
+    
+    for(i=0;i<n-1;i++){
+        for(j=i+1;j<n;j++){
+            if(strcmp(str[i],str[j])>0){
+                strcpy(temp,str[i]);
+                strcpy(str[i],str[j]);
+                strcpy(str[j],temp);
+            }
+        }
+    }
+    
+    printf("Alphabetical order: ");
+    for(i=0;i<n;i++){
+        printf("%s\n",str[i]);
+    }
+    return 0;
+}
+
+
+7)Remove from the first string all characters that appear in the second string.
+Input: str1 = "hello world", str2 = "low"
+Output: "he rd"
+
+
+#include<stdio.h>
+#include<string.h>
+int main(){
+    char str1[50],str2[50],result[50];
+    int i=0,j=0,k=0,found;
+    
+    printf("Enter ele of str1:");
+    scanf("%[^\n]",str1);
+    printf("Enter ele of str2:");
+    scanf(" %[^\n]",str2);
+    
+    for(i=0;str1[i]!='\0';i++){
+        found=0;
+        for(j=0;str2[j]!='\0';j++){
+            if(str1[i]==str2[j]){
+                found=1;
+                break;
+            }
+        }
+    if(!found){
+        result[k++]=str1[i];
+        }
+    }
+    result[k]='\0';
+    printf("%s",result);
+    return 0;
+}
+
+
+
+8)Check if one string is a rotation of another, i.e., one string can be shifted to get the other.
+Input: "abcd", "cdab"
+Output: Yes
+
+
+#include<stdio.h>
+#include<string.h>
+int main(){
+    char str1[50],str2[50],temp[50];
+    int i=0,j=0,k=0,found;
+    
+    printf("Enter ele of str1:");
+    scanf("%[^\n]",str1);
+    printf("Enter ele of str2:");
+    scanf(" %[^\n]",str2);
+    
+    if(strlen(str1)!=strlen(str2)){
+        printf("NO\n");
+        return 0;
+    }
+    
+    strcpy(temp,str1);
+    strcat(temp,str1);
+    if(strstr(temp,str2)!=NULL){
+        printf("YES\n");
+    }
+    else{
+        printf("NO");
+    }
+    return 0;
+}
+
+
+10)Print all permutations of a given string. All possible arrangements of characters should be printed.
+Input: "ABC"
+Output: "ABC", "ACB", "BAC", "BCA", "CAB", "CBA"
+
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char str[100];
+    int len, i,n;
+
+    printf("Enter a string: ");
+    scanf("%s", str);
+    printf("Enter n value: ");
+    scanf("%d",&n);
+    len = strlen(str);
+
+    if (len % n != 0) {
+        printf("Not possible to divide into two equal parts.\n");
+        return 0;
+    }
+
+    int partLen = len / n;
+
+    printf("Divided parts:\n");
+    for (i = 0; i < len; i++) {
+        printf("%c", str[i]);
+        if ((i + 1) % partLen == 0)
+            printf("\n");
+    }
+    
+    return 0;
+}
+
+
+Sub string find
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char str[100],substr[100];
+    int len, i,n;
+
+    printf("Enter a string: ");
+    scanf("%[^\n]", str);
+    printf("Enter a string: ");
+    scanf(" %[^\n]", substr);
+    
+    char *pos=strstr(str,substr);
+    if(pos!=NULL){
+        int index=pos-str;
+        printf("Substring:%d",index);
+    }
+    else{
+        printf("Substrin not found");
+    }
+    return 0;
+}
+
+
+palindromic substring
+'#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char str[100];
+    int n, i, j;
+    int dp[100];       
+    int isPal[100][100]; 
+    printf("Enter a string: ");
+    scanf("%s", str);
+    n = strlen(str);
+
+    for (i = 0; i < n; i++) {
+        for (j = i; j < n; j++) {
+            int l = i, r = j;
+            int flag = 1;
+            while (l < r) {
+                if (str[l] != str[r]) {
+                    flag = 0;
+                    break;
+                }
+                l++; r--;
+            }
+            isPal[i][j] = flag;
+        }
+    }
+
+    for (i = 0; i < n; i++) {
+        if (isPal[0][i]) {
+            dp[i] = 0;
+        } else {
+            dp[i] = i;
+            for (j = 1; j <= i; j++) {
+                if (isPal[j][i] && dp[j - 1] + 1 < dp[i]) {
+                    dp[i] = dp[j - 1] + 1;
+                }
+            }
+        }
+    }
+
+    printf("Minimum palindromic substrings: %d\n", dp[n - 1] + 1);
+    return 0;
+}
+
+

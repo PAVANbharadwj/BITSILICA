@@ -1,0 +1,562 @@
+Question 1: Pointer Increment and Access
+Task: Log Session an integer array with 5 elements. Use a pointer to access and print the third element by incrementing the pointer appropriately.
+
+Sample data:	int arr[] = {5, 10, 15, 20, 25};
+
+Expected output:   Third element is 15
+
+
+
+#include<stdio.h>
+
+int main(){
+    int n;
+    printf("Enter n value: ");
+    scanf("%d",&n);
+    int arr[n];
+    printf("Enter array elements: ");
+    for(int i=0;i<n;i++)
+        scanf("%d",&arr[i]);
+        
+    int *ptr=arr;
+    
+    ptr+=2;
+    
+    printf("Third element is %d",*ptr);
+}
+
+
+
+Question 2: Pointer Addition
+Task: Using the same array, print the last element by adding an integer to the pointer.
+
+Sample data:
+
+int arr[] = {5, 10, 15, 20, 25};
+
+Expected output:
+
+Last element is 25
+
+
+#include<stdio.h>
+
+int main(){
+    int n;
+    printf("Enter n value: ");
+    scanf("%d",&n);
+    int arr[n];
+    printf("Enter array elements: ");
+    for(int i=0;i<n;i++)
+        scanf("%d",&arr[i]);
+        
+    int *ptr=arr;
+    
+    ptr=ptr+4;
+    
+    printf("Last element is %d",*ptr);
+}
+
+
+
+Question 3: Pointer Subtraction
+Task: Given two pointers pointing to elements of an integer array, find the distance (number of elements) between them.
+
+Sample data:
+
+int arr[] = {2, 4, 6, 8, 10};
+int *p1 = &arr[4];  // points to 10
+int *p2 = &arr[1];  // points to 4
+
+Expected output:
+
+Distance between pointers is 3
+
+
+#include<stdio.h>
+
+int main(){
+    int n;
+    printf("Enter n value: ");
+    scanf("%d",&n);
+    int arr[n];
+    printf("Enter array elements: ");
+    for(int i=0;i<n;i++)
+        scanf("%d",&arr[i]);
+    
+    int *p1 = &arr[4];  
+    int *p2 = &arr[1];  
+
+    int distance=*p1-*p2;
+    
+    printf("Difference between 2: %d",distance);
+}
+
+
+
+
+Question 4: Pointer Comparison
+Task: Write code to compare two pointers to elements in an array and print which one points to the element with a smaller index.
+
+Sample data:
+
+int arr[] = {11, 22, 33, 44, 55};
+int *ptr1 = &arr[2];  // points to 33
+int *ptr2 = &arr[4];  // points to 55
+
+
+Expected output:
+
+Pointer ptr1 points to an earlier element than ptr2
+
+
+
+#include<stdio.h>
+
+int main(){
+    int n;
+    printf("Enter n value: ");
+    scanf("%d",&n);
+    int arr[n];
+    printf("Enter array elements: ");
+    for(int i=0;i<n;i++)
+        scanf("%d",&arr[i]);
+    
+    int *ptr1 = &arr[4];  
+    int *ptr2 = &arr[1];  
+
+    if (ptr1 < ptr2)
+        printf("Pointer ptr1 points to an earlier element than ptr2\n");
+    else if (ptr1 > ptr2)
+        printf("Pointer ptr2 points to an earlier element than ptr1\n");
+    else
+        printf("Both pointers point to the same element\n");
+        
+    return 0;
+}
+
+
+
+Question 5: Traverse Array with Pointer Arithmetic
+Task: Using only a pointer (no array indexing), print all elements of the array.
+
+Sample data:
+
+int arr[] = {100, 200, 300, 400};
+
+Expected output:
+
+100 200 300 400
+
+
+#include<stdio.h>
+
+int main(){
+    int n;
+    printf("Enter n value: ");
+    scanf("%d",&n);
+    int arr[n];
+    printf("Enter array elements: ");
+    for(int i=0;i<n;i++)
+        scanf("%d",&arr[i]);
+    
+    int *ptr=arr;
+    
+    for(int i=0;i<n;i++){
+        printf("%d\n",*ptr);
+        ptr++;
+    }
+    return 0;
+}
+
+
+
+Question 6: Invalid Pointer Arithmetic
+Task: Explain why the following code snippet is invalid and what would happen if you try to compile/run it:
+
+int arr[5];
+int *p1 = &arr[1];
+int *p2 = &arr[3];
+int *p3 = p1 + p2; // Invalid operation
+
+
+Expected output:
+
+Error: Cannot add two pointers in C. Pointer addition is not defined.
+
+
+#include<stdio.h>
+
+int main(){
+    int n;
+    printf("Enter n value: ");
+    scanf("%d",&n);
+    int arr[n];
+    printf("Enter array elements: ");
+    for(int i=0;i<n;i++)
+        scanf("%d",&arr[i]);
+    
+    int *ptr1=&arr[0];
+    int *ptr2=&arr[1];
+    int *ptr3=ptr1+ptr2;  //Error: Cannot add two pointers in C. Pointer addition is not defined.
+    
+    printf("%d",*ptr3);
+    return 0;
+}
+
+
+Question 7: Pointer Arithmetic with Different Data Types
+Task: Log Session a double array and use pointer arithmetic to print the second element. Explain how pointer arithmetic differs for double compared to int.
+
+Sample data:
+
+double darr[] = {1.1, 2.2, 3.3};
+
+Expected output:
+Second element is 2.2
+Explanation:
+Pointer increments by the size of double (usually 8 bytes), so moving pointer by 1 points to the next double element.
+
+
+#include<stdio.h>
+
+int main(){
+    int n;
+    printf("Enter n value: ");
+    scanf("%d",&n);
+    double arr[n];
+    printf("Enter array elements: ");
+    for(int i=0;i<n;i++)
+        scanf("%lf",&arr[i]);
+    
+    double *ptr=arr;
+    ptr+=2;
+    
+    printf("%lf",*ptr);
+    return 0;
+}
+
+
+
+Question 8: Pointer Arithmetic and Array Bounds
+Task: Write code that attempts to access memory outside an array using pointer arithmetic and explain why this is unsafe.
+
+Sample data:
+
+int arr[] = {10, 20, 30};
+int *ptr = arr + 5; // Out of bounds
+
+Expected output:
+
+Undefined behavior - accessing memory outside the array may cause crash or unexpected results
+Bonus Challenge
+
+
+#include <stdio.h>
+
+int main() {
+    int arr[] = {10, 20, 30};
+    int *ptr = arr + 5; 
+    
+    printf("Accessing out-of-bounds element: %d\n", *ptr); 
+    
+    return 0;
+}
+
+
+
+
+Question 9: Reverse Array using Pointer Arithmetic
+Task: Write a function that reverses an integer array in place using pointer arithmetic only (no array indexing).
+
+Sample data:
+
+int arr[] = {1, 2, 3, 4, 5};
+
+Expected output:
+
+Reversed array: 5 4 3 2 1
+
+
+#include<stdio.h>
+
+void reverse(int *start, int n) {
+    int *end = start + n - 1;  
+
+    while (start < end) {
+        int temp = *start;
+        *start = *end;
+        *end = temp;
+        start++;
+        end--;
+    }
+}
+
+int main(){
+    int n;
+    printf("Enter n value: ");
+    scanf("%d",&n);
+    int arr[n];
+    printf("Enter array elements: ");
+    for(int i=0;i<n;i++)
+        scanf("%d",&arr[i]);
+    
+    reverse(arr, n); 
+    
+    printf("Reversed array: ");
+    for (int i = 0; i < n; i++)
+        printf("%d ", *(arr + i));
+    
+    printf("\n");
+    return 0;
+}
+
+
+
+Challenges
+--------------
+
+
+1.You are given a pointer to the middle of an integer array. Without knowing the size of the array or accessing any index variable, how can you find the number of elements before and after this pointer?
+
+
+In C, if you're only given a pointer to the middle of an array, you **cannot determine** the number of elements before or after it because pointers don't store array bounds or size.
+To find those counts, you **must know** the start or end address of the array.
+
+
+
+2.Consider two pointers p1 and p2 pointing inside the same array. You are allowed to perform only subtraction between them. How can you find the number of elements between them?
+
+
+
+You can find the number of elements between `p1` and `p2` by subtracting the pointers:
+
+
+int diff = p2 - p1;  
+This gives the number of elements from `p1` to `p2` (positive, negative, or zero).
+
+
+
+3.You have a character array that contains a string and you’re only given a pointer pointing to a random position within the string. How can you print the string from the beginning using only pointer arithmetic?
+
+
+You **cannot directly print from the beginning** if you're only given a pointer to a random position **without a way to go backward**, because C strings are null-terminated (`'\0'`) at the end, not the beginning.
+
+But if you're allowed to **move backward** and identify the start (e.g., until a known condition like start of array or `'\n'`), you can:
+
+while (*(ptr - 1) != '\0')  // Move backward to find start
+    ptr--;
+
+printf("%s", ptr);  // Print from start
+
+**Warning:** You must know it's safe to move backward (i.e., not before array start) to avoid undefined behaviour.
+
+Example :
+
+we have to backward the string from the position.
+
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char str[] = "Hello, world! This is a test.";
+    char *ptr = &str[13];
+    while (ptr > str) {
+        ptr--;
+    }
+    printf("String from the beginning: %s\n", ptr);
+    return 0;
+}
+
+
+4.You’re given a double pointer char **ptr. How would you perform pointer arithmetic to access individual characters of a string list and reverse each string in-place?
+
+
+#include <stdio.h>
+#include <string.h>
+
+void reverse_word(char *word) {
+    char *start = word;
+    char *end = word + strlen(word) - 1;
+
+    while (start < end) {
+        char temp = *start;
+        *start = *end;
+        *end = temp;
+
+        start++;
+        end--;
+    }
+}
+
+int main() {
+    int n;
+    printf("Enter number of words: ");
+    scanf("%d", &n);
+
+    char arr[n][100];
+
+    printf("Enter %d words: ", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%s", arr[i]); 
+    }
+
+    for (int i = 0; i < n; i++) {
+        reverse_word(*(arr + i)); 
+    }
+
+    printf("\nReversed words:\n");
+    for (int i = 0; i < n; i++) {
+        printf("%s\n", *(arr + i));  
+    }
+
+    return 0;
+}
+
+
+5.What will happen if you increment a void* pointer using ptr++? Why is it disallowed in standard C and how can this be worked around using char*?
+
+
+Why void* Cannot Be Incremented (ptr++ is disallowed):
+
+In C, pointer arithmetic like ptr++ depends on knowing the size of the data type the pointer is pointing to.
+
+A void* is a generic pointer — it points to a memory location but does not have a known type or size.
+
+Since the compiler doesn't know the size of the object void* points to, it can't calculate how many bytes to increment.
+
+
+
+6.Given an integer array, use pointer arithmetic to reverse it in place without using any index or size variables — just two pointers.
+
+
+#include <stdio.h>
+
+void reverse(int *start, int *end) {
+    while (start < end) {
+        int temp = *start;
+        *start = *end;
+        *end = temp;
+        ++start;
+        --end;
+    }
+}
+
+int main() {
+    int arr[] = {1, 2, 3, 4, 5};
+    int *start = arr;
+    int *end = arr;
+    while (*(end + 1)) { 
+        ++end;
+    }
+    end = arr + sizeof(arr) / sizeof(arr[0]) - 1;
+    reverse(start, end);
+    for (int *p = arr; p <= end; ++p) {
+        printf("%d ", *p);
+    }
+
+    return 0;
+}
+
+
+7.Given two pointers int *a and int *b pointing to two elements in different arrays, what happens if you subtract them? How does the compiler interpret the result?
+
+
+When you subtract two pointers a - b where a and b point to different arrays, it results in undefined behavior in standard C.
+
+Why It’s Undefined:
+The C standard says that pointer arithmetic is only valid within the same allocated object (like one array).
+
+arr1 and arr2 are separate memory objects.
+
+The compiler cannot assume any relationship between a and b.
+
+So, a - b is undefined behavior — it might:
+
+Give a garbage value.
+
+Seem to work sometimes.
+
+Crash the program.
+
+Be optimized away or ignored by the compiler.
+
+
+
+8.Implement your own version of strlen() using only pointer arithmetic and no index or library functions.
+
+
+#include <stdio.h>
+
+int main() {
+    const char *str = "MSD is always cool!";
+    const char *ptr = str;
+
+    while (*ptr != '\0') {
+        ptr++;
+    }
+
+    size_t length = ptr - str;
+
+    printf("Length of the string: %zu\n", length);
+    return 0;
+}
+
+
+
+9.You’re given a dynamically allocated 2D matrix (as int **). How can you access and manipulate its elements using only a single loop and pointer arithmetic?
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int rows, cols;
+
+    printf("Enter number of rows: ");
+    scanf("%d", &rows);
+
+    printf("Enter number of columns: ");
+    scanf("%d", &cols);
+
+    int **matrix = malloc(rows * sizeof(int *));
+    if (matrix == NULL) {
+        printf("Memory allocation failed for rows.\n");
+        return 1;
+    }
+
+    for (int i = 0; i < rows; i++) {
+        matrix[i] = malloc(cols * sizeof(int));
+        if (matrix[i] == NULL) {
+            printf("Memory allocation failed for row %d.\n", i);
+            return 1;
+        }
+    }
+
+    for (int k = 0; k < rows * cols; k++) {
+        int row = k / cols;
+        int col = k % cols;
+        printf("Enter element at [%d][%d]: ", row, col);
+        scanf("%d", (*(matrix + row) + col));  
+    }
+
+    printf("\nMatrix is:\n");
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            printf("%d ", *(*(matrix + i) + j));
+        }
+        printf("\n");
+    }
+
+    for (int i = 0; i < rows; i++) {
+        free(matrix[i]);
+    }
+    free(matrix);
+
+    return 0;
+}
+
+
+
+10.You have a pointer to a struct, and want to iterate over an array of structs using only pointer arithmetic. How do you correctly account for struct padding and alignment?
+
+

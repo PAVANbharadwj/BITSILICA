@@ -1,0 +1,10 @@
+12:24:11 **** Incremental Build of configuration Debug for project 7_Timer_Timebase ****
+make -j8 all 
+arm-none-eabi-size  7_Timer_Timebase.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9040	    104	   2048	  11192	   2bb8	7_Timer_Timebase.elf
+Finished building: default.size.stdout
+ 
+
+12:24:12 Build Finished. 0 errors, 0 warnings. (took 259ms)
+

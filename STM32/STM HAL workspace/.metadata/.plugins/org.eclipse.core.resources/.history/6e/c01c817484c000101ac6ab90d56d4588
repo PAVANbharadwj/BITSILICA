@@ -1,0 +1,107 @@
+#include "stm32f4xx_hal.h"
+#include<stdio.h>
+
+
+#define RTC_ASYNCH_PREDIV    0x7F
+#define RTC_SYNCH_PREDIV    0xF9
+
+#define BK_FLAG  0x8888
+
+RTC_HandleTypeDef RtcHandle;
+void rtc_init(void);
+void rtc_calender_show(uint8_t *showtime,uint8_t *showdate);
+void rtc_calender_config(void);
+
+
+uint8_t time[15]= {0};
+uint8_t date[15]= {0};
+int main(void)
+{
+    HAL_Init();
+
+    __HAL_RTC_RESET_HANDLE_STATE(&RtcHandle);
+    rtc_init();
+
+    if(HAL_RTCEx_BKUPRead(&RtcHandle,RTC_BKP_DR0) != BK_FLAG){
+    	rtc_calender_config();
+
+    }
+
+    while (1)
+    {
+    	rtc_calender_show(time,date);
+
+    	//HAL_Delay(10);
+    }
+}
+
+void rtc_calender_config(void){
+	RTC_DateTypeDef sdatestructure;
+	RTC_TimeTypeDef stimestructure;
+
+	sdatestructure.Year = 0x19;
+	sdatestructure.Month = RTC_MONTH_JULY;
+	sdatestructure.Date = 0x14;
+	sdatestructure.WeekDay = RTC_WEEKDAY_SUNDAY;
+
+	HAL_RTC_SetDate(&RtcHandle,&sdatestructure,RTC_FORMAT_BCD);
+
+	stimestructure.Hours = 0x03;
+	stimestructure.Minutes = 0x00;
+	stimestructure.Seconds = 0x00;
+	stimestructure.TimeFormat = RTC_HOURFORMAT12_AM;
+	stimestructure.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
+	stimestructure.StoreOperation = RTC_STORE_OPERATION_RESET;
+
+	HAL_RTC_SetTime(&RtcHandle,&stimestructure,RTC_FORMAT_BCD);
+
+
+	HAL_RTCEx_BKUPWrite(&RtcHandle,RTC_BKP_DRO,BK_FLAG);
+
+
+
+
+}
+void SysTick_Handler(void)
+{
+    HAL_IncTick();
+}
+
+void rtc_calender_show(uint8_t *showtime,uint8_t *showdate){
+	RTC_DateTypeDef sdatestructure;
+	RTC_TimeTypeDef stimestructure;
+
+	HAL_RTC_GetTime(&RtcHandle,&stimestructure,RTC_FORMAT_BIN);
+	HAL_RTC_GetDate(&RycHandle,&sdatestructure,RTC_FORMAT_BIN);
+	printf("TIME : %02d:%02d:%02d\n",stimestructure.Hours,stimestructure.Minutes,stimestructure.Seconds);
+	printf("DATE : %02d:%02d:%02d\n",sdatestructure.Date,sdatestructure.Month,2000+sdatestructure.Year);
+}
+
+void rtc_init(void){
+	RCC_OscInitTypeDef   RCC_OscInitStruct;
+	RCC_PeriphCLKInitTypeDef PeriphClkInitStruct;
+
+	RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI | RCC_OSCILLATORTYPE_LSE;
+	RCC_OscInitStruct .LSEState = RCC_LSE_OFF;
+	RCC_OscInitStruct .LSIState = RCC_LSI_ON;
+
+	HAL_RCC_OscConfig(&RCC_OscInitStruct);
+
+	PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_RTC;
+	PeriphClkInitStruct.RTCClockSelection = RCC_RTCCLKSOURCE_LSI;
+
+	HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct);
+
+	__HAL_RCC_RTC_ENABLE();
+
+
+	//Configure calender
+	RtcHandle.Instance = RTC;
+	RtcHandle.Init.HourFormat = RTC_HOURFORMAT_24;
+	RtcHandle.Init.AsynchPrediv = RTC_ASYNCH_PREDIV;
+	RtcHandle.Init.SynchPrediv = RTC_SYNCH_PREDIV;
+	RtcHandle.Init.OutPut = RTC_OUTPUT_DISABLE;
+
+	HAL_RTC_Init(&RtcHandle);
+
+}

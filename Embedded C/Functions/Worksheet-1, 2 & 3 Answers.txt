@@ -1,0 +1,1005 @@
+Worksheet-1 
+-----------------
+
+1. Display all prime numbers between two intervals
+Question: Write a program to display all prime numbers between two given intervals using functions.
+Sample data: Interval: 10 to 30
+Expected output: 11 13 17 19 23 29
+
+
+#include<stdio.h>
+
+int isprime(int num){
+    if(num<=1)
+    return 0;
+    for(int i=2;i*i<=num;i++){
+        if(num%i==0)
+        return 0;
+    }
+}
+
+void dispaly(int x,int y){
+    for(int i=x;i<y;i++){
+        if(isprime(i)){
+            printf(" %d", i);
+        }
+    }
+}
+
+int main(){
+    int m,n;
+    printf("Enter values of m & n : ");
+    scanf("%d%d",&m,&n);
+    printf("Prime Numbers between %d and %d are :",m,n);
+    dispaly(m,n);
+    return 0;
+}
+
+
+
+2. Check prime and Armstrong number by making functions
+Question: Write a program to check whether a given number is prime and/or Armstrong by using functions.
+Sample data: Input: 153
+Expected output: 153 is an Armstrong number and not a prime number.
+
+#include<stdio.h>
+ 
+int prime(int n){
+    if(n<=1)
+    return 0;
+    for(int i=2;i*i < n; i++){
+        if(n%i==0) return 0;
+    }
+    return 1;
+}
+
+int armg(int n){
+    int temp, sum=0, r;
+    for(temp=n;n!=0;n=n/10){
+	         r=n % 10;
+	         sum=sum+(r*r*r);
+	    }
+	    if(sum==temp)
+	         return 1;
+	    else
+	        return 0;
+}
+int main() {
+    int val;
+	printf("Enter val:");
+	scanf("%d",&val);
+    if(prime(val)==1){
+        printf("%d number is prime\n", val);
+    }
+    else{
+        printf("%d is not prime\n ",val);
+    }
+    if(armg(val)==1){
+        printf("%d number is armstrong\n", val);
+    }
+    else{
+        printf("%d number is not armstrong\n", val);
+    }
+
+    return 0;
+}
+
+
+
+3. Check whether a number can be expressed as the sum of two prime numbers
+Question: Write a program to check if a number can be expressed as the sum of two prime numbers using functions.
+Sample data: Input: 34
+Expected output: 34 = 3 + 31
+
+#include <stdio.h>
+
+int isPrime(int num) {
+    if (num <= 1) return 0;
+    for (int i = 2; i * i <= num; i++) {
+        if (num % i == 0)
+            return 0;
+    }
+    return 1;
+}
+
+void primes(int n) {
+    int found = 0;
+    for (int i = 2; i <= n / 2; i++) {
+        if (isPrime(i) && isPrime(n - i)) {
+            printf("The 2 prime numbers of %d is %d + %d\n", n, i, n - i);
+            found = 1;
+            break;
+        }
+    }
+    if (!found) {
+        printf("%d There is NO sum of two prime numbers.\n", n);
+    }
+}
+
+int main() {
+    int n;
+    printf("Enter a number: ");
+    scanf("%d", &n);
+    primes(n);
+    return 0;
+}
+
+
+4. Find the sum of natural numbers using recursion
+Question: Write a recursive function to find the sum of natural numbers up to n.
+Sample data: Input: 10
+Expected output: Sum of natural numbers up to 10 is 55
+
+#include <stdio.h>
+
+int sum(int n){
+    if(n==1)
+    return 1;
+    else
+    return(n+sum(n-1));
+}
+
+int main() {
+    int n;
+    printf("Enter a number: ");
+    scanf("%d", &n);
+    int res=sum(n);
+    printf("The sum of %d natural numbers is %d",n,res);
+    return 0;
+}
+
+5. Calculate the factorial of a number using recursion
+Question: Write a recursive function to calculate the factorial of a given number.
+Sample data: Input: 5
+Expected output: Factorial of 5 is 120
+
+
+#include <stdio.h>
+
+int fact(int n){
+    if(n==0 || n==1)
+        return 1;
+    else
+        return n*fact(n-1);
+}
+
+int main() {
+    int n;
+    printf("Enter a number: ");
+    scanf("%d", &n);
+    int res=fact(n);
+    printf("The factorial of %d is %d",n,res);
+    return 0;
+}
+
+
+
+6. Find G.C.D using recursion
+Question: Write a recursive function to find the GCD of two numbers.
+Sample data: Input: 56 and 98
+Expected output: GCD of 56 and 98 is 14
+
+#include <stdio.h>
+
+int gcd(int a, int b) {
+    if (b == 0)
+        return a;
+    return gcd(b, a % b);
+}
+
+int main() {
+    int m, n;
+    printf("Enter two numbers: ");
+    scanf("%d %d", &m, &n);
+    int result = gcd(m, n);
+    printf("GCD of %d and %d is %d\n", m, n, result);
+    return 0;
+}
+
+
+7. Reverse a sentence using recursion
+Question: Write a recursive function to reverse a sentence.
+Sample data: Input: "hello world"
+Expected output: "world hello"
+
+
+#include <stdio.h>
+
+void reverse() {
+    char ch;
+    scanf("%c", &ch);
+    
+    if (ch != '\n') {
+        reverse();          
+        printf("%c", ch);   
+    }
+}
+
+int main() {
+    printf("Enter a sentence: ");
+    reverse();
+    return 0;
+}
+
+
+8. Calculate the power of a number using recursion
+Question: Write a recursive function to calculate the power of a number (base^exponent).
+Sample data: Input: base=2, exponent=5
+Expected output: 2^5 = 32
+
+
+
+#include <stdio.h>
+
+int power(int base, int exp) {
+    if (exp == 0)
+        return 1;
+    else
+        return base * power(base, exp - 1);
+}
+
+int main() {
+    int base, exponent;
+    printf("Enter base: ");
+    scanf("%d", &base);
+    printf("Enter exponent: ");
+    scanf("%d", &exponent);
+
+    int result = power(base, exponent);
+    printf("%d^%d = %d\n", base, exponent, result);
+
+    return 0;
+}
+
+
+9. Convert a binary number to decimal and vice-versa
+Question: Write functions to convert binary to decimal and decimal to binary.
+Sample data: Binary input: 1010, Decimal input: 10
+Expected output: Binary 1010 = Decimal 10, Decimal 10 = Binary 1010
+
+
+#include <stdio.h>
+#include <math.h>
+
+
+int binaryToDecimal(long long bin) {
+    int dec = 0, base = 1;
+    while (bin > 0) {
+        int rem = bin % 10;
+        dec += rem * base;
+        base *= 2;
+        bin /= 10;
+    }
+    return dec;
+}
+
+long long decimalToBinary(int dec) {
+    long long bin = 0;
+    int rem, i = 1;
+    while (dec != 0) {
+        rem = dec % 2;
+        bin += rem * i;
+        dec /= 2;
+        i *= 10;
+    }
+    return bin;
+}
+
+int main() {
+    long long bin;
+    int dec;
+
+    printf("Enter a binary number: ");
+    scanf("%lld", &bin);
+    printf("Enter a decimal number: ");
+    scanf("%d", &dec);
+    int decRes = binaryToDecimal(bin);
+    printf("Binary %lld = Decimal %d\n", bin, decRes);
+    long long binRes = decimalToBinary(dec);
+    printf("Decimal %d = Binary %lld\n", dec, binRes);
+
+    return 0;
+}
+
+
+10. Convert an octal number to decimal and vice-versa
+Question: Write functions to convert octal to decimal and decimal to octal.
+Sample data: Octal input: 17, Decimal input: 15
+Expected output: Octal 17 = Decimal 15, Decimal 15 = Octal 17
+
+#include <stdio.h>
+#include <math.h>
+
+int octalToDecimal(int oct) {
+    int dec = 0, base = 1;
+    while (oct > 0) {
+        int lastDigit = oct % 10;
+        dec += lastDigit * base;
+        base *= 8;
+        oct /= 10;
+    }
+    return dec;
+}
+
+int decimalToOctal(int dec) {
+    int oct = 0, base = 1;
+    while (dec > 0) {
+        int rem = dec % 8;
+        oct += rem * base;
+        base *= 10;
+        dec /= 8;
+    }
+    return oct;
+}
+
+int main() {
+    int octInput, decInput;
+
+    printf("Enter an octal number: ");
+    scanf("%d", &octInput);
+    printf("Enter a decimal number: ");
+    scanf("%d", &decInput);
+    
+    int decResult = octalToDecimal(octInput);
+    printf("Octal %d = Decimal %d\n", octInput, decResult);
+    
+    int octResult = decimalToOctal(decInput);
+    printf("Decimal %d = Octal %d\n", decInput, octResult);
+
+    return 0;
+}
+
+
+11. Convert a binary number to octal and vice-versa
+Question: Write functions to convert binary to octal and octal to binary.
+Sample data: Binary input: 110011, Octal input: 63
+Expected output: Binary 110011 = Octal 63, Octal 63 = Binary 110011
+
+
+
+
+
+
+
+12. Simple Function Structure Variants
+Question: Write a program in C to show the simple structure of a function.
+Expected output: The total is : 11
+
+
+#include<stdio.h>
+
+int add(int m,int n){
+    int sum=m+n;
+    return sum;
+}
+
+int main(){
+    int a,b;
+    printf("Enter a,b values:");
+    scanf("%d%d",&a,&b);
+    int res=add(a,b);
+    printf("The sum of %d and %d is: %d",a,b,res);
+}
+
+
+13. Square Calculation Function Variants
+Question: Write a program in C to find the square of any number using the function.
+Sample data: Input: 20
+Expected output: The square of 20 is : 400.00
+
+
+#include<stdio.h>
+
+void square(int m){
+    int sqr=m*m;
+    printf("The sruare of %d is: %d",m,sqr);
+}
+
+int main(){
+    int a;
+    printf("Enter a values:");
+    scanf("%d",&a);
+    square(a);
+}
+
+
+
+14. Swap Numbers Function Variants
+Question: Write a program in C to swap two numbers using a function.
+Sample data: Input 1st number: 2, Input 2nd number: 4
+Expected output: Before swapping: n1 = 2, n2 = 4
+After swapping: n1 = 4, n2 = 2
+
+#include<stdio.h>
+
+int swap(int *m,int *n){
+    int temp=*m;
+    *m=*n;
+    *n=temp;
+    return *m,*n;
+}
+
+int main(){
+    int a,b;
+    printf("Enter a & b values:");
+    scanf("%d%d",&a,&b);
+    printf("\nBefore swapping %d %d",a,b);
+    swap(&a,&b);
+    printf("\nAfter swapping:%d %d",a,b);
+}
+
+
+
+15. Even/Odd Check Function Variants
+Question: Write a program in C to check if a given number is even or odd using a function.
+Sample data: Input: 5
+Expected output: The entered number is odd.
+
+#include<stdio.h>
+
+void fun(int m){
+    if(m%2==0)
+    printf("Tne entered number is even");
+    else
+    printf("The entered number is odd");
+}
+
+int main(){
+    int a;
+    printf("Enter a value:");
+    scanf("%d",&a);
+    fun(a);
+}
+
+
+
+16. Series Sum Using Function Variants
+Question: Write a program in C to find the sum of the series 1!/1 + 2!/2 + 3!/3 + 4!/4 + 5!/5 using a function.
+Expected output: The sum of the series is : 34
+
+#include <stdio.h>
+
+int factorial(int n) {
+    if (n == 0 || n == 1)
+        return 1;
+    return n * factorial(n - 1);
+}
+
+int seriesSum(int n) {
+    int sum = 0;
+    for (int i = 1; i <= n; i++) {
+        sum += factorial(i) / i;
+    }
+    return sum;
+}
+
+int main() {
+    int n;
+    printf("Enter n value:");
+    scanf("%d",&n);
+    int result = seriesSum(n);
+    printf("The sum of the series is : %d\n", result);
+    return 0;
+}
+
+17. Decimal to Binary Conversion Function Variants
+Question: Write a program in C to convert a decimal number to a binary number using a function.
+Sample data: Input: 65
+Expected output: The Binary value is : 1000001
+
+
+18. Prime Check Function Variants
+Question: Write a program in C to check whether a number is prime or not using a function.
+Sample data: Input: 5
+Expected output: The number 5 is a prime number.
+
+
+#include <stdio.h>
+
+int prime(int n){
+    if(n<=1)
+    return 0;
+    for(int i=2;i*i<=n;i++){
+        if(n%i==0)
+        return 0;
+    }
+    return 1;
+}
+
+int main() {
+    int n;
+    printf("Enter n value:");
+    scanf("%d",&n);
+    if(prime(n))
+        printf("The %d is prime number",n);
+    else
+        printf("The %d is not a prime number",n);
+    return 0;
+}
+
+
+19. Largest Element in Array Function Variants
+Question: Write a program in C to get the largest element of an array using a function.
+Sample data: Array size: 5
+Elements: 1 2 3 4 5
+Expected output: The largest element in the array is : 5
+
+
+#include <stdio.h>
+
+int largest(int arr[],int size){
+    int max=arr[0];
+    for(int i=0;i<size;i++){
+            if(arr[i]>=max)
+            max=arr[i];
+        }
+    return max;
+    }
+
+int main() {
+    int size;
+    printf("Enter size value:");
+    scanf("%d",&size);
+    int arr[size];
+    for(int i=0;i<size;i++){
+        scanf("%d",&arr[i]);
+    }
+    int res=largest(arr,size);
+    printf("the largest %d",res);
+    return 0;
+}
+
+
+20. Armstrong & Perfect Number Function Variants
+Question: Write a program in C to check Armstrong and Perfect numbers using a function.
+Sample data: Input: 371
+Expected output: 371 is an Armstrong number.
+		 371 is not a Perfect number.
+
+
+#include <stdio.h>
+
+int armg(int n){
+    int r,temp,sum=0;
+    temp=n;
+    while(temp!=0){
+        r=temp%10;
+        sum=sum+r*r*r;
+        temp=temp/10;
+    }
+    return sum==n;
+}
+
+int perft(int n){
+    int sum=0;
+    for(int i=1;i<=n/2;i++){
+        if(n%i==0)
+            sum+=i;
+    }
+    return sum==n;
+}
+int main() {
+    int n;
+    printf("Enter n value:");
+    scanf("%d",&n);
+    if(armg(n))
+        printf("%d is an armgstrong number",n);
+    else
+        printf("\nThe number you entered is not armgstrong");
+    if(perft(n))
+        printf("\n%d is perfect number",n);
+    else
+        printf("\nThe number you entered is not perfect");
+    return 0;
+}
+
+
+
+21. Perfect Numbers in Range Function Variants
+Question: Write a program in C to print all perfect numbers in a given range using a function.
+Sample data: Range: 1 to 100
+Expected output: The perfect numbers between 1 to 100 are : 6 28
+
+
+#include <stdio.h>
+
+int perft(int n){
+    int sum=0;
+    for(int i=1;i<=n/2;i++){
+        if(n%i==0)
+            sum+=i;
+    }
+    return sum==n;
+}
+
+int main() {
+    int n,m;
+    printf("Enter n&m value:");
+    scanf("%d%d",&n,&m);
+    printf("The Perfect numbers are: ");
+    for (int i = n; i <= m; i++) {
+        if (perft(i))
+            printf("%d ", i);
+    }
+    return 0;
+}
+
+
+22. Anagram Check Function Variants
+Question: Write a program in C to check whether two given strings are an anagram.
+Sample data: String1: spare
+String2: pears
+Expected output: spare and pears are Anagram.
+
+
+#include <stdio.h>
+#include<string.h>
+
+void sort(char str[]){
+    int n=strlen(str);
+    for(int i=0;i<n-1;i++){
+        for(int j=i+1;j<n;j++){
+            if (str[i] > str[j]) {
+                char temp = str[i];
+                str[i] = str[j];
+                str[j] = temp;
+            }
+        }
+    }
+}
+
+int anagram(char str1[],char str2[]){
+    if(strlen(str1)!=strlen(str2)){
+        return 0;
+    }
+    sort(str1);
+    sort(str2);
+    
+    return strcmp(str1,str2)==0;
+}
+
+int main() {
+    char str1[100],str2[100];
+    printf("Enter str1: ");
+    scanf("%s",str1);
+    printf("Enter str2: ");
+    scanf(" %s",str2);
+    if(anagram(str1,str2)){
+        printf("The 2 strings are anagrams.");
+    }
+    else{
+        printf("The 2 strings are not anagram");
+    }
+    return 0;
+}
+
+
+23. Max & Min Array Values Function Variants
+Question: Write a C program to find the maximum and minimum of some values using a function that returns an array.
+Sample data: Input values: 25 11 35 65 20
+Expected output:
+Minimum value is: 11
+Maximum value is: 65
+
+
+#include<stdio.h>
+
+int min(int arr[],int n){
+    int min=arr[0];
+    for(int i=0;i<n;i++){
+        if(arr[i]<min){
+            min=arr[i];
+        }
+    }
+    return min;
+}
+
+int max(int arr[],int n){
+    int max=arr[n-1];
+    for(int i=0;i<n;i++){
+        if(arr[i]>max){
+            max=arr[i];
+        }
+    }
+    return max;
+}
+
+int main(){
+    int n;
+    printf("Enter no of values:");
+    scanf("%d",&n);
+    int arr[n];
+    for(int i=0;i<n;i++){
+        scanf("%d",&arr[i]);  
+    }
+    int res1=min(arr,n);
+    int res2=max(arr,n);
+    printf("The max and min are: %d & %d",res2,res1);
+}
+
+
+
+
+
+Worksheet-2
+-------------------
+
+
+1)Write a recursive function to generate the nth Fibonacci number.
+
+#include<stdio.h>
+
+int fib(int n){
+    if(n==0)
+        return 0;
+    else if(n==1)
+        return 1;
+    else
+        return fib(n-1)+fib(n-2);
+}
+
+int main(){
+    int n;
+    printf("Enter n value:");
+    scanf("%d",&n);
+    int res=fib(n);
+    printf("The fib seq are: %d",res);
+}
+
+
+
+2)Reverse a string using recursion.
+
+
+#include<stdio.h>
+#include<string.h>
+
+void rev(char str[],int start,int end){
+    if(start>=end)
+        return;
+    char temp=str[start];
+    str[start]=str[end];
+    str[end]=temp;
+    
+    rev (str,start+1,end-1);
+}
+
+int main(){
+    char str[100];
+    printf("Enter a string:");
+    scanf("%s",str);
+    int len=strlen(str);
+    rev(str,0,len-1);
+    printf("The reversed String: %s",str);
+    return 0;
+}
+
+
+3)Check if a string is a palindrome using recursion.
+
+
+
+#include<stdio.h>
+#include<string.h>
+
+int palin(char str[],int start,int end){
+    if (start >= end)
+        return 1;
+    if (str[start] != str[end])
+        return 0;
+    return palin(str, start + 1, end - 1);
+}
+
+int main(){
+    char str[100];
+    printf("Enter a string:");
+    scanf("%s",str);
+    int len=strlen(str);
+    if(palin(str,0,len-1)){
+        printf("The given string is palindrome.");
+    }
+    else{
+        printf("The given string is not palindrome.");
+    }
+    return 0;
+}
+
+
+4)Find the sum of digits of a number using recursion.
+
+#include<stdio.h>
+
+int sum(int n){
+     if (n == 0)
+        return 0;
+    return (n % 10) + sum(n / 10);
+}
+
+int main(){
+    int n;
+    printf("Enter number:");
+    scanf("%d",&n);
+    int res=sum(n);
+    printf("The sum of digits is: %d",res);
+    return 0;
+}
+
+
+5)Solve the Tower of Hanoi problem using recursion.
+
+
+
+
+6)Count the number of zeroes in an integer using recursion.
+
+#include <stdio.h>
+
+int zerocount(int n) {
+    if (n == 0)
+        return 1;  // Special case: single digit 0
+
+    int count = 0;
+
+    // Convert negative number to positive
+    if (n < 0) n = -n;
+
+    while (n > 0) {
+        if (n % 10 == 0)
+            count++;
+        n = n / 10;
+    }
+
+    return count;
+}
+
+int main() {
+    int n;
+    printf("Enter number: ");
+    scanf("%d", &n);
+
+    int res = zerocount(n);
+    printf("The number of zeros in the integer: %d\n", res);
+
+    return 0;
+}
+
+
+7)Find the greatest common divisor (GCD) using recursion.
+
+#include<stdio.h>
+
+int gcd(int a,int b){
+    if (b == 0)
+        return a;
+    return gcd(b, a % b);
+}
+
+int main(){
+    int a,b;
+    printf("Enter values of a & b:");
+    scanf("%d%d",&a,&b);
+    int res=gcd(a,b);
+    printf("The greatest common divisor of %d and %d is: %d",a,b,res);
+    return 0;
+}
+
+
+8)Print numbers from N to 1 using recursion.
+
+#include<stdio.h>
+
+void num(int n){
+    if(n==0)
+        return;
+    printf("%d\n",n);
+    return num(n-1);
+    }
+
+int main(){
+    int a;
+    printf("Enter value of a:");
+    scanf("%d",&a);
+    num(a);
+    return 0;
+}
+
+
+9)Find the length of a string using recursion.
+
+#include<stdio.h>
+#include<string.h>
+
+int stringlen(char *str){
+    if(*str=='\0'){
+        return 0;
+    }
+    return 1+stringlen(str+1);
+}
+
+int main(){
+    char str[100];
+    printf("Enter a string:");
+    scanf("%s",str);
+    int len=stringlen(str);
+    printf("The string length is: %d",len);
+}
+
+
+10)Calculate the power of a number (x^y) using recursion.
+
+#include<stdio.h>
+
+int power(int x, int y) {
+    if (y == 0)
+        return 1; 
+    else
+        return x * power(x, y - 1);
+}
+
+int main(){
+    int n,expo;
+    printf("Enter n value:");
+    scanf("%d",&n);
+    printf("Enter expo value:");
+    scanf("%d",&expo);
+    int res=power(n,expo);
+    printf("%d ^ %d is : %d",n,expo,res);
+}
+
+
+
+
+Worksheet -3
+---------------------
+
+
+#include<stdio.h>
+#include<stdarg.h>
+
+void printStrings(int count, ...) {
+    va_list args;
+    va_start(args, count);
+
+    for (int i = 0; i < count; i++) {
+        char* str = va_arg(args, char*); 
+        printf("%s\n", str);            
+    }
+
+    va_end(args); 
+}
+
+int main() {
+    printStrings(3, "apple", "banana", "cherry");
+    return 0;
+}
+
+
+
+
+Write a variadic function that calculates the average of any number of integers.
+
+#include <stdio.h>
+#include <stdarg.h>
+
+double average(int count, ...) {
+    va_list args;
+    va_start(args, count);
+
+    int sum = 0;
+    for (int i = 0; i < count; i++) {
+        sum += va_arg(args, int);  
+    }
+
+    va_end(args);
+
+    return count == 0 ? 0 : (double)sum / count; 
+}
+
+int main() {
+    printf("Average: %.2f\n", average(4, 10, 20, 30, 40));
+    printf("Average: %.2f\n", average(3, 5, 15, 25));
+    return 0;
+}
+
+
+

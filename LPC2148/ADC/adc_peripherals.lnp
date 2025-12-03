@@ -1,0 +1,7 @@
+--cpu ARM7TDMI
+".\startup.o"
+".\adc_10_bit.o"
+--strict --scatter ".\adc_peripherals.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\adc_peripherals.map" -o .\adc_peripherals.axf

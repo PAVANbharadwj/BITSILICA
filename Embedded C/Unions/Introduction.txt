@@ -1,0 +1,198 @@
+Concepts
+--------------
+
+Getting to Know Unions in C
+
+What is a Union?
+In C, a union is a user-defined data type similar to a structure, but unlike structures, all members of a union share the same memory location. This means only one member can store data at a time.
+
+Union Declaration
+
+A union is declared similarly to a structure by defining its name and members:
+
+union union_name {
+    type1 member1;
+    type2 member2;
+    type3 member3;
+    // ...
+};
+
+After declaration, create a union variable like this:
+
+union_name variable_name;
+
+Or declare the variable along with the union:
+
+union union_name {
+    type1 member1;
+    type2 member2;
+    type3 member3;
+    // ...
+} variable_name;
+
+Initialization and Accessing
+Access union members using the dot (.) operator. Assign values with the assignment operator (=).
+
+Since all members share the same memory, only one member holds a valid value at any time. Accessing a different member than the one last assigned leads to undefined behavior.
+
+Example:
+
+#include <stdio.h>
+
+union Student {
+    int rollNo;
+    float height;
+    char firstLetter;
+};
+
+int main() {
+    union Student data;
+
+    data.rollNo = 21;
+    printf("%d\n", data.rollNo);
+
+    data.height = 5.2;
+    printf("%.2f\n", data.height);
+
+    data.firstLetter = 'N';
+    printf("%c\n", data.firstLetter);
+
+    return 0;
+}
+
+Output:
+
+21
+5.20
+N
+
+Size of a Union
+The size of a union is equal to the size of its largest member. Smaller members share the same memory space without overflow.
+
+Example:
+
+#include <stdio.h>
+
+union A {
+    int x;
+    char y;
+};
+
+union B {
+    int arr[10];
+    char y;
+};
+
+int main() {
+    printf("Sizeof A: %ld\n", sizeof(union A));
+    printf("Sizeof B: %ld\n", sizeof(union B));
+    return 0;
+}
+
+Output:
+
+Sizeof A: 4
+Sizeof B: 40
+
+Nested Union
+You can define a union inside another union (nested union), allowing you to efficiently organize related data sharing memory.
+
+Syntax:
+
+union name1 {
+    // members
+    union name2 {
+        // members
+    } nestedUnionVar;
+};
+
+Access nested members using dot (.):
+
+outer.inner.innerMember
+
+Example:
+
+#include <stdio.h>
+
+union Student {
+    int rollNo;
+    union Academic {
+        int marks;
+    } performance;
+};
+
+int main() {
+    union Student abc;
+
+    abc.rollNo = 21;
+    printf("%d\n", abc.rollNo);
+
+    abc.performance.marks = 91;
+    printf("%d\n", abc.performance.marks);
+
+    return 0;
+}
+
+Output:
+
+21
+91
+
+Anonymous Union
+An anonymous union has no name, and its members can be accessed directly without a union variable. Useful inside structures for scoped direct access.
+
+Example:
+
+#include <stdio.h>
+
+struct Student {
+    int rollNo;
+
+    // Anonymous union
+    union {
+        int marks;
+    } performance;
+};
+
+int main() {
+    struct Student abc;
+
+    abc.rollNo = 21;
+    printf("%d\n", abc.rollNo);
+
+    abc.performance.marks = 91;
+    printf("%d\n", abc.performance.marks);
+
+    return 0;
+}
+
+Output:
+
+21
+91
+
+
+Structure vs Union
+--------------------
+
+
+		Structure					Union
+-------------------------------------------------------------------------------------------------------
+
+Size is sum of sizes of all members			Size is size of largest member
+
+Can hold data in multiple members simultaneously	Only one member can hold data at a time
+
+Declared using struct keyword				Declared using union keyword
+
+
+
+
+
+
+
+https://www.youtube.com/watch?v=oySsPUDr35U
+
+
+https://www.youtube.com/watch?v=7lsqAXmBTGE&ab_channel=Jenny%27sLecturesCSIT
+

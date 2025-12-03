@@ -1,0 +1,112 @@
+/*
+ * bmi160.c
+ *
+ *  Created on: Nov 27, 2025
+ *      Author: pavan
+ */
+
+#include "bmi160.h"
+
+static I2C_HandleTypeDef *bmi_i2c;
+
+/* ---------------------- BMI160 Registers ---------------------- */
+#define BMI160_REG_CHIP_ID        0x00
+#define BMI160_REG_PMU_STATUS     0x03
+#define BMI160_REG_ACC_CONF       0x40
+#define BMI160_REG_ACC_RANGE      0x41
+#define BMI160_REG_GYRO_CONF      0x42
+#define BMI160_REG_GYRO_RANGE     0x43
+#define BMI160_REG_CMD            0x7E
+#define BMI160_DATA_START         0x12   // accel + gyro burst
+
+/* ---------------------- Power Mode Commands ---------------------- */
+#define BMI160_CMD_ACC_NORMAL     0x11
+#define BMI160_CMD_GYR_NORMAL     0x15
+
+/* ---------------------- Low-Level I2C Helpers ---------------------- */
+
+static void bmi_write8(uint8_t reg, uint8_t value)
+{
+    uint8_t buf[2] = { reg, value };
+    HAL_I2C_Master_Transmit(bmi_i2c, BMI160_I2C_ADDR << 1, buf, 2, HAL_MAX_DELAY);
+}
+
+static void bmi_read(uint8_t reg, uint8_t *buf, uint8_t len)
+{
+    HAL_I2C_Master_Transmit(bmi_i2c, BMI160_I2C_ADDR << 1, &reg, 1, HAL_MAX_DELAY);
+    HAL_I2C_Master_Receive(bmi_i2c, BMI160_I2C_ADDR << 1, buf, len, HAL_MAX_DELAY);
+}
+
+/* ---------------------- Helpers ---------------------- */
+
+static int16_t make_int16(uint8_t lsb, uint8_t msb)
+{
+    return (int16_t)((msb << 8) | lsb);
+}
+
+/* ----------------------- Initialization ----------------------- */
+
+void BMI160_Init(I2C_HandleTypeDef *hi2c)
+{
+    bmi_i2c = hi2c;
+
+    uint8_t id;
+    bmi_read(BMI160_REG_CHIP_ID, &id, 1);
+
+    if(id != 0xD1)
+        printf("BMI160 NOT detected! ID=0x%02X\r\n", id);
+    else
+        printf("BMI160 detected.\r\n");
+
+    // ACCEL Normal Mode
+    bmi_write8(BMI160_REG_CMD, BMI160_CMD_ACC_NORMAL);
+    HAL_Delay(50);
+
+    // GYRO Normal Mode
+    bmi_write8(BMI160_REG_CMD, BMI160_CMD_GYR_NORMAL);
+    HAL_Delay(80);
+
+    // ACCEL: ODR = 1600 Hz, BW = OSR4, normal mode
+    bmi_write8(BMI160_REG_ACC_CONF, 0x28);   // ODR 100Hz recommended: 0x28
+
+    // ACCEL: ±2g range
+    bmi_write8(BMI160_REG_ACC_RANGE, 0x03);
+
+    // GYRO: ODR = 3200 Hz, bandwidth
+    bmi_write8(BMI160_REG_GYRO_CONF, 0x28);  // ODR 100Hz recommended: 0x28
+
+    // GYRO: ±2000 deg/sec
+    bmi_write8(BMI160_REG_GYRO_RANGE, 0x00);
+
+    HAL_Delay(20);
+}
+
+/* ---------------------- Read accel + gyro ---------------------- */
+
+void BMI160_Read(BMI160_Data *out)
+{
+    uint8_t raw[12];
+    bmi_read(BMI160_DATA_START, raw, 12);
+
+    int16_t ax_raw = make_int16(raw[0], raw[1]);
+    int16_t ay_raw = make_int16(raw[2], raw[3]);
+    int16_t az_raw = make_int16(raw[4], raw[5]);
+
+    int16_t gx_raw = make_int16(raw[6], raw[7]);
+    int16_t gy_raw = make_int16(raw[8], raw[9]);
+    int16_t gz_raw = make_int16(raw[10], raw[11]);
+
+    /* Scaling
+       ACC Range = ±2g → 16384 LSB/g
+       GYRO Range = ±2000 deg/s → 16.4 LSB / (deg/s)
+    */
+
+    out->ax = ax_raw / 16384.0f;
+    out->ay = ay_raw / 16384.0f;
+    out->az = az_raw / 16384.0f;
+
+    out->gx = gx_raw / 16.4f;
+    out->gy = gy_raw / 16.4f;
+    out->gz = gz_raw / 16.4f;
+}
+

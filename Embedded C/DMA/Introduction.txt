@@ -1,0 +1,217 @@
+Concepts
+------------
+Dynamic Memory Allocation Functions in C
+
+
+In C programming, dynamic memory allocation lets you manage memory during program execution, giving flexibility that static allocation can’t provide. Here are the key functions used:
+
+1. malloc()
+Allocates a block of memory of a specified size (in bytes). The memory is not initialized, so it may contain garbage values. If allocation fails, it returns NULL.
+
+Syntax:
+
+ptr = (cast-type*) malloc(byte-size);
+
+Example:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int n, i, *ptr, sum = 0;
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+
+    ptr = (int*) malloc(n * sizeof(int));
+    if (ptr == NULL) {
+        printf("Memory allocation failed\n");
+        exit(0);
+    }
+
+    printf("Enter elements: ");
+    for (i = 0; i < n; i++) {
+        scanf("%d", ptr + i);
+        sum += *(ptr + i);
+    }
+
+    printf("Sum = %d\n", sum);
+    free(ptr);
+    return 0;
+}
+
+Key Points about malloc():
+
+Allocates a single continuous block of memory.
+The allocated memory contains garbage values (not initialized).
+Returns a pointer to the allocated memory, or NULL if allocation fails.
+Size is specified in bytes.
+Memory must be manually freed using free() to avoid leaks.
+Commonly used when size of data is known only at runtime.
+Useful for dynamic arrays and data structures like linked lists.
+Does not initialize memory, so data might be unpredictable before use.
+Performance-wise, faster than calloc() as it does not zero memory.
+Pointer arithmetic can be used to access allocated block elements.
+
+2. calloc()
+
+Allocates memory for an array of elements and initializes all bytes to zero. It takes the number of elements and size of each element as parameters. Returns NULL if allocation fails.
+
+Syntax:
+
+ptr = (cast-type*) calloc(number, byte-size);
+
+Example:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int n, i, *ptr, sum = 0;
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+
+    ptr = (int*) calloc(n, sizeof(int));
+    if (ptr == NULL) {
+        printf("Memory allocation failed\n");
+        exit(0);
+    }
+
+    printf("Enter elements: ");
+    for (i = 0; i < n; i++) {
+        scanf("%d", ptr + i);
+        sum += *(ptr + i);
+    }
+
+    printf("Sum = %d\n", sum);
+    free(ptr);
+    return 0;
+}
+
+Key Points about calloc():
+
+Allocates memory for multiple elements (an array).
+Initializes all allocated memory bytes to zero.
+Returns a pointer to the allocated memory, or NULL if allocation fails.
+Parameters are number of elements and size of each element.
+Useful when zero-initialized memory is required.
+Helps avoid bugs due to uninitialized memory.
+Memory must be freed manually using free().
+Generally slower than malloc() because of initialization step.
+Good choice for arrays of structs or arrays of integers needing zero start values.
+Helps prevent accidental use of garbage values.
+
+3. realloc()
+
+Resizes previously allocated memory to a new size. It copies old data to the new block if the location changes, and frees the old memory block. Useful to dynamically adjust the size of memory blocks.
+
+Syntax:
+
+ptr = realloc(ptr, new-size);
+
+Example:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int *ptr, i, n1, n2;
+
+    printf("Enter initial number of elements: ");
+    scanf("%d", &n1);
+    ptr = (int*) malloc(n1 * sizeof(int));
+
+    printf("Initial addresses:\n");
+    for (i = 0; i < n1; i++) {
+        printf("%p\n", (ptr + i));
+    }
+
+    printf("Enter new number of elements: ");
+    scanf("%d", &n2);
+    ptr = realloc(ptr, n2 * sizeof(int));
+
+    printf("New addresses:\n");
+    for (i = 0; i < n2; i++) {
+        printf("%p\n", (ptr + i));
+    }
+
+    free(ptr);
+    return 0;
+}
+
+Key Points about realloc():
+
+Resizes a previously allocated memory block to a new size.
+If new size is larger, new memory is uninitialized.
+If new size is smaller, data beyond new size is lost.
+May move memory block to a new location; original pointer becomes invalid.
+Returns a pointer to the resized memory block or NULL if reallocation fails (original memory remains valid).
+Can be used to grow or shrink dynamic arrays during runtime.
+If passed a NULL pointer, behaves like malloc().
+If new size is zero, behaves like free() and returns NULL.
+Always assign the return value to a temporary pointer first to avoid memory leaks on failure.
+Useful for optimizing memory usage in programs with unpredictable data size.
+
+4. free()
+
+Frees memory previously allocated by malloc(), calloc(), or realloc(). It is essential to avoid memory leaks and to reuse memory.
+
+Syntax:
+
+free(ptr);
+
+Example:
+
+#include <stdlib.h>
+
+int main() {
+    int *ptr = (int*) malloc(10 * sizeof(int));
+    if (ptr == NULL) {
+        return 1; // allocation failed
+    }
+
+    // Use the memory...
+
+    free(ptr); // Release memory when done
+    return 0;
+}
+
+Key Points about free():
+
+Frees previously allocated memory, making it available for future allocations.
+Does not set the pointer to NULL automatically; dangling pointers must be handled manually.
+Double freeing a pointer leads to undefined behavior and potential crashes.
+Must only free pointers returned by malloc(), calloc(), or realloc().
+Failing to free allocated memory causes memory leaks.
+Freeing a NULL pointer has no effect and is safe.
+After freeing, accessing memory via that pointer is undefined behavior.
+Important in long-running programs or embedded systems to manage memory efficiently.
+Memory management functions are part of the C standard library (<stdlib.h>).
+Use tools like Valgrind to detect improper memory management and leaks.
+
+About dynamic memory allocations
+
+In C programming, variables declared inside functions are stored in stack memory. The key limitation of stack memory is that the size of the data must be known at compile time (before the program runs). Once the memory is allocated on the stack, its size cannot be changed, nor can the memory be explicitly freed during execution.
+
+To overcome this limitation, C provides Dynamic Memory Allocation, which enables memory to be allocated at runtime. This allows the program to handle data whose size can vary during execution. Unlike stack memory, dynamically allocated memory is stored on the heap.
+
+Dynamic memory allocation is especially useful in scenarios like resizing arrays based on actual needs.
+
+Why Dynamic Memory Allocation is Needed
+In C, arrays have a fixed size determined at compile time. This creates two main issues:
+
+If the fixed size is too small to hold all elements, you might allocate more memory than needed to avoid overflow.
+
+If the fixed size is too large, it results in wasted memory.
+
+Dynamic memory allocation solves these problems by allowing the array size to grow or shrink during runtime, depending on the actual number of elements. This eliminates the need to guess the maximum required size in advance, making memory use more efficient.
+
+
+
+
+
+
+
+https://www.youtube.com/playlist?list=PL-gW8Fj5TGrrKq-IZcHvJaL_e_QZ3J12n
+
+
+https://www.youtube.com/playlist?list=PLHuW747_x4SnR2CWcIkX2j1__y9dFH5Sj

@@ -1,0 +1,206 @@
+Memory Manipulation Functions in C
+
+These functions allow direct manipulation of memory blocks in C. They are used for efficiency, low-level control, and handling data buffers, arrays, and raw structures.
+
+1. memset
+
+Declaration: void* memset(void* ptr, int value, size_t num);
+
+Description
+Sets the first num bytes of the memory area pointed to by ptr to the specified value (interpreted as an unsigned char).
+
+Use Cases
+
+Initializing arrays or structures to zero.
+Resetting memory buffers.
+
+Example
+
+int arr[5];
+memset(arr, 0, sizeof(arr)); // Sets all bytes to zero
+
+Advantages
+
+Fast and simple way to initialize memory.
+Standardized and portable.
+
+Drawbacks
+
+Only sets memory to a single byte value (not suitable for initializing with multi-byte values).
+Tips
+Use sizeof for the third argument to avoid errors.
+
+2. memcpy
+
+Declaration: void* memcpy(void* dest, const void* src, size_t num);
+
+Description
+Copies num bytes from memory area src to memory area dest. If memory areas overlap, behavior is undefined.
+
+Use Cases
+
+Copying arrays, buffers, or structures.
+Transferring data from one memory location to another quickly.
+
+Example
+
+char src[] = "Hello";
+char dest[6];
+memcpy(dest, src, sizeof(src));
+
+Advantages
+
+Efficient for non-overlapping memory copying.
+
+Drawbacks
+
+Not safe for overlapping memory regions (may corrupt data).
+
+Tips
+
+For overlapping regions, use memmove instead.
+
+3. memmove
+
+Declaration: void* memmove(void* dest, const void* src, size_t num);
+
+Description
+Copies num bytes from src to dest. Safe for overlapping memory regions.
+
+Use Cases
+
+Shifting data within the same array.
+Safe copy when buffer overlap might occur.
+
+Example
+
+char data[] = "12345";
+memmove(data + 2, data, 3); // Safe even though memory overlaps
+
+Advantages
+
+Safe for overlapping regions.
+
+Drawbacks
+May be slightly slower than memcpy due to overlap handling.
+
+Tips
+
+Use memmove when in doubt about overlap.
+
+4. memcmp
+Declaration: int memcmp(const void* ptr1, const void* ptr2, size_t num);
+
+Description
+Compares num bytes of memory starting at ptr1 and ptr2.
+
+Use Cases
+Checking if two data buffers are equal.
+Sorting or ordering raw binary data.
+
+Example
+
+char a[] = "abc";
+char b[] = "abc";
+int result = memcmp(a, b, 3); // result = 0 (equal)
+
+Advantages
+Efficient binary comparison.
+
+Drawbacks
+Compares byte-by-byte, not aware of data types or encoding.
+
+Tips
+Returns 0 if equal, negative if ptr1 < ptr2, positive if ptr1 > ptr2.
+
+5. memchr
+Declaration: void* memchr(const void* ptr, int value, size_t num);
+
+Description
+Findes for the first occurrence of value (converted to unsigned char) in the first num bytes of memory area ptr.
+
+Use Cases
+Finding specific bytes in raw data.
+Parsing or tokenizing binary formats.
+
+Example
+
+char str[] = "abcdef";
+char* p = memchr(str, 'd', 6); // p points to 'd'
+
+Advantages
+Useful for locating specific bytes in a buffer.
+
+Drawbacks
+Returns NULL if byte not found.
+
+Tips
+Cast the result to appropriate pointer type before use.
+ 
+
+ 
+Worksheet
+
+Instructions: Answer the following questions based on your understanding of memory functions like memset, memcpy, memmove, memcmp, and memchr. Use string and array-based examples wherever possible.
+
+Fill in the Blanks
+
+_______ is used to fill a block of memory with a specific value.
+_______ is safe to use when source and destination overlap.
+_______ compares two blocks of memory byte-by-byte.
+_______ searches for a specific byte in memory.
+_______ can be used to copy a string to another buffer (without overlap).
+
+Predict the Output
+
+What will be the contents of arr after this?
+
+char arr[5];
+memset(arr, 'A', sizeof(arr));
+
+Predict the output:
+
+char a[] = "abcde";
+char b[] = "abcdf";
+int res = memcmp(a, b, 5);
+printf("%d", res);
+
+What happens here?
+
+char data[] = "123456";
+memmove(data + 2, data, 3);
+
+Write Code
+
+Write a program that copies one string to another using memcpy.
+
+Write a program to initialize an integer array of size 10 to all zeros using memset.
+
+Write a code snippet to check if two character arrays are equal using memcmp.
+
+Use memchr to find the first occurrence of character 'e' in the string "excellent".
+
+Use memmove to shift a portion of an array forward safely.
+
+Debug This
+
+Find and fix the issue(s) in the following code snippets.
+
+char src[] = "hello";
+char* dst;
+memcpy(dst, src, strlen(src));
+
+int arr[5];
+memset(arr, 0, 5);
+
+char name[] = "John";
+if(memcmp(name, "John", 4))
+    printf("Same\n");
+
+Conceptual Questions
+
+Why is memset commonly used after dynamic memory allocation?
+What are the risks of using memcpy incorrectly?
+How does memmove avoid problems caused by overlapping memory regions?
+How does memcmp determine the result if two arrays are not equal?
+What happens if memchr does not find the given character?

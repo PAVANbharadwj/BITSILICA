@@ -1,0 +1,113 @@
+Worksheet
+--------------------
+
+
+Question 1: Pointer Increment and Access
+Task: Log Session an integer array with 5 elements. Use a pointer to access and print the third element by incrementing the pointer appropriately.
+
+Sample data:
+
+int arr[] = {5, 10, 15, 20, 25};
+
+Expected output:
+
+Third element is 15
+
+Question 2: Pointer Addition
+Task: Using the same array, print the last element by adding an integer to the pointer.
+
+Sample data:
+
+int arr[] = {5, 10, 15, 20, 25};
+
+Expected output:
+
+Last element is 25
+
+Question 3: Pointer Subtraction
+Task: Given two pointers pointing to elements of an integer array, find the distance (number of elements) between them.
+
+Sample data:
+
+int arr[] = {2, 4, 6, 8, 10};
+int *p1 = &arr[4];  // points to 10
+int *p2 = &arr[1];  // points to 4
+
+Expected output:
+
+Distance between pointers is 3
+
+Question 4: Pointer Comparison
+Task: Write code to compare two pointers to elements in an array and print which one points to the element with a smaller index.
+
+Sample data:
+
+int arr[] = {11, 22, 33, 44, 55};
+int *ptr1 = &arr[2];  // points to 33
+int *ptr2 = &arr[4];  // points to 55
+
+
+Expected output:
+
+Pointer ptr1 points to an earlier element than ptr2
+
+Question 5: Traverse Array with Pointer Arithmetic
+Task: Using only a pointer (no array indexing), print all elements of the array.
+
+Sample data:
+
+int arr[] = {100, 200, 300, 400};
+
+Expected output:
+
+100 200 300 400
+
+Question 6: Invalid Pointer Arithmetic
+Task: Explain why the following code snippet is invalid and what would happen if you try to compile/run it:
+
+int arr[5];
+int *p1 = &arr[1];
+int *p2 = &arr[3];
+int *p3 = p1 + p2; // Invalid operation
+
+
+Expected output:
+
+Error: Cannot add two pointers in C. Pointer addition is not defined.
+
+Question 7: Pointer Arithmetic with Different Data Types
+Task: Log Session a double array and use pointer arithmetic to print the second element. Explain how pointer arithmetic differs for double compared to int.
+
+Sample data:
+
+double darr[] = {1.1, 2.2, 3.3};
+
+Expected output:
+Second element is 2.2
+Explanation:
+Pointer increments by the size of double (usually 8 bytes), so moving pointer by 1 points to the next double element.
+
+Question 8: Pointer Arithmetic and Array Bounds
+Task: Write code that attempts to access memory outside an array using pointer arithmetic and explain why this is unsafe.
+
+Sample data:
+
+int arr[] = {10, 20, 30};
+int *ptr = arr + 5; // Out of bounds
+
+Expected output:
+
+Undefined behavior - accessing memory outside the array may cause crash or unexpected results
+Bonus Challenge
+
+Question 9: Reverse Array using Pointer Arithmetic
+Task: Write a function that reverses an integer array in place using pointer arithmetic only (no array indexing).
+
+Sample data:
+
+int arr[] = {1, 2, 3, 4, 5};
+
+Expected output:
+
+Reversed array: 5 4 3 2 1
+

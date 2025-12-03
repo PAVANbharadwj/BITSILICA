@@ -1,0 +1,229 @@
+Worksheet 1
+Focus: C programming using malloc(), calloc(), realloc(), and free()
+
+Objective: Build confidence and expertise through guided practice
+
+Exercise 1: Allocate Memory for an Integer
+Goal: Understand how to allocate memory for a single variable using malloc.
+
+Activity:
+
+Log Session a pointer to an integer.
+Use malloc to allocate memory for one integer.
+Assign a value to that memory.
+Print the value through the pointer.
+Free the allocated memory.
+Include NULL check after malloc.
+
+Exercise 2: Allocate and Store a List of Integers
+Goal: Practice allocating memory for an array of integers.
+
+Activity:
+
+Ask the user to enter the number of integers.
+Allocate memory dynamically using malloc based on input.
+Use a loop to take integer inputs into the allocated array.
+Display the entered values.
+Free the allocated memory.
+
+Exercise 3: Zero-Initialize an Integer Array
+Goal: Understand how calloc initializes memory.
+
+Activity:
+
+Ask the user for the number of elements.
+Allocate memory using calloc.
+Print the initial values (before user input).
+Assign values, then display them.
+Free the memory after use.
+
+Exercise 4: Compare malloc and calloc
+Goal: Learn the key difference between malloc and calloc.
+
+Activity:
+
+Allocate two arrays using malloc and calloc with the same size.
+Print the default values in both arrays.
+Use a loop for printing to understand initialization differences.
+Free both arrays.
+
+Exercise 5: Reallocate an Array Dynamically
+Goal: Use realloc to extend an array as needed.
+
+Activity:
+
+Allocate memory for 2 integers.
+Ask the user for values.
+Then resize the array to 5 integers using realloc.
+Accept more values into the resized array.
+Print all values.
+Free the memory at the end.
+
+Exercise 6: Log Session a Dynamic 2D Array
+Goal: Learn how to allocate and access a 2D array dynamically.
+
+Activity:
+
+Ask the user for number of rows and columns.
+Allocate memory for an array of row pointers.
+Allocate each row separately using malloc.
+Accept values for each row-column index.
+Display the matrix.
+Free each row and then the row pointer array.
+
+Exercise 7: Dynamic String Input
+Goal: Handle strings with dynamic memory allocation.
+
+Activity:
+
+Ask the user to enter a string.
+Find its length using strlen.
+Allocate memory to store the string using malloc.
+Copy the string to the new memory.
+Print the copied string.
+Free the memory.
+
+Exercise 8: Implement Custom strdup()
+Goal: Practice duplicating a string using dynamic memory.
+
+Activity:
+
+Log Session a function that takes a string as input.
+Allocate memory for a copy of the string.
+Copy character by character.
+Return the copied string.
+Call this function and display the result.
+Free the copied string.
+
+Exercise 9: Log Session a Linked List with 3 Nodes
+Goal: Apply dynamic memory to build a simple linked list.
+
+Activity:
+
+Define a struct for a node with data and next.
+Use malloc to create 3 nodes dynamically.
+Link the nodes manually.
+Traverse and print the list.
+Free all nodes after traversal.
+
+Exercise 10: Log Session and Reverse an Array
+Goal: Use pointers to reverse dynamically allocated memory.
+
+Activity:
+
+Allocate an array of integers using malloc.
+Accept n values.
+Reverse the array using pointer arithmetic (not indexing).
+Print reversed values.
+Free the memory.
+
+Exercise 11: Accept Characters Until Enter Pressed
+Goal: Dynamically grow a string buffer with realloc.
+
+Activity:
+
+Start with a small buffer.
+Accept characters one by one.
+Reallocate buffer each time a new character is added.
+Stop on newline character.
+Null-terminate and print the string.
+Free the memory.
+
+Exercise 12: Track Frequency of Elements
+Goal: Use calloc for zero-initialized counting.
+
+Activity:
+
+Allocate an integer array of size 100 using calloc.
+Accept n numbers between 0 and 99.
+Increment the value at each index to count frequency.
+Display the frequencies.
+Free the memory.
+
+Exercise 13: Memory Leak Simulation
+Goal: Understand what a memory leak is.
+
+Activity:
+
+Allocate memory using malloc and assign values.
+Intentionally skip free().
+Run the program with tools like valgrind to observe the leak.
+Fix the leak by adding proper free().
+
+Exercise 14: Tokenize String Dynamically
+Goal: Store each word of a sentence in dynamically allocated memory.
+
+Activity:
+
+Accept a sentence as input.
+Use strtok() to split it into words.
+Use malloc to copy each token into a new memory block.
+Store them in a pointer array.
+Print all words and free each block.
+
+Exercise 15: Dynamic Menu-Driven Array
+Goal: Handle operations on a dynamic array with growing size.
+
+Activity:
+
+Start with an empty array.
+Provide a menu with options: Add element, Display, Exit.
+Use realloc each time user adds an element.
+Print array contents.
+Free memory on exit.
+
+Exercise 16: Safe Memory Allocation Check
+Goal: Practice error-checking after allocation.
+
+Activity:
+
+Try allocating a large chunk of memory (e.g., 1GB).
+Check if the pointer is NULL.
+If successful, print a success message.
+If failed, handle the error gracefully.
+Free if allocation succeeded.
+
+Exercise 17: Struct Array with Dynamic Allocation
+Goal: Allocate memory for array of structs.
+
+Activity:
+
+Define a struct (e.g., name and age).
+Ask user how many entries to store.
+Allocate memory using malloc.
+Accept values and display them.
+Free the memory.
+
+Exercise 18: Insert Element at Any Position
+Goal: Modify dynamic array and shift elements.
+
+Activity:
+
+Allocate memory for an array.
+Accept n values.
+Ask user to insert a value at a specific position.
+Use realloc to increase size.
+Shift elements and insert new value.
+Print final array and free memory.
+
+Exercise 19: Dynamic Array of Pointers to Integers
+Goal: Work with array of pointers using malloc.
+
+Activity:
+
+Ask user for count.
+Allocate array of int* pointers.
+Use malloc to assign an integer for each pointer.
+Assign and print values.
+Free all integers and the array.
+
+Exercise 20: Simulate Memory Fragmentation
+Goal: Understand fragmentation with sequential malloc and free.
+
+Activity:
+
+Allocate multiple memory blocks of varying sizes.
+Free some in between.
+Allocate a new block that fits only in fragmented space.
+Observe behavior.
+Free all at the end.

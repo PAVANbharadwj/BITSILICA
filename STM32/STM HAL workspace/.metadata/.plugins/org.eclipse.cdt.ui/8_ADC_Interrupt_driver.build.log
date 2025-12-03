@@ -1,0 +1,10 @@
+12:52:20 **** Incremental Build of configuration Debug for project 8_ADC_Interrupt_driver ****
+make -j8 all 
+arm-none-eabi-size  8_ADC_Interrupt_driver.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4980	     12	   1644	   6636	   19ec	8_ADC_Interrupt_driver.elf
+Finished building: default.size.stdout
+ 
+
+12:52:20 Build Finished. 0 errors, 0 warnings. (took 252ms)
+

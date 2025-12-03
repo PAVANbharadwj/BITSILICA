@@ -1,0 +1,17 @@
+11:40:39 **** Incremental Build of configuration Debug for project 11_SPI1_interrupt ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F411xE -c -I"C:/Users/pavan/Documents/STM HAL workspace/10_SPI1_test/Inc" -I"C:/Users/pavan/Documents/STM HAL workspace/10_SPI1_test/Drivers/CMSIS/Include" -I"C:/Users/pavan/Documents/STM HAL workspace/10_SPI1_test/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"C:/Users/pavan/Documents/STM HAL workspace/10_SPI1_test/Drivers/STM32F4xx_HAL_Driver/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "11_SPI1_interrupt.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\pavan\Documents\STM HAL workspace\11_SPI1_interrupt\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="11_SPI1_interrupt.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 11_SPI1_interrupt.elf
+ 
+arm-none-eabi-size  11_SPI1_interrupt.elf 
+arm-none-eabi-objdump -h -S 11_SPI1_interrupt.elf  > "11_SPI1_interrupt.list"
+   text	   data	    bss	    dec	    hex	filename
+   5940	     24	   1752	   7716	   1e24	11_SPI1_interrupt.elf
+Finished building: default.size.stdout
+ 
+Finished building: 11_SPI1_interrupt.list
+ 
+
+11:40:40 Build Finished. 0 errors, 0 warnings. (took 1s.21ms)
+

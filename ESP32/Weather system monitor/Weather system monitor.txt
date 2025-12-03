@@ -1,0 +1,115 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+#include <DHT.h>
+
+// Define pins for sensors
+#define LDR_PIN 32
+#define DHTPIN 15
+#define RAINPIN 34
+
+// Initialize the LCD display
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+// Initialize the DHT22 sensor
+DHT dht(DHTPIN, DHT22);
+
+void setup() {
+  // Debug console
+  Serial.begin(115200);
+
+  // Initialize DHT sensor
+  dht.begin();
+
+  // Initialize LCD
+  lcd.init();
+  lcd.backlight();
+
+  // Set pin modes
+  pinMode(LDR_PIN, INPUT);
+  pinMode(RAINPIN, INPUT);
+
+  // Configure analog read resolution
+  analogReadResolution(12);
+
+  // Display startup message on LCD
+  lcd.setCursor(0, 0);
+  lcd.print("Weather Monitor");
+  lcd.setCursor(4, 1);
+  lcd.print("System");
+  delay(4000);
+  lcd.clear();
+
+  // Run the sensors update once in setup
+  getDHTValues();
+  rainSensor();
+  LDRsensor();
+}
+
+// Get the DHT22 sensor values
+void getDHTValues() {
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+
+  if (isnan(h) || isnan(t)) {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+
+  Serial.print("Temperature: ");
+  Serial.print(t);
+  Serial.print(" °C, Humidity: ");
+  Serial.print(h);
+  Serial.println(" %");
+
+  lcd.setCursor(0, 0);
+  lcd.print("T:");
+  lcd.print(t);
+  lcd.print("C");
+
+  lcd.setCursor(8, 0);
+  lcd.print("H:");
+  lcd.print(h);
+  lcd.print("%");
+}
+
+// Get the rain sensor values
+void rainSensor() {
+  int Rvalue = analogRead(RAINPIN);
+  Rvalue = map(Rvalue, 0, 4095, 0, 100);
+  Rvalue = (Rvalue * -1) + 100;
+
+  Serial.print("Rain: ");
+  Serial.print(Rvalue);
+  Serial.println(" %");
+
+  lcd.setCursor(0, 1);
+  lcd.print("R: ");
+  lcd.print(Rvalue);
+  lcd.print("%");
+}
+
+// Get the LDR sensor values
+void LDRsensor() {
+  int value = analogRead(LDR_PIN);
+
+  Serial.print("Light: ");
+  Serial.println(value);
+
+  if (value > 2000) { // Arbitrary threshold for light intensity
+    lcd.setCursor(8, 1);
+    lcd.print("Light: High ");
+  } else {
+    lcd.setCursor(8, 1);
+    lcd.print("Light: Low  ");
+  }
+}
+
+void loop() {
+  // Continuously update the sensors and LCD
+  getDHTValues();
+  rainSensor();
+  LDRsensor();
+  
+  // Add a delay to avoid flooding the serial monitor
+  delay(2000);
+}

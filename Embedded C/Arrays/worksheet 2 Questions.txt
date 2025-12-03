@@ -1,0 +1,176 @@
+Questions 26 - 50
+26. Find the union of two arrays
+Question description:
+Write a C program to find the union of two arrays (all unique elements from both arrays).
+Sample data:
+Array 1: 1 2 3 4 Array 2: 3 4 5 6
+Expected output:
+Union: 1 2 3 4 5 6
+27. Find the intersection of two arrays
+Question description:
+Write a C program to find the intersection of two arrays (common elements).
+Sample data:
+Array 1: 1 2 3 4 Array 2: 3 4 5 6
+Expected output:
+Intersection: 3 4
+28. Find the difference of two arrays
+Question description:
+Write a C program to find the difference of two arrays (elements present in first array but not in second).
+Sample data:
+Array 1: 1 2 3 4 Array 2: 3 4 5 6
+Expected output:
+Difference (Array1 - Array2): 1 2
+29. Check if array is palindrome
+Question description:
+Write a C program to check whether an array is palindrome (reads the same forward and backward).
+Sample data:
+Input: 1 2 3 2 1
+Expected output:
+The array is a palindrome.
+30. Count pairs with given sum
+Question description:
+Write a C program to find number of pairs in the array whose sum is equal to a given value.
+Sample data:
+Input array: 1 5 7 -1 5 Sum = 6
+Expected output:
+Number of pairs: 3
+31. Find missing number in array
+Question description:
+Write a C program to find the missing number in an array of size n containing numbers from 1 to n+1.
+Sample data:
+Input: 1 2 4 5 6
+Expected output:
+Missing number is: 3
+32. Find the majority element
+Question description:
+Write a C program to find the majority element in an array (element appearing more than n/2 times).
+Sample data:
+Input: 2 2 1 2 3 2 2
+Expected output:
+Majority element: 2
+33. Find subarray with maximum sum (Kadane’s Algorithm)
+Question description:
+Write a C program to find the maximum sum of a contiguous subarray.
+Sample data:
+Input: -2 -3 4 -1 -2 1 5 -3
+Expected output:
+Maximum contiguous sum is 7
+34. Find leader elements in array
+Question description:
+Write a C program to find all leader elements in the array (elements greater than all elements to their right).
+Sample data:
+Input: 16 17 4 3 5 2
+Expected output:
+Leader elements: 17 5 2
+35. Find equilibrium index
+Question description:
+Write a C program to find the index where the sum of elements to the left is equal to the sum to the right.
+Sample data:
+Input: -7 1 5 2 -4 3 0
+Expected output:
+Equilibrium index is 3
+36. Find second smallest element
+Question description:
+Write a C program to find the second smallest element in the array.
+Sample data:
+Input: 12 13 1 10 34 1
+Expected output:
+Second smallest element is 10
+37. Check if array is subset of another
+Question description:
+Write a C program to check if one array is a subset of another array.
+Sample data:
+Array 1: 1 2 3 4 5 Array 2: 2 4 5
+Expected output:
+Array2 is a subset of Array1
+38. Sort array of 0s, 1s and 2s
+Question description:
+Write a C program to sort an array consisting of only 0s, 1s, and 2s.
+Sample data:
+Input: 0 1 2 0 1 2 1 0
+Expected output:
+Sorted array: 0 0 0 1 1 1 2 2
+39. Find product of all elements
+Question description:
+Write a C program to find the product of all elements in the array.
+Sample data:
+Input: 1 2 3 4
+Expected output:
+Product: 24
+40. Find the maximum difference between two elements such that larger element appears after the smaller
+Question description:
+Write a C program to find the maximum difference between two elements in an array such that the larger element appears after the smaller element.
+Sample data:
+Input: 2 3 10 6 4 8 1
+Expected output:
+Maximum difference: 8 (10 - 2)
+41. Find the minimum and maximum element using minimum comparisons
+Question description:
+Write a C program to find minimum and maximum elements using minimum number of comparisons.
+Sample data:
+Input: 1000 11 445 1 330 3000
+Expected output:
+Minimum element is 1 Maximum element is 3000
+42. Count occurrences of a number
+Question description:
+Write a C program to count how many times a specific number appears in an array.
+Sample data:
+Input array: 1 2 3 2 2 5 Number to count: 2
+Expected output:
+Number 2 occurs 3 times
+43. Find two elements whose sum is closest to zero
+Question description:
+Write a C program to find two elements whose sum is closest to zero.
+Sample data:
+Input: 1 60 -10 70 -80 85
+Expected output:
+Pair whose sum is closest to zero: -80 85
+44. Rearrange positive and negative numbers
+Question description:
+Write a C program to rearrange an array so that positive and negative numbers are placed alternatively.
+Sample data:
+Input: 1 2 3 -4 -1 4
+Expected output:
+Rearranged array: -4 1 -1 2 3 4
+45. Move all zeros to end of array
+Question description:
+Write a C program to move all zeros in the array to the end while maintaining the order of non-zero elements.
+Sample data:
+Input: 1 0 2 0 0 3 4
+Expected output:
+Output: 1 2 3 4 0 0 0
+46. Find the frequency of each element
+Question description:
+Write a C program to find the frequency of each element in the array.
+Sample data:
+Input: 10 20 10 30 20 20 10 10
+Expected output:
+10: 4 20: 3 30: 1
+47. Find maximum sum of k consecutive elements
+Question description:
+Write a C program to find maximum sum of k consecutive elements in an array.
+Sample data:
+Input: 2 3 4 1 5 6 7 k = 3
+Expected output:
+Maximum sum of 3 consecutive elements: 18
+48. Rotate array by k positions
+Question description:
+Write a C program to rotate the elements of an array by k positions to the right.
+Sample data:
+Input: 1 2 3 4 5 k = 2
+Expected output:
+Output: 4 5 1 2 3
+49. Find longest consecutive sequence
+Question description:
+Write a C program to find the length of the longest consecutive elements sequence.
+Sample data:
+Input: 100 4 200 1 3 2
+Expected output:
+Longest consecutive sequence length: 4 (1, 2, 3, 4)
+50. Find the missing two numbers in an array
+Question description:
+Write a C program to find two missing numbers from an array containing numbers from 1 to n+2.
+Sample data:
+Input: 1 2 4 6
+Expected output:
+Missing numbers: 3 5

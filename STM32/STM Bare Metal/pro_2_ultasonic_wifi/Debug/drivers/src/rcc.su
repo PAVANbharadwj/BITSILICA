@@ -1,0 +1,4 @@
+../drivers/src/rcc.c:12:6:RCC_InitSystemClock	4	static
+../drivers/src/rcc.c:18:6:RCC_EnableGPIOA	4	static,ignoring_inline_asm
+../drivers/src/rcc.c:19:6:RCC_EnableUSART2	4	static,ignoring_inline_asm
+../drivers/src/rcc.c:20:6:RCC_EnableTIM3	4	static,ignoring_inline_asm

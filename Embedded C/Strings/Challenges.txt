@@ -1,0 +1,61 @@
+Challenges
+1. Reverse a string in-place without using extra memory
+Explain your approach to reversing a string by swapping characters from the start and end moving towards the center, without using extra storage.
+
+Example: Input: "interview"
+Output: "weivretni"
+
+2. Find the first non-repeating character in a given string
+Identify the first character that does not repeat anywhere else in the string, optimizing for time and space complexity.
+
+Example: Input: "swiss"
+Output: 'w'
+
+3. Check if two strings are anagrams without using built-in sort
+Determine if two strings contain the exact same characters in any order, without sorting them.
+
+Example: Input: "listen", "silent"
+Output: true
+
+4. Remove duplicate characters from a string while preserving order
+Write a function to remove repeated characters, keeping the original sequence of the first occurrence.
+
+Example: Input: "embedded"
+Output: "embed"
+
+5. Find the longest substring without repeating characters
+Find the length or substring which has all unique characters without any repetition.
+
+Example: Input: "abcabcbb"
+Output: "abc"
+
+6. Implement pattern matching using the KMP algorithm
+Explain and implement the Knuth-Morris-Pratt algorithm for substring search, focusing on preprocessing the pattern to avoid redundant comparisons.
+
+Example: Pattern: "abc"
+Text: "ababcabcab"
+Output: Pattern found at indices 2, 5
+
+7. Check if one string is a rotation of another
+Verify if one string can be obtained by rotating another string. Use string concatenation and substring search.
+
+Example: Input: "abcd", "cdab"
+Output: true
+
+8. Find the lexicographic rank of a string (with duplicates)
+Calculate the position of the string in the sorted list of all its permutations.
+
+Example: Input: "string"
+Output: 598
+
+9. Implement Run-Length Encoding (RLE) for string compression
+Compress a string by replacing consecutive repeated characters with the character followed by the count.
+
+Example: Input: "aaabbc"
+Output: "a3b2c1"
+
+10. Print all permutations of a string in lexicographic order
+Generate and print every permutation of the given string sorted alphabetically.
+ 
+Example: Input: "abc"
+Output: "abc", "acb", "bac", "bca", "cab", "cba"

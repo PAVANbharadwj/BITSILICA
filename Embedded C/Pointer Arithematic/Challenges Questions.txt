@@ -1,0 +1,51 @@
+Challenges
+-------------------
+
+1.You are given a pointer to the middle of an integer array. Without knowing the size of the array or accessing any index variable, how can you find the number of elements before and after this pointer?
+
+2.Consider two pointers p1 and p2 pointing inside the same array. You are allowed to perform only subtraction between them. How can you find the number of elements between them?
+
+3.You have a character array that contains a string and you’re only given a pointer pointing to a random position within the string. How can you print the string from the beginning using only pointer arithmetic?
+
+4.You’re given a double pointer char **ptr. How would you perform pointer arithmetic to access individual characters of a string list and reverse each string in-place?
+
+5.What will happen if you increment a void* pointer using ptr++? Why is it disallowed in standard C and how can this be worked around using char*?
+
+6.Given an integer array, use pointer arithmetic to reverse it in place without using any index or size variables — just two pointers.
+
+7.Given two pointers int *a and int *b pointing to two elements in different arrays, what happens if you subtract them? How does the compiler interpret the result?
+
+8.Implement your own version of strlen() using only pointer arithmetic and no index or library functions.
+
+9.You’re given a dynamically allocated 2D matrix (as int **). How can you access and manipulate its elements using only a single loop and pointer arithmetic?
+
+10.You have a pointer to a struct, and want to iterate over an array of structs using only pointer arithmetic. How do you correctly account for struct padding and alignment?
+
+11.What will be the output of the following pointer arithmetic:
+	char arr[] = "abcdef";
+	char *p = arr + 3;
+	printf("%c", *(p - 1));
+char arr[] = "abcdef";
+char *p = arr + 3;
+printf("%c", *(p - 1));
+
+12.Explain why it works and what would cause undefined behavior.
+How can you detect buffer overflow in a function that only uses pointer traversal over a character array (no indices)?
+
+13.Given int arr[5] = {10, 20, 30, 40, 50}, what does *(arr + *(arr + 2) / 10 - 1) evaluate to? Break it down and explain.
+
+14.Suppose you are given a pointer int *ptr = malloc(5 * sizeof(int));. You fill it with values. How do you safely iterate in reverse order using only pointer arithmetic?
+
+15.What happens if you do pointer arithmetic across two different malloc’ed blocks? What kind of bugs can arise and how can you avoid them?
+
+16.You're given a large memory block. You need to implement your own memory allocator using pointer arithmetic to simulate malloc() and free(). How do you track block sizes and free regions?
+
+17.If char *p = "hello";, what happens when you try *(p + 5) = '!';? Why is this undefined behavior?
+
+18.You have a multi-dimensional array like int arr[3][4]. How can you access arr[2][3] using only a single pointer variable?
+
+19.How can you find the size of an array (not pointer) passed to a function if only a pointer was received, and you're not allowed to use extra parameters?
+
+20.Given int *p = (int *)malloc(n * sizeof(int));, how would you access the 10th last element from the end using pointer arithmetic, assuming n is unknown but the end address is available?
+
+

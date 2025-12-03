@@ -1,0 +1,172 @@
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file           : main.c
+  * @brief          : Main program body
+  ******************************************************************************
+  */
+/* USER CODE END Header */
+
+#include "main.h"
+#include "fatfs.h"
+#include <string.h>
+#include <stdio.h>
+
+/*************** SD + UART Handles ************************/
+FATFS FatFs;
+FIL fil;
+FRESULT fres;
+char buf[256];
+
+SPI_HandleTypeDef hspi2;
+UART_HandleTypeDef huart2;
+
+/*************** Function Prototypes ***********************/
+void process_SD_card(void);
+void write_string_to_SD(char *str);
+void read_SD_data(void);
+void SystemClock_Config(void);
+
+/*************** Redirect printf to UART2 *******************/
+int _write(int file, char *ptr, int len)
+{
+    HAL_UART_Transmit(&huart2, (uint8_t*)ptr, len, HAL_MAX_DELAY);
+    return len;
+}
+
+/*************** Button Interrupt **************************/
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+    if(GPIO_Pin == GPIO_PIN_13)
+    {
+        printf("\n\n[BUTTON] Reading SD Card...\n");
+        read_SD_data();
+    }
+}
+
+/********************* MAIN ********************************/
+int main(void)
+{
+    HAL_Init();
+    SystemClock_Config();
+
+    MX_GPIO_Init();
+    MX_SPI2_Init();
+    MX_FATFS_Init();
+    MX_USART2_UART_Init();
+
+    printf("System Started...\n");
+    printf("Initializing SD Card...\n");
+
+    process_SD_card();
+
+    char rx_buffer[128];
+
+    while (1)
+    {
+        printf("\nEnter text to save into SD card:\n");
+
+        memset(rx_buffer, 0, sizeof(rx_buffer));
+
+        HAL_UART_Receive(&huart2, (uint8_t*)rx_buffer, sizeof(rx_buffer)-1, HAL_MAX_DELAY);
+
+        write_string_to_SD(rx_buffer);
+        printf("Text saved to SD card.\n");
+    }
+}
+
+/******************** SD PROCESS ***************************/
+void process_SD_card(void)
+{
+    fres = f_mount(&FatFs, "", 1);
+    if (fres != FR_OK)
+    {
+        printf("SD Mount Error (%d)\n", fres);
+        return;
+    }
+
+    printf("SD Card Mounted Successfully!\n");
+
+    fres = f_open(&fil, "Logs.txt", FA_OPEN_ALWAYS | FA_WRITE);
+    if (fres != FR_OK)
+    {
+        printf("File Open Error (%d)\n", fres);
+        return;
+    }
+
+    f_puts("---- Log Started ----\n", &fil);
+
+    f_close(&fil);
+}
+
+/****************** WRITE STRING TO SD *********************/
+void write_string_to_SD(char *str)
+{
+    fres = f_open(&fil, "Logs.txt", FA_OPEN_APPEND | FA_WRITE);
+
+    if (fres != FR_OK)
+    {
+        printf("Open Error (%d)\n", fres);
+        return;
+    }
+
+    f_puts(str, &fil);
+    f_puts("\n", &fil);
+
+    f_close(&fil);
+}
+
+/****************** READ SD CARD FILE **********************/
+void read_SD_data(void)
+{
+    fres = f_open(&fil, "Logs.txt", FA_READ);
+
+    if (fres != FR_OK)
+    {
+        printf("Open Error (%d)\n", fres);
+        return;
+    }
+
+    printf("\n--- SD CARD CONTENT ---\n");
+
+    while (f_gets(buf, sizeof(buf), &fil))
+    {
+        printf("%s", buf);
+    }
+
+    printf("\n--- END OF FILE ---\n");
+
+    f_close(&fil);
+}
+
+void SystemClock_Config(void)
+{
+    RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+    RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+
+    /* MSI Oscillator */
+    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_MSI;
+    RCC_OscInitStruct.MSIState = RCC_MSI_ON;
+    RCC_OscInitStruct.MSICalibrationValue = 0;
+    RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_6;
+    RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+    RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_MSI;
+    RCC_OscInitStruct.PLL.PLLM = 1;
+    RCC_OscInitStruct.PLL.PLLN = 20;
+    RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV7;
+    RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV2;
+    RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV2;
+    if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) Error_Handler();
+
+    /* Clock Config */
+    RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK |
+                                  RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+    RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+    RCC_ClkInitStruct.AHBCLKDivider = RCC_HCLK_DIV1;
+    RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+    RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+
+    if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
+        Error_Handler();
+}
+

@@ -1,0 +1,42 @@
+[
+    {
+        "TestCase": "TC1",
+        "Status": "Passed",
+        "ExecutionTime": "1.2"
+    },
+    {
+        "TestCase": "TC2",
+        "Status": "Failed",
+        "ExecutionTime": "2.5"
+    },
+    {
+        "TestCase": "TC3",
+        "Status": "Passed",
+        "ExecutionTime": "1.0"
+    },
+    {
+        "TestCase": "TC4",
+        "Status": "Passed",
+        "ExecutionTime": "1.8"
+    },
+    {
+        "TestCase": "TC5",
+        "Status": "Failed",
+        "ExecutionTime": "3.0"
+    },
+    {
+        "TestCase": "TC6",
+        "Status": "Passed",
+        "ExecutionTime": "2.2"
+    },
+    {
+        "TestCase": "TC7",
+        "Status": "Passed",
+        "ExecutionTime": "1.5"
+    },
+    {
+        "TestCase": "TC8",
+        "Status": "Failed",
+        "ExecutionTime": "2.8"
+    }
+]

@@ -1,0 +1,60 @@
+#include "stm32l476xx.h"
+#include "stm32l476xx_usart_driver.h"
+#include "stm32l476xx_gpio_driver.h"
+#include <string.h>
+
+void USART2_GPIO_Init(void)
+{
+    GPIO_Handle_t UartPin;
+
+    GPIO_PeriClockControl(GPIOA, 1);
+
+    UartPin.pGPIOx = GPIOA;
+    UartPin.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_ALTFN;
+    UartPin.GPIO_PinConfig.GPIO_PinAltFunMode = 7;
+    UartPin.GPIO_PinConfig.GPIO_PinOPType = GPIO_OP_TYPE_PP;
+    UartPin.GPIO_PinConfig.GPIO_PinSpeed = GPIO_HIGH_SPEED;
+
+    // PA2 = TX
+    UartPin.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_2;
+    UartPin.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
+    GPIO_Init(&UartPin);
+
+    // PA3 = RX
+    UartPin.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_3;
+    UartPin.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
+    GPIO_Init(&UartPin);
+}
+
+uint8_t msg[] = "Hello UART Loopback!\r\n";
+uint8_t rxBuffer[32];
+
+int main(void)
+{
+    USART_Handle_t UartHandle;
+
+    USART_PeriClockControl(USART2, 1);
+    USART2_GPIO_Init();
+
+    UartHandle.pUSARTx = USART2;
+    UartHandle.USART_Config.USART_Baud = USART_STD_BAUD_115200;
+    UartHandle.USART_Config.USART_Mode = USART_MODE_TXRX;
+    UartHandle.USART_Config.USART_NoOfStopBits = USART_STOPBITS_1;
+    UartHandle.USART_Config.USART_ParityControl = USART_PARITY_DISABLE;
+    UartHandle.USART_Config.USART_WordLength = USART_WORDLEN_8BITS;
+    UartHandle.USART_Config.USART_HWFlowControl = USART_HW_FLOW_CTRL_NONE;
+
+    USART_Init(&UartHandle);
+    USART_PeripheralControl(USART2, 1);
+
+    uint32_t len = strlen((char*)msg);
+
+    while (1)
+    {
+        USART_SendData(&UartHandle, msg, len);
+
+        USART_ReceiveData(&UartHandle, rxBuffer, len);
+
+        // Add break point here – rxBuffer should contain msg
+    }
+}

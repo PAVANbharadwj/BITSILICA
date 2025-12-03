@@ -1,0 +1,10 @@
+15:18:44 **** Incremental Build of configuration Debug for project 14_I2C_STM_TO_Arduino ****
+make -j8 all 
+arm-none-eabi-size  14_I2C_STM_TO_Arduino.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11032	     28	   1724	  12784	   31f0	14_I2C_STM_TO_Arduino.elf
+Finished building: default.size.stdout
+ 
+
+15:18:45 Build Finished. 0 errors, 0 warnings. (took 388ms)
+

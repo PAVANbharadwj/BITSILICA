@@ -1,0 +1,5 @@
+../Core/Src/bmi160.c:7:13:bmi_write8	32	static
+../Core/Src/bmi160.c:13:13:bmi_read	24	static
+../Core/Src/bmi160.c:21:16:make_int16	16	static
+../Core/Src/bmi160.c:28:6:BMI160_Init	24	static
+../Core/Src/bmi160.c:62:6:BMI160_Read	32	static

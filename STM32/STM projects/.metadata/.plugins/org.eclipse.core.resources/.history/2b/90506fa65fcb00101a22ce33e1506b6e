@@ -1,0 +1,98 @@
+#include "bmi160.h"
+
+static I2C_HandleTypeDef *bmi_i2c;
+
+/* ---------------- Low-Level I2C ---------------- */
+
+static void bmi_write8(uint8_t reg, uint8_t val)
+{
+    uint8_t buf[2] = { reg, val };
+    HAL_I2C_Master_Transmit(bmi_i2c, BMI160_I2C_ADDR << 1, buf, 2, HAL_MAX_DELAY);
+}
+
+static void bmi_read(uint8_t reg, uint8_t *buf, uint8_t len)
+{
+    HAL_I2C_Master_Transmit(bmi_i2c, BMI160_I2C_ADDR << 1, &reg, 1, HAL_MAX_DELAY);
+    HAL_I2C_Master_Receive(bmi_i2c, BMI160_I2C_ADDR << 1, buf, len, HAL_MAX_DELAY);
+}
+
+/* ---------------- Helper ---------------- */
+
+static int16_t make_int16(uint8_t lsb, uint8_t msb)
+{
+    return (int16_t)((msb << 8) | lsb);
+}
+
+/* ---------------- Initialization ---------------- */
+
+void BMI160_Init(I2C_HandleTypeDef *hi2c)
+{
+    bmi_i2c = hi2c;
+
+    uint8_t id = 0;
+    bmi_read(BMI160_CHIPID, &id, 1);
+
+    printf("BMI160 ID = 0x%02X\r\n", id);
+
+    /* Enter Accelerometer Normal mode */
+    bmi_write8(BMI160_CMD_REG, BMI160_CMD_ACC_NORMAL);
+    HAL_Delay(5);
+
+    /* Enter Gyroscope Normal mode */
+    bmi_write8(BMI160_CMD_REG, BMI160_CMD_GYR_NORMAL);
+    HAL_Delay(80);   // IMPORTANT
+
+    /* ACCEL config: ODR=100Hz, BW=OSR4, Normal */
+    bmi_write8(0x40, 0x28);
+
+    /* ACCEL Range: +-2g */
+    bmi_write8(0x41, 0x03);
+
+    /* GYRO config: ODR=100Hz */
+    bmi_write8(0x42, 0x28);
+
+    /* GYRO Range: +-2000 dps */
+    bmi_write8(0x43, 0x00);
+
+    HAL_Delay(20);
+}
+
+/* ---------------- Read Accel + Gyro ---------------- */
+
+void BMI160_Read(BMI160_Data *out)
+{
+    uint8_t raw[2];
+
+    /* ------------ ACCEL X ------------ */
+    bmi_read(BMI_ACCEL_X_REG, raw, 2);
+    int16_t ax_raw = make_int16(raw[0], raw[1]);
+
+    /* ------------ ACCEL Y ------------ */
+    bmi_read(BMI_ACCEL_Y_REG, raw, 2);
+    int16_t ay_raw = make_int16(raw[0], raw[1]);
+
+    /* ------------ ACCEL Z ------------ */
+    bmi_read(BMI_ACCEL_Z_REG, raw, 2);
+    int16_t az_raw = make_int16(raw[0], raw[1]);
+
+    /* ------------ GYRO X ------------ */
+    bmi_read(BMI_GYRO_X_REG, raw, 2);
+    int16_t gx_raw = make_int16(raw[0], raw[1]);
+
+    /* ------------ GYRO Y ------------ */
+    bmi_read(BMI_GYRO_Y_REG, raw, 2);
+    int16_t gy_raw = make_int16(raw[0], raw[1]);
+
+    /* ------------ GYRO Z ------------ */
+    bmi_read(BMI_GYRO_Z_REG, raw, 2);
+    int16_t gz_raw = make_int16(raw[0], raw[1]);
+
+    /* Scaling factors */
+    out->ax = ax_raw / 16384.0f;   // ±2g
+    out->ay = ay_raw / 16384.0f;
+    out->az = az_raw / 16384.0f;
+
+    out->gx = gx_raw / 16.4f;      // ±2000 dps
+    out->gy = gy_raw / 16.4f;
+    out->gz = gz_raw / 16.4f;
+}

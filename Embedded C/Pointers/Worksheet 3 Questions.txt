@@ -1,0 +1,172 @@
+Worksheet 3
+-----------------
+
+C Pointer Activities
+
+1. Pointer and Array Behavior
+Goal: Analyze how pointers and arrays differ in memory referencing and sizeof operations in embedded systems.
+Activity:
+
+Declare an integer array with predefined elements:
+
+int arr[5] = {10, 20, 30, 40, 50};
+
+Declare an integer pointer and assign it to the array's base address:
+
+int *ptr = arr;
+
+Print the values of the array name, the pointer, and the address of the array.
+Use sizeof() on the array and pointer and observe differences.
+Access the elements via both array indexing and pointer arithmetic, and print them.
+
+
+
+2. Accessing Multi-Dimensional Arrays with Pointers
+Goal: Implement pointer arithmetic to traverse a 2D sensor data array efficiently without nested loops.
+Activity:
+ 
+Define a 3x3 integer matrix representing sensor readings:
+
+int sensors[3][3] = {
+  {100, 101, 102},
+  {110, 111, 112},
+  {120, 121, 122}
+};
+
+Assign a pointer to the first element of the matrix:
+
+int *p = &sensors[0][0];
+
+Use a single loop and pointer arithmetic to iterate over the matrix elements.
+Print each sensor value accessed via the pointer.
+
+
+
+3. Working with Const and Volatile Pointers
+Goal: Demonstrate how const and volatile qualifiers affect pointer behavior in hardware register access.
+Activity:
+
+Define a dummy hardware register address using #define:
+
+#define REG_BASE 0x40000000
+
+Declare pointers with different qualifiers:
+
+volatile uint32_t *reg_modifiable = (uint32_t *)REG_BASE;
+const uint32_t *reg_readonly = (const uint32_t *)REG_BASE;
+const volatile uint32_t *reg_const_volatile = (const volatile uint32_t *)REG_BASE;
+
+Attempt to write to and read from each pointer and note compiler behavior.
+
+
+
+
+4. Void Pointers and Memory Copying
+Goal: Use void pointers to create a generic memory copying utility function for embedded data types.
+Activity:
+
+Declare a function mem_copy(void *dest, const void *src, size_t n) that copies n bytes from src to dest:
+
+void mem_copy(void *dest, const void *src, size_t n);
+
+Within the function, use char * pointers to copy data byte-by-byte.
+
+
+
+
+5. Structure Padding and Packed Attributes
+Goal: Analyze memory layout and size differences of structs with and without packing for peripheral registers.
+Activity:
+ 
+Define a structure containing char, int, and short fields:
+
+struct PeripheralRegs {
+  char status;
+  int control;
+  short error;
+};
+
+Print the total size of the structure and the offsets of each member using offsetof().
+Redefine the structure with __attribute__((packed)) and compare sizes and offsets.
+
+
+
+
+6. Function Pointer Arrays for Command Execution
+Goal: Log Session an embedded command interface using an array of function pointers.
+Activity:
+
+Declare three functions representing device operations:
+
+void init(void);
+void start(void);
+void stop(void);
+
+Log Session an array of function pointers referencing these functions:
+
+void (*cmd_table[])(void) = {init, start, stop};
+
+Use an index or enum value to invoke the appropriate function via the array.
+
+7. Dangling Pointer Scenario
+Goal: Identify potential risks and behavior of dangling pointers in embedded dynamic memory management.
+Activity:
+ 
+Write a function that allocates a block of memory dynamically using malloc() and returns the pointer:
+
+int *allocate_buffer(void) {
+  int *buf = (int *)malloc(10 * sizeof(int));
+  return buf;
+}
+
+In the calling context, free the memory pointed to and then try to access it via the original pointer.
+Use debug prints or debugger to observe system behavior.
+
+
+8. Dynamic Allocation of 2D Register Block
+Goal: Dynamically allocate and manage a two-dimensional register map for peripheral configuration.
+Activity:
+
+Allocate memory for a 4x4 matrix of 32-bit registers using double pointers:
+
+uint32_t **reg_block;
+reg_block = malloc(rows * sizeof(uint32_t *));
+for (int i = 0; i < rows; i++)
+  reg_block[i] = malloc(cols * sizeof(uint32_t));
+
+Initialize the matrix elements with example register values.
+Print the matrix values via pointer dereferencing.
+Free all allocated memory properly after use.
+
+
+
+9. Function Returning Pointer to Fixed-Size Array
+Goal: Implement a function that returns a pointer to a fixed-size calibration data array.
+Activity:
+
+Use typedef to declare a pointer to an array of 10 integers:
+
+typedef int (*CalibArrayPtr)[10];
+
+Log Session a function that returns a pointer to a static array of calibration values:
+
+CalibArrayPtr get_calibration_data(void);
+
+From the calling function, access calibration data via the returned pointer.
+
+
+
+10. Pointer Arithmetic on Struct Arrays
+Goal: Access and modify an array of peripheral register structs using pointer arithmetic.
+Activity:
+
+Define a struct representing peripheral registers:
+
+struct Peripheral {
+  uint8_t status;
+  uint8_t control;
+  uint16_t data;
+};
+
+Declare an array of 5 such structs.
+Use a pointer to traverse and modify the array elements using pointer arithmetic.

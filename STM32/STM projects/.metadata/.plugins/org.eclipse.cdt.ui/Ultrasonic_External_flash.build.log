@@ -1,0 +1,10 @@
+15:01:38 **** Incremental Build of configuration Debug for project Ultrasonic_External_flash ****
+make -j8 all 
+arm-none-eabi-size  Ultrasonic_External_flash.elf 
+   text	   data	    bss	    dec	    hex	filename
+  25412	     92	   2492	  27996	   6d5c	Ultrasonic_External_flash.elf
+Finished building: default.size.stdout
+ 
+
+15:01:38 Build Finished. 0 errors, 0 warnings. (took 391ms)
+

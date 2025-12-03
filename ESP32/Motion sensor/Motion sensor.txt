@@ -1,0 +1,32 @@
+const int ledpin = 5;           
+const int PIRinput = 19;        
+
+int pirState = LOW;
+
+void setup() {
+  pinMode(ledpin, OUTPUT);
+  pinMode(PIRinput, INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  const int IP = digitalRead(PIRinput);
+  delay(100);
+  
+  if (IP == 1) {
+    digitalWrite(ledpin, HIGH);
+    if (pirState == LOW) {
+      Serial.println("Motion detected!");
+      pirState = HIGH;
+    }
+    delay(1000);
+  } else {
+
+    digitalWrite(ledpin, LOW);
+    if (pirState == HIGH) {
+      Serial.println("Motion ended!");
+      pirState = LOW;
+    }
+    delay(1000);
+  }
+}

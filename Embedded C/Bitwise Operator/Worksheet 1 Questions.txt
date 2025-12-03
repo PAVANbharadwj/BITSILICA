@@ -1,0 +1,65 @@
+Worksheet 1
+---------------
+
+
+1.What are the functions of bitwise operators AND, OR, XOR, and shift operations?
+
+2.Write a program to perform the following operations on the Least and Most Significant Bits (LSB/MSB) of a given integer:
+
+Set the LSB to 1
+Clear the LSB (set to 0)
+Toggle the LSB
+Set the MSB to 1
+Clear the MSB (set to 0)
+Toggle the MSB
+Set a specific bit to 1
+Clear a specific bit
+Toggle a specific bit
+
+3.Write a program to modify specific portions of a given integer:
+
+Set all bits in the Least Significant Byte (LSB) to 1
+Set all bits in the Most Significant Byte (MSB) to 1
+Set all bits in the Least Significant Nibble to 1
+Set all bits in the Most Significant Nibble to 1
+Set n bits to 1 (user input)
+Clear n bits (set to 0), with n as input
+Toggle n bits (user input)
+
+4.Write a program to check bit status in an integer:
+Check if LSB is set (1) or not (0)
+Check if MSB is set (1) or not (0)
+Check if the nth bit is set (1) or not (0) (user input)
+
+5.Write macros to set, clear, and toggle the nth bit using bitwise operators.
+
+6.Write a C program to count the number of set bits in an unsigned integer.
+
+7.How can you count the number of set bits in a floating-point number?
+
+8.Write a C program to count the number of bits set to 1 in an integer. Also compare different methods. Additionally, check if the 20th bit of a 32-bit integer is set.
+
+9.Write a C program to check whether a number is a power of 2 using bitwise operations.
+
+10.Write a C program to determine whether a number is odd or even using bitwise operators.
+
+11.Implement the function setbits(x, p, n, y) that sets n bits in x starting at position p with the rightmost n bits of y.
+
+12.Given two integers A and B, write a program to count the number of bits that need to be flipped to convert A into B.
+
+13.Write a program to reverse all bits in an integer.
+
+14.Write a program to reverse:
+
+Bits at odd positions
+Bits at even positions
+
+15.Write a program to multiply a number by 9 using bitwise shift operations.
+
+16.Write a program to determine the size (in bits) of an integer using bit shifts.
+
+17.Write a program to convert a Little Endian integer to its Big Endian equivalent.
+
+
+
+

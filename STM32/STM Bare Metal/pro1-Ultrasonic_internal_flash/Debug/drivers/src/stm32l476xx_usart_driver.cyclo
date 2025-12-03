@@ -1,0 +1,12 @@
+../drivers/src/stm32l476xx_usart_driver.c:4:6:USART_PeriClockControl	12
+../drivers/src/stm32l476xx_usart_driver.c:25:17:RCC_GetPCLKFreq	4
+../drivers/src/stm32l476xx_usart_driver.c:39:6:USART_Init	9
+../drivers/src/stm32l476xx_usart_driver.c:81:6:USART_DeInit	4
+../drivers/src/stm32l476xx_usart_driver.c:89:6:USART_SendData	4
+../drivers/src/stm32l476xx_usart_driver.c:102:6:USART_ReceiveData	3
+../drivers/src/stm32l476xx_usart_driver.c:114:9:USART_GetFlagStatus	1
+../drivers/src/stm32l476xx_usart_driver.c:119:6:USART_ClearFlag	1
+../drivers/src/stm32l476xx_usart_driver.c:126:6:USART_PeripheralControl	2
+../drivers/src/stm32l476xx_usart_driver.c:133:6:USART_SetBaudRate	1
+../drivers/src/stm32l476xx_usart_driver.c:140:6:USART_IRQConfig	6
+../drivers/src/stm32l476xx_usart_driver.c:162:6:USART_IRQHandling	10

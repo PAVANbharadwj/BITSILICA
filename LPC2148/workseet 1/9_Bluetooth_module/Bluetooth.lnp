@@ -1,0 +1,7 @@
+--cpu ARM7TDMI
+".\startup.o"
+".\bluetooth.o"
+--strict --scatter ".\Bluetooth.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Bluetooth.map" -o .\Bluetooth.axf

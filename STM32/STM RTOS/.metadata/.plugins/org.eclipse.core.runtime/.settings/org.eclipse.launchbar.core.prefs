@@ -1,0 +1,12 @@
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/name=Local
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=win32
+configDescList=org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:STM32_HelloWorld Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:1_task_creation,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:2_LED_BUTTON_TASK,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:3_Task_Notify,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:4_Task_deletion,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:task_creation Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:5_Task_Priority
+eclipse.preferences.version=1
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:1_Task_creating/activeLaunchMode=run
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:1_Task_creating/activeLaunchTarget=null\:---
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:1_task_creation/activeLaunchMode=run
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:1_task_creation/activeLaunchTarget=null\:---
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:STM32_HelloWorld\ Debug/activeLaunchMode=debug
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:STM32_HelloWorld\ Debug/activeLaunchTarget=null\:---
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:task_creation\ Debug/activeLaunchMode=debug

@@ -1,0 +1,273 @@
+Concepts
+--------------
+
+Understanding Pointer Arithematic
+------------------------------------------
+
+Introduction
+------------------
+
+Pointer arithmetic refers to a set of valid arithmetic operations that can be performed on pointers. Since pointer variables store the memory address of another variable (not the value itself), only a few operations are allowed on pointers in C. These operations differ from standard arithmetic as they take data type sizes into account.
+
+Allowed Operations on Pointers in C
+Increment/Decrement of a Pointer
+
+Addition of an Integer to a Pointer
+
+Subtraction of an Integer from a Pointer
+
+Subtraction of Two Pointers
+
+Comparison of Pointers
+
+1. Increment/Decrement of a Pointer
+When a pointer is incremented or decremented, it moves forward or backward by the size of the data type it points to.
+
+Example:
+
+#include <stdio.h>
+
+int main() {
+    int a = 22;
+    int *p = &a;
+    printf("p = %u\n", p);
+    p++;
+    printf("p++ = %u\n", p);
+    p--;
+    printf("p-- = %u\n", p);
+
+    float b = 22.22;
+    float *q = &b;
+    printf("q = %u\n", q);
+    q++;
+    printf("q++ = %u\n", q);
+    q--;
+    printf("q-- = %u\n", q);
+
+    char c = 'a';
+    char *r = &c;
+    printf("r = %u\n", r);
+    r++;
+    printf("r++ = %u\n", r);
+    r--;
+    printf("r-- = %u\n", r);
+
+    return 0;
+}
+
+
+Output (may vary by system):
+
+p = 1441900792
+p++ = 1441900796
+p-- = 1441900792
+q = 1441900796
+q++ = 1441900800
+q-- = 1441900796
+r = 1441900791
+r++ = 1441900792
+r-- = 1441900791
+
+
+Note: On a 64-bit system, int and float typically use 4 bytes, char uses 1 byte. %p is generally used to print pointers in hexadecimal; %u can be used for simplicity to show as unsigned int.
+
+2. Addition of Integer to a Pointer
+When an integer is added to a pointer, it is multiplied by the size of the pointed data type before being added.
+
+Example:
+
+
+#include <stdio.h>
+
+int main() {
+    int N = 4;
+    int *ptr2 = &N;
+
+    printf("Pointer ptr2 before Addition: %p\n", ptr2);
+    ptr2 = ptr2 + 3;
+    printf("Pointer ptr2 after Addition: %p\n", ptr2);
+
+    return 0;
+}
+
+
+Output:
+
+Pointer ptr2 before Addition: 0x7ffca373da9c
+Pointer ptr2 after Addition: 0x7ffca373daa8
+
+
+3. Subtraction of Integer from a Pointer
+Similar to addition, when an integer is subtracted from a pointer, it is multiplied by the size of the data type.
+
+Example:
+
+#include <stdio.h>
+
+int main() {
+    int N = 4;
+    int *ptr2 = &N;
+
+    printf("Pointer ptr2 before Subtraction: %p\n", ptr2);
+    ptr2 = ptr2 - 3;
+    printf("Pointer ptr2 after Subtraction: %p\n", ptr2);
+
+    return 0;
+}
+
+Output:
+
+Pointer ptr2 before Subtraction: 0x7ffd718ffebc
+Pointer ptr2 after Subtraction: 0x7ffd718ffeb0
+
+
+4. Subtraction of Two Pointers
+Two pointers of the same type can be subtracted to find how many elements apart they are.
+
+Example:
+
+#include <stdio.h>
+
+int main() {
+    int x = 6;
+    int N = 4;
+    int *ptr1 = &N;
+    int *ptr2 = &x;
+
+    printf("ptr1 = %u, ptr2 = %u\n", ptr1, ptr2);
+    int diff = ptr1 - ptr2;
+    printf("Subtraction of ptr1 & ptr2 is %d\n", diff);
+
+    return 0;
+}
+
+Output:
+
+ptr1 = 2715594428, ptr2 = 2715594424
+Subtraction of ptr1 & ptr2 is 1
+
+5. Comparison of Pointers
+Pointers can be compared using relational operators (==, !=, <, >, etc.). This allows checking whether two pointers point to the same or different memory locations.
+
+More examples on pointer comparison can be added as needed.
+Conclusion
+Pointer arithmetic is a powerful concept in C that allows efficient array handling and memory access. However, care must be taken to avoid accessing memory out of bounds which may lead to undefined behavior.
+
+Always ensure that pointer operations remain within the bounds of allocated memory.
+
+
+Basic Guide to Pointer Arithmetic in C
+------------------------------------------
+
+Pointers are a fundamental part of the C programming language. They store memory addresses and let you work directly with memory. Pointer arithmetic means performing arithmetic operations like addition and subtraction on pointers to navigate through memory efficiently, especially within arrays.
+
+1. Understanding Pointer Basics
+ 
+A pointer holds the address of a variable in memory. For example:
+
+int x = 10;
+int *ptr = &x;
+
+Here, ptr stores the address of x. Pointer arithmetic manipulates these addresses to move between variables or array elements.
+
+2. Why Pointer Arithmetic Works Differently from Normal Arithmetic
+Memory is divided into bytes. When you add 1 to an integer pointer (int *), the pointer moves forward by the size of the integer (usually 4 bytes), not just by 1 byte. This ensures the pointer points to the next valid element in an array.
+
+Example: If ptr points to an int at address 1000, ptr + 1 points to address 1004 (assuming 4-byte ints).
+
+3. Pointer Arithmetic Operations
+
+3.1 Incrementing and Decrementing Pointers
+
+You can use the increment (++) and decrement (--) operators to move the pointer forward or backward by one element.
+
+int arr[] = {10, 20, 30};
+int *ptr = arr; // points to arr[0]
+
+ptr++; // now points to arr[1]
+ptr--; // back to arr[0]
+
+3.2 Adding and Subtracting Integers to/from Pointers
+
+Adding or subtracting an integer n to/from a pointer moves it by n elements (scaled by the element size).
+
+ptr += 2; // moves pointer 2 elements ahead
+ptr -= 1;  // moves pointer 1 element back
+
+3.3 Subtracting One Pointer from Another
+ 
+When two pointers point to elements within the same array, subtracting them gives the number of elements between them.
+
+
+int *p1 = &arr[2];
+int *p2 = &arr[0];
+int diff = p1 - p2; // diff is 2
+
+Important: This only works if both pointers are within the same array or memory block.
+
+3.4 Comparing Pointers
+
+Pointers can be compared using relational operators like ==, !=, <, > to check their relative position or equality.
+
+if (ptr1 < ptr2) {
+    // ptr1 points to an earlier element than ptr2
+}
+
+
+Comparison is only valid if pointers reference elements in the same array.
+
+4. How Pointer Arithmetic Differs by Data Type
+
+The size of the data type affects how pointer arithmetic changes the memory address. For example:
+
+char * increments by 1 byte because char size is 1 byte.
+int * increments by 4 bytes (typical size of int).
+double * increments by 8 bytes (typical size of double).
+This scaling is automatically handled by the compiler.
+
+5. Important Rules and Safety Tips
+
+Stay within array bounds: Accessing memory outside the array is undefined behavior and can crash your program.
+Only subtract pointers within the same array: Doing otherwise leads to undefined results.
+Pointer arithmetic is only valid for pointers to elements of the same data type.
+Don't add two pointers: Adding pointers is illegal in C.
+
+Note: Pointer arithmetic works because arrays are stored contiguously in memory. This means elements are placed one after another, so moving a pointer by one means moving to the next element.
+
+6. Practical Example
+
+#include <stdio.h>
+
+int main() {
+    int arr[] = {10, 20, 30, 40, 50};
+    int *ptr = arr;
+
+    printf("Element 1: %d\n", *ptr); // 10
+    ptr++; // move to arr[1]
+    printf("Element 2: %d\n", *ptr); // 20
+    ptr += 2; // move to arr[3]
+    printf("Element 4: %d\n", *ptr); // 40
+    ptr--; // move back to arr[2]
+    printf("Element 3: %d\n", *ptr); // 30
+
+    int *ptr2 = &arr[4];
+    printf("Distance between ptr2 and ptr: %ld\n", ptr2 - ptr); // 2
+
+    return 0;
+}
+
+
+7. Summary
+
+Pointer arithmetic is a powerful feature in C that allows you to navigate arrays and memory blocks efficiently. Key points to remember:
+
+Pointer arithmetic respects the size of the data type.
+You can increment, decrement, add, or subtract integers to/from pointers.
+Subtracting two pointers gives the distance between them (in elements).
+Always keep pointer operations within valid memory bounds.
+Comparisons and subtraction only make sense for pointers within the same array.
+
+
+
+
+https://www.youtube.com/watch?v=uMGwjNuidZU

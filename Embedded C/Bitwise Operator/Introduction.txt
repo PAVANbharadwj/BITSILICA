@@ -1,0 +1,209 @@
+Concepts
+------------------
+
+1. Introduction
+------------------
+
+Embedded systems often operate close to the hardware. You don’t just set variables—you toggle specific pins, read status flags, or configure control registers. This demands precise bit-level control, which is exactly what bitwise operators offer in the C programming language.
+
+Why Bitwise Operations?
+
+Compact and fast: Bitwise operations are low-level and highly optimized by compilers.
+Essential for hardware access: Microcontrollers expose hardware control through memory-mapped registers.
+Reduces resource usage: Efficient for resource-constrained systems (no floating-point operations needed).
+
+2. Bitwise Operators Overview
+
+Operator	Symbol		Description			    Operand Count
+
+AND		&	Sets each bit to 1 if both bits are 1		Binary
+OR		|	Sets each bit to 1 if at least one is 1		Binary
+XOR		^	Sets each bit to 1 if only one bit is 1		Binary
+NOT		~	Inverts all bits				Unary
+Left Shift	<<	Shifts bits to the left, fills with 0s		Binary
+Right Shift	>>	Shifts bits to the right			Binary
+
+
+3. Detailed Explanation of Each Operator
+
+3.1 Bitwise AND (&)
+ 
+The AND operator compares each bit of two numbers and returns 1 only if both bits are 1.
+
+
+A  B  A & B
+0  0    0
+0  1    0
+1  0    0
+1  1    1
+
+
+Common Use Cases:
+
+Masking bits (extracting selected bits).
+Checking the status of a specific bit.
+
+
+uint8_t reg = 0b11001001;
+uint8_t mask = 0b00000001;
+if (reg & mask) {
+    // LSB is set
+}
+
+
+3.2 Bitwise OR (|)
+
+The OR operator sets each bit to 1 if at least one operand’s bit is 1.
+
+uint8_t reg = 0b00000000;
+reg |= 0b00000100;  // Set bit 2
+
+3.3 Bitwise XOR (^)
+
+The XOR operator sets each bit to 1 if only one of the bits is 1.
+
+uint8_t reg = 0b00000100;
+reg ^= 0b00000100;  // Toggles bit 2 off (0)
+
+3.4 Bitwise NOT (~)
+
+Flips all bits (1 → 0, 0 → 1). It’s a one's complement operation.
+
+uint8_t value = 0b00001111;
+uint8_t inverted = ~value; // Becomes 0b11110000
+
+3.5 Left Shift (<<)
+ 
+Shifts bits to the left, fills empty LSBs with 0. Each shift left is a multiplication by 2.
+
+uint8_t val = 0b00000001;
+val = val << 3; // 0b00001000
+
+Trick: x << n is equivalent to x * (2^n).
+
+3.6 Right Shift (>>)
+ 
+Shifts bits to the right. Fills MSBs with 0 for unsigned values, and sign bit for signed values (implementation-defined).
+
+uint8_t val = 0b10000000;
+val = val >> 3; // 0b00010000
+
+Trick: x >> n is equivalent to x / (2^n) for unsigned integers.
+
+4. Bitwise Manipulation Techniques
+
+// Setting a Bit
+x |= (1 << n);
+
+// Clearing a Bit
+x &= ~(1 << n);
+
+// Toggling a Bit
+x ^= (1 << n);
+
+// Checking if a Bit is Set
+if (x & (1 << n)) { ... }
+
+// Isolating the Lowest Set Bit
+x & (-x);
+
+// Clearing the Lowest Set Bit
+x & (x - 1);
+
+// Swapping Two Variables Using XOR
+a = a ^ b;
+b = a ^ b;
+a = a ^ b;
+
+// Count Set Bits (Brian Kernighan’s Algorithm)
+int count = 0;
+while (x) {
+    x &= (x - 1);
+    count++;
+}
+
+
+5. Embedded Tips and Best Practices
+
+volatile is crucial when accessing memory-mapped registers.
+Always use parentheses around shifts and expressions.
+Define macros for repetitive bit manipulation tasks.
+Use unsigned types to avoid unexpected behavior.
+Do not shift more than the width of the data type.
+
+6. Real-World Embedded Example: Peripheral Register Configuration
+
+#define UART_CTRL_REG (*(volatile uint8_t*)0x4000)
+
+void uart_init() {
+    UART_CTRL_REG |= (1 << 0); // Enable TX
+    UART_CTRL_REG |= (1 << 1); // Enable RX
+    UART_CTRL_REG &= ~(1 << 7); // Disable Parity
+}
+
+
+7. Bit Fields (Optional Feature)
+
+typedef struct {
+    uint8_t rx_en   : 1;
+    uint8_t tx_en   : 1;
+    uint8_t parity  : 1;
+    uint8_t unused  : 5;
+} uart_ctrl_t;
+
+volatile uart_ctrl_t* ctrl = (uart_ctrl_t*) 0x4000;
+ctrl->rx_en = 1;
+
+
+Note: Bit fields are compiler-specific and alignment-sensitive. Use only when portability is not critical.
+
+Commonly used macros for bitwise operations
+
+Here are some of the commonly used macros for bitwise operations:
+
+#define SET_BIT(address, bit) (address |= (1 << bit))
+#define CLEAR_BIT(address, bit) (address &= ~(1 << bit))
+#define TOGGLE_BIT(address, bit) (address ^= (1 << bit))
+#define GET_BIT(address, bit) ((address >> bit) & 1)
+
+
+These macros can be used to manipulate individual bits within a variable or memory location.
+
+SET_BIT sets a specific bit to 1.
+
+CLEAR_BIT clears a specific bit to 0.
+
+TOGGLE_BIT flips the value of a specific bit.
+
+GET_BIT retrieves the value of a specific bit.
+
+These macros can be helpful for working with bit fields, flags, and other data structures that rely on bit-level manipulation. They can also improve code readability by providing a more descriptive way to perform bitwise operations.
+
+Tip-1: For removing leading ones in a number we can use (n&(n+1));
+
+Example-n=87-1 0 1 0 1 1 1   by using (n&(n+1)) -1 0 1 0 0 0 0
+
+Tip-2: For setting the first clear bit on lsb side we can use (n|(n+1))
+
+Example-n=87-1 0 1 0 1 1 1 by using (n|(n+1)) - 1 0 1 1 1 1 1
+
+
+
+
+
+
+
+https://www.youtube.com/playlist?list=PLk6CEY9XxSIC5KqCCuaIVcuuFaXfAVWy8
+
+
+https://www.youtube.com/watch?v=LGrE0siZ-ZA&t=7s
+
+
+
+
+
+
+
+
+
+

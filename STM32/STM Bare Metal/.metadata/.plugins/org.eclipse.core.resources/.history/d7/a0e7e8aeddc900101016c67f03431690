@@ -1,0 +1,114 @@
+#include "stm32l476xx_gpio_driver.h"
+#include "stm32l476xx_usart_driver.h"
+#include <string.h>
+
+USART_Handle_t UART2Handle;
+
+/* Function prototypes */
+void UART2_GPIO_Init(void);
+void UART2_Init(void);
+void Delay(void);
+void LED_Init(void);
+void LED_Toggle(void);
+
+int main(void)
+{
+    uint8_t txData = 'A';
+    uint8_t rxData = 0;
+
+    LED_Init();
+    UART2_GPIO_Init();
+    UART2_Init();
+
+    while (1)
+    {
+        /* Send 1 byte */
+        USART_SendData(&UART2Handle, &txData, 1);
+
+        /* Receive 1 byte from PA3 through wire */
+        USART_ReceiveData(&UART2Handle, &rxData, 1);
+
+        /* Verify loopback */
+        if (rxData == txData)
+        {
+            LED_Toggle();  // Success indication
+        }
+
+        Delay();
+
+        txData++;
+        if (txData > 'Z')
+            txData = 'A';
+    }
+}
+
+
+/***************************************************************
+ * GPIO Setup: PA2 = TX, PA3 = RX
+ ***************************************************************/
+void UART2_GPIO_Init(void)
+{
+    GPIO_Handle_t gpio;
+
+    GPIOA_PCLK_EN();
+
+    gpio.pGPIOx = GPIOA;
+    gpio.GPIO_PinConfig.GPIO_PinMode       = GPIO_MODE_ALTFN;
+    gpio.GPIO_PinConfig.GPIO_PinAltFunMode = 7;  // AF7 = USART2
+    gpio.GPIO_PinConfig.GPIO_PinOPType     = GPIO_OP_TYPE_PP;
+    gpio.GPIO_PinConfig.GPIO_PinSpeed      = GPIO_SPEED_FAST;
+    gpio.GPIO_PinConfig.GPIO_PinPuPdControl= GPIO_PIN_PU;
+
+    // PA2 = TX
+    gpio.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_2;
+    GPIO_Init(&gpio);
+
+    // PA3 = RX
+    gpio.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_3;
+    GPIO_Init(&gpio);
+}
+
+/***************************************************************
+ * USART2 Setup
+ ***************************************************************/
+void UART2_Init(void)
+{
+    UART2Handle.pUSARTx = USART2;
+
+    UART2Handle.USART_Config.USART_Mode         = USART_MODE_TXRX;
+    UART2Handle.USART_Config.USART_Baud         = USART_STD_BAUD_9600;
+    UART2Handle.USART_Config.USART_WordLength   = USART_WORDLEN_8BITS;
+    UART2Handle.USART_Config.USART_ParityControl= USART_PARITY_DISABLE;
+    UART2Handle.USART_Config.USART_NoOfStopBits = USART_STOPBITS_1;
+    UART2Handle.USART_Config.USART_HWFlowControl= USART_HW_FLOW_CTRL_NONE;
+
+    USART_Init(&UART2Handle);
+}
+
+/***************************************************************
+ * LED Setup on PA5
+ ***************************************************************/
+void LED_Init(void)
+{
+    GPIO_Handle_t led;
+
+    led.pGPIOx = GPIOA;
+    led.GPIO_PinConfig.GPIO_PinNumber    = GPIO_PIN_5;
+    led.GPIO_PinConfig.GPIO_PinMode      = GPIO_MODE_OUT;
+    led.GPIO_PinConfig.GPIO_PinOPType    = GPIO_OP_TYPE_PP;
+    led.GPIO_PinConfig.GPIO_PinSpeed     = GPIO_SPEED_LOW;
+    led.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
+
+    GPIOA_PCLK_EN();
+    GPIO_Init(&led);
+}
+
+void LED_Toggle(void)
+{
+    GPIOA->ODR ^= (1 << 5);
+}
+
+void Delay(void)
+{
+    for (uint32_t i = 0; i < 300000; i++);
+}

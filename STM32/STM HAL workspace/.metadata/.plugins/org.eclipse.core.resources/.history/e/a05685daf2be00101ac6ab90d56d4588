@@ -1,0 +1,25 @@
+#include "stm32f4xx_hal.h"
+#include"uart.h"
+#include<stdio.h>
+
+
+
+
+int main(void)
+{
+    HAL_Init();
+    uart_init();
+
+    while (1)
+    {
+    	printf("Printf is used\n\r");
+    	HAL_Delay(10);
+    }
+}
+
+void SysTick_Handler(void)
+{
+    HAL_IncTick();
+}
+
+

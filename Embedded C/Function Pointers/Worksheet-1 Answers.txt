@@ -1,0 +1,568 @@
+Worksheet-1
+---
+
+
+1.Mathematical Operations with Function Pointers
+Log Session four simple mathematical functions (add, subtract, multiply, divide) that accept two integer arguments and return an integer.
+Use a single function pointer to dynamically select and execute one of these operations based on user input.
+
+
+
+#include<stdio.h>
+void sum(int a,int b){
+    printf("Sum is: %d",a+b);
+}
+void sub(int a,int b){
+    printf("Sub is: %d",a-b);
+}
+void mul(int a,int b){
+    printf("Mul is: %d",a*b);
+}
+void divd(int a,int b){
+    printf("Divd is: %d",a/b);
+}
+void main(){
+    int a,b,c;
+    void (*fptr[])(int,int)={sum,sub,mul,divd};
+    printf("Enter your choice (0:Sum, 1:Sub, 2:Mul, 3:Div): ");
+    scanf("%d",&c);
+    printf("Enter a and b values: ");
+    scanf("%d%d",&a,&b);
+    fptr[c](a, b);
+}
+
+
+
+2.Sorting Algorithms Selector
+Implement three sorting functions (bubbleSort, selectionSort, insertionSort) that sort an integer array.
+Store pointers to these sorting functions in an array of function pointers.
+Prompt the user to choose a sorting method, and use the selected function pointer to sort a user-provided integer array.
+
+
+#include <stdio.h>
+
+void bubbleSort(int arr[], int n){
+    for(int i=0;i<n-1;i++){
+        for(int j=0;j<n-1-i;j++){
+            if(arr[j] > arr[j+1]){
+                int temp=arr[j];
+                arr[j]=arr[j+1];
+                arr[j+1]=temp;
+            }
+        }
+    }
+}
+
+void selectionSort(int arr[], int n){
+    for(int i=0;i<n-1;i++){
+        int min=i;
+        for(int j=i+1;j<n;j++){
+            if(arr[j] < arr[min]){
+                min = j;
+            }
+        }
+        int temp=arr[i];
+        arr[i]=arr[min];
+        arr[min]=temp;
+    }
+}
+
+void insertionSort(int arr[], int n){
+    for(int i=1;i<n;i++){
+        int key = arr[i], j = i-1;
+        while(j>=0 && arr[j]>key){
+            arr[j+1]=arr[j];
+            j--;
+        }
+        arr[j+1]=key;
+    }
+}
+
+void printArray(int arr[], int n){
+    for(int i=0;i<n;i++){
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+int main(){
+    int n;
+    printf("Enter array size: ");
+    scanf("%d", &n);
+    int arr[n];
+ 
+    printf("Enter array elements: ");
+    for(int i=0;i<n;i++){
+        scanf("%d", &arr[i]);
+    }
+
+    void (*fptr[])(int[], int) = {bubbleSort, selectionSort, insertionSort};
+    int c;
+    printf("Enter your choice (0:BubbleSort 1:SelectionSort 2:InsertionSort): ");
+    scanf("%d", &c);
+
+    if(c >= 0 && c <= 2){
+        fptr[c](arr, n);
+        printf("Sorted array: ");
+        printArray(arr, n);
+    } else {
+        printf("Invalid choice!\n");
+    }
+
+    return 0;
+}
+
+
+
+
+
+3.Callback Function Array Processing
+Define a function processArray that accepts an integer array, its size, and a callback function as arguments.
+Implement callback functions (increment, doubleValue) that modify array elements in different ways.
+Demonstrate invoking processArray with different callback functions.
+
+#include <stdio.h>
+
+void increment(int *x) {
+    *x = *x + 1;
+}
+
+void doubleValue(int *x) {
+    *x = *x * 2;
+}
+
+void Array(int arr[], int n, void (*callback)(int *)) {
+    for (int i = 0; i < n; i++) {
+        callback(&arr[i]);
+    }
+}
+
+void display(int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+ 
+    int n;
+    printf("Enter n value: ");
+    scanf("%d",&n);
+ 
+    int arr[n];
+    printf("Enter elements to array: ");
+    for(int i=0;i<n;i++){
+        scanf("%d",&arr[i]);
+    }
+
+    Array(arr, n, increment);
+    printf("After increment: ");
+    display(arr, n);
+
+    Array(arr, n, doubleValue);
+    printf("After doubling: ");
+    display(arr, n);
+
+    return 0;
+}
+
+
+
+
+
+4.Menu-driven Calculator Using Function Pointers
+Implement mathematical operations (power, modulo, squareRoot) as separate functions.
+Store these operation functions in a function pointer array.
+Provide a user-interactive menu to select and execute the chosen operation on input values.
+
+#include <stdio.h>
+#include <math.h>
+
+void power(int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        arr[i] = arr[i] * arr[i];
+    }
+}
+
+void modulo(int arr[], int n) {
+    int modValue;
+    printf("Enter modulo value: ");
+    scanf("%d", &modValue);
+    for (int i = 0; i < n; i++) {
+        arr[i] = arr[i] % modValue;
+    }
+}
+
+void squareRoot(int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        arr[i] = sqrt(arr[i]);
+    }
+}
+
+void display(int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    int n;
+    printf("Enter array size: ");
+    scanf("%d", &n);
+
+    int arr[n];
+    printf("Enter array elements: ");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    void (*fptr[])(int[], int) = {power, modulo, squareRoot};
+
+    int c;
+    printf("\nMenu:\n");
+    printf("0. Power of each element\n");
+    printf("1. Modulo each element\n");
+    printf("2. Square Root of each element\n");
+    printf("Enter your choice: ");
+    scanf("%d", &c);
+
+    if (c >= 0 && c <= 2) {
+        fptr[c](arr, n);
+        printf("Resulting array: ");
+        display(arr, n);
+    } else {
+        printf("Invalid choice!\n");
+    }
+
+    return 0;
+}
+
+
+
+
+8.Generic Find Function
+Implement a generic function find that takes an integer array, its size, and a function pointer as a condition.
+Log Session condition functions (e.g., isEven, isPositive, isPrime).
+Use find to identify and print the first element matching the provided condition.
+
+#include <stdio.h>
+
+int isEven(int x) {
+    return x % 2 == 0;
+}
+
+int isPositive(int x) {
+    return x > 0;
+}
+
+int isPrime(int x) {
+    if (x < 2) return 0;
+    for (int i = 2; i*i <= x; i++) {
+        if (x % i == 0) return 0;
+    }
+    return 1;
+}
+
+int find(int arr[], int n, int (*condition)(int)) {
+    for (int i = 0; i < n; i++) {
+        if (condition(arr[i])) {
+            return arr[i];
+        }
+    }
+    return -1;
+}
+
+int main() {
+ 
+    int n;
+    printf("Enter array size: ");
+    scanf("%d", &n);
+    int arr[n];
+    printf("Enter array elements: ");
+    for (int i = 0; i < n; i++) {
+       scanf("%d", &arr[i]);
+    }
+
+    printf("First even number: %d\n", find(arr, n, isEven));
+    printf("First positive number: %d\n", find(arr, n, isPositive));
+    printf("First prime number: %d\n", find(arr, n, isPrime));
+
+    return 0;
+}
+
+
+
+9.Dynamic Logging Mechanism
+Implement three logging functions (consoleLog, fileLog, networkLog) with a common signature.
+Allow the program to select the appropriate logging method dynamically through function pointers.
+Demonstrate switching between logging methods at runtime based on user input.
+
+
+
+
+10.Math Function Framework
+Write wrapper functions around standard mathematical functions (sin, cos, tan, log) with the same function prototype.
+Store pointers to these functions in an array.
+Provide an interface for users to select and execute a math function on a given floating-point input.
+
+
+#include<stdio.h>
+#include<math.h>
+
+void sin_n(double n){
+    printf("%lf",sin(n));
+}
+void cos_n(double n){
+    printf("%lf",cos(n));
+}
+void tan_n(double n){
+    printf("%lf",tan(n));
+}
+void log_n(double n){
+    printf("%lf",log(n));
+}
+    
+int main(){
+    double n;
+    int c;
+    printf("Enter n value: ");
+    scanf("%lf",&n);
+    void(*fptr[])(double)={sin_n,cos_n,tan_n,log_n};
+    printf("Eneter yout choice {0:sin 1:cos 2:tan 3:log}: ");
+    scanf("%d",&c);
+    fptr[c](n);
+    return 0;
+}
+
+
+
+11.Function Pointer as Return Value
+Implement multiple arithmetic functions (add, subtract, multiply).
+Write a function getOperation(char *name) that takes a string (like "add" or "subtract") and returns a pointer to the corresponding function.
+Use this return value to perform the selected operation on user-provided numbers.
+
+#include<stdio.h>
+#include<string.h>
+
+int add(int a, int b){
+    return a+b;
+}
+int subtract(int a, int b){
+    return a-b;
+}
+int multiply(int a, int b){
+    return a*b;
+}
+
+typedef int (*operationFunc)(int, int);
+operationFunc getOperation(char *name) {
+    if (strcmp(name, "add") == 0)
+        return add;
+    else if (strcmp(name, "subtract") == 0)
+        return subtract;
+    else if (strcmp(name, "multiply") == 0)
+        return multiply;
+    else
+        return NULL;
+}
+
+int main(){
+    char name[20];
+    int a,b;
+    printf("Enter Operation name: ");
+    scanf("%s",name);
+    printf("Enter a ,b values: ");
+    scanf("%d%d",&a,&b);
+    operationFunc op = getOperation(name);
+    if (op != NULL) {
+        int result = op(a, b);
+        printf("Result: %d\n", result);
+    } else {
+        printf("Invalid operation!\n");
+    }
+    return 0;
+}
+
+
+
+12.Function Pointer Array for String Operations
+Implement several string manipulation functions (reverseString, toUpperCase, countVowels), each accepting a string argument.
+Store these functions in an array of function pointers.
+Prompt the user to choose an operation and apply it to their input string using the selected function pointer.
+
+
+#include<stdio.h>
+#include<string.h>
+#include<ctype.h>
+
+void reverse_string(char *str){
+    int start=0,end=strlen(str)-1;
+    while(start<end){
+        char temp=str[start];
+        str[start]=str[end];
+        str[end]=temp;
+        start++;
+        end--;
+    }
+    printf("%s",str);
+}
+
+void to_uppercase(char *str){
+    int i=0;
+    while(str[i]!='\0'){
+        if(str[i]>='a' && str[i]<='z'){
+            str[i]-=32;
+        }
+        i++;
+    }
+    printf("%s",str);
+}
+
+void count_vowels(char *str){
+    int i=0,count=0;
+    while(str[i]!='\0'){
+        char ch = tolower(str[i]);
+        if(str[i]=='a'||str[i]=='e'||str[i]=='i'||str[i]=='o'||str[i]=='u'){
+            count++;
+        }
+        i++;
+    }
+    printf("%d",count);
+}
+int main(){
+    char str[100];
+    printf("enter a string: ");
+    scanf("%[^\n]",str);
+    void (*fptr[])(char*)={reverse_string,to_uppercase,count_vowels};
+    int choice;
+    printf("Enter your choice {0:reverse_string 1:to_uppercase 2:count_vowels}: ");
+    scanf("%d",&choice);
+    fptr[choice](str);
+    return 0;
+}
+
+
+
+13.Passing Function Pointers to Standard Algorithms
+Define a structure representing a record (e.g., struct Person { char name[30]; int age; }).
+Implement multiple comparison functions for sorting (e.g., by name, by age).
+Use the C standard library function qsort, passing these comparison functions as function pointers to sort an array of records in different ways.
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct Person {
+    char name[30];
+    int age;
+};
+
+int compareByName(const void *a, const void *b) {
+    const struct Person *p1 = (const struct Person *)a;
+    const struct Person *p2 = (const struct Person *)b;
+    return strcmp(p1->name, p2->name);
+}
+
+int compareByAge(const void *a, const void *b) {
+    const struct Person *p1 = (const struct Person *)a;
+    const struct Person *p2 = (const struct Person *)b;
+    return p1->age - p2->age;
+}
+
+void printPersons(struct Person people[], int n) {
+    printf("\n%-10s %-5s\n", "Name", "Age");
+    for (int i = 0; i < n; i++) {
+        printf("%-10s %-5d\n", people[i].name, people[i].age);
+    }
+    printf("\n");
+}
+
+int main() {
+    int n, choice;
+
+    printf("Enter number of people: ");
+    scanf("%d", &n);
+
+    struct Person people[n]; 
+    for (int i = 0; i < n; i++) {
+        printf("\nEnter name for person %d: ", i + 1);
+        scanf(" %[^\n]", people[i].name);  
+
+        printf("Enter age for person %d: ", i + 1);
+        scanf("%d", &people[i].age);
+    }
+
+    printf("\nChoose sorting method:\n");
+    printf("1. Sort by Name\n");
+    printf("2. Sort by Age\n");
+    printf("Your choice: ");
+    scanf("%d", &choice);
+
+    int (*cmp)(const void *, const void *);
+
+    if (choice == 1)
+        cmp = compareByName;
+    else if (choice == 2)
+        cmp = compareByAge;
+    else {
+        printf("Invalid choice.\n");
+        return 1;
+    }
+
+    qsort(people, n, sizeof(struct Person), cmp);
+
+    printf("\nSorted List:\n");
+    printPersons(people, n);
+
+    return 0;
+}
+
+
+
+14.Chained Function Pointer Calls
+Write several functions that transform an integer (e.g., doubleValue, increment, square).
+Log Session an array of function pointers representing a pipeline of operations.
+Pass a number through the pipeline by applying each function in sequence, using the array of pointers.
+
+
+#include <stdio.h>
+int doubleValue(int x) {
+    return x * 2;
+}
+int increment(int x) {
+    return x + 1;
+}
+int square(int x) {
+    return x * x;
+}
+int function(int x, int (*funcs[])(int), int n) {
+    for (int i = 0; i < n; i++) {
+        printf("Step %d: Before = %d\n", i + 1, x);
+        x = funcs[i](x);
+        printf("Step %d: After  = %d\n", i + 1, x);
+    }
+    return x;
+}
+
+int main() {
+    int n;
+    printf("Enter n value: ");
+    scanf("%d", &n);
+    int (*fptr[])(int) = { doubleValue, increment, square };
+    printf("Initial Value: %d\n", n);
+    int result = function(n, fptr, sizeof(fptr) / sizeof(fptr[0]));
+    printf("Final Result: %d\n", result);
+    return 0;
+}
+
+
+
+15.Multi-dimensional Function Pointer Array
+Define arithmetic functions for both int and float types (e.g., intAdd, floatAdd).
+Organize the function pointers in a two-dimensional array:
+First dimension: operation type (arithmetic, bitwise)
+Second dimension: data type (int, float)
+Demonstrate calling the correct function based on selected type and operation.
+

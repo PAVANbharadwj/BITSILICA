@@ -1,0 +1,16 @@
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(115200);
+  delay(100);
+  Serial.println("Please fill your first name & last name and then press enter");
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  if (Serial.available()) {
+    String name = Serial.readString();
+    Serial.print("My name is : ");
+    Serial.println(name);
+  }
+  delay(10); // this speeds up the simulation
+}

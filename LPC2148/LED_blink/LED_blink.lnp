@@ -1,0 +1,7 @@
+--cpu ARM7TDMI
+".\startup.o"
+".\led_blink.o"
+--library_type=microlib --strict --scatter ".\LED_blink.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\LED_blink.map" -o .\LED_blink.axf

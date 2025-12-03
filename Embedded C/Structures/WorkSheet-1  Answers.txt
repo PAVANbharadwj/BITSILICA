@@ -1,0 +1,194 @@
+// WorkSheet-1  Answers
+// ----------------------
+
+
+
+// 1. Structure vs Union in Embedded Systems
+// Goal
+// Understand how structures and unions differ in terms of memory layout, access, and use in embedded systems, particularly in data interpretation and memory saving.
+
+// Activity
+// Define a structure and a union with three different data types (e.g., char, int, float).
+// Print the size of each and compare.
+// Write values to each member and observe the behavior.
+// Map the union onto a byte buffer and visualize how different types share memory.
+// Document a scenario where only one data type is valid at a time (e.g., packet command structure).
+// Tip: Use sizeof() and printf() to track memory usage and value overlap.
+
+
+// Feature					struct				union
+// -------------			------------------ 		    ---------------
+// Memory Layout		Each member gets its own space		All members share the same memory
+// Size			Sum of all members + padding		Size of the largest member
+// Access		    All members can be accessed anytime		Only one member should be used at a time
+// Use case	      Holding multiple related values		Holding one of many possible values (e.g., variant 													     data)
+// Embedded Usage		Registers, configs (multi-field)	Memory-efficient representations (e.g., sensor 												    packets, data overlay)
+
+
+
+#include<stdio.h>
+#include<string.h>
+
+struct mystruct{
+    char a;
+    int i;
+    float f;
+};
+
+union myunion{
+    char a;
+    int i;
+    float f;
+};
+
+int main(){
+    struct mystruct s;
+    union myunion u;
+    printf("size of struct:%lu\n",sizeof(s));
+    printf("size of union:%lu\n",sizeof(u));
+    printf("------STRUCT------\n");
+    s.i=7;
+    s.a='H';
+    s.f=2.8;
+    printf(" %d\n %c\n %f\n",s.i,s.a,s.f);
+    printf("------UNION-------\n");
+    u.i=6;
+    printf(" %d\n",u.i);
+    u.a='P';
+    printf(" %c\n",u.a);
+    u.f=3.5;
+    printf(" %f\n",u.f);
+    return 0;
+}
+
+
+
+
+2. Bit-fields in Structures
+Goal
+Learn to define and use bit-fields to manage individual bits for hardware register simulation.
+
+Activity
+Log Session a structure using bit-fields to represent an 8-bit status register.
+Assign values to specific flags.
+Log Session a mock register with error, ready, and mode bits.
+Write code to toggle specific flags without using bitwise operators.
+Reflect on how compilers handle ordering and alignment of bit-fields.
+Tip: Bit-fields may behave differently on different compilers—don't assume portability.
+
+
+#include <stdio.h>
+
+struct StatusRegister {
+    unsigned int reserved : 4; 
+    unsigned int mode     : 2; 
+    unsigned int ready    : 1; 
+    unsigned int error    : 1; 
+};
+
+int main() {
+    struct StatusRegister reg = {0};
+    reg.error = 1;
+    reg.ready = 0;
+    reg.mode  = 3;  
+    printf("Initial Register:\n");
+    printf("Error: %u, Ready: %u, Mode: %u\n", reg.error, reg.ready, reg.mode);
+    reg.ready = !reg.ready;
+    reg.error = reg.error ? 0 : 1;
+
+    printf("\nAfter Toggling:\n");
+    printf("Error: %u, Ready: %u, Mode: %u\n", reg.error, reg.ready, reg.mode);
+
+    return 0;
+}
+
+
+
+
+3. Structure Padding, Alignment, and Packing
+Goal
+Understand how padding affects structure size and how to control layout using packing directives.
+
+Activity
+Log Session a structure with mixed data types (char, int, short).
+Check the size and member offsets using sizeof() and pointer arithmetic.
+Reorder members to reduce padding and observe the change in size.
+Use #pragma pack(1) and compare memory layout.
+Simulate a communication packet where field alignment matters.
+ 
+Tip: Use offsetof() macro to determine the byte offset of each field.
+
+
+#include <stdio.h>
+#include <stddef.h>  
+struct NormalStruct {
+    char a;     
+    int b;      
+    short c;    
+};
+struct OptimizedStruct {
+    int b;      
+    short c;    
+    char a;     
+};
+#pragma pack(1)
+struct PackedStruct {
+    char a;     
+    int b;      
+    short c;    
+};
+#pragma pack()
+#pragma pack(1)
+struct Packet {
+    char startByte; 
+    short id;       
+    char data[4];   
+    char checksum;  
+};
+#pragma pack()
+
+int main() {
+    printf("----- Normal Struct -----\n");
+    struct NormalStruct n;
+    printf("Size: %zu\n", sizeof(n));
+    printf("Offset of a: %zu\n", offsetof(struct NormalStruct, a));
+    printf("Offset of b: %zu\n", offsetof(struct NormalStruct, b));
+    printf("Offset of c: %zu\n", offsetof(struct NormalStruct, c));
+    printf("\n----- Optimized Struct -----\n");
+    struct OptimizedStruct o;
+    printf("Size: %zu\n", sizeof(o));
+    printf("Offset of b: %zu\n", offsetof(struct OptimizedStruct, b));
+    printf("Offset of c: %zu\n", offsetof(struct OptimizedStruct, c));
+    printf("Offset of a: %zu\n", offsetof(struct OptimizedStruct, a));
+    printf("\n----- Packed Struct (#pragma pack(1)) -----\n");
+    struct PackedStruct p;
+    printf("Size: %zu\n", sizeof(p));
+    printf("Offset of a: %zu\n", offsetof(struct PackedStruct, a));
+    printf("Offset of b: %zu\n", offsetof(struct PackedStruct, b));
+    printf("Offset of c: %zu\n", offsetof(struct PackedStruct, c));
+    printf("\n----- Communication Packet Struct -----\n");
+    struct Packet pkt;
+    printf("Size: %zu\n", sizeof(pkt));
+    printf("Offset of startByte: %zu\n", offsetof(struct Packet, startByte));
+    printf("Offset of id: %zu\n", offsetof(struct Packet, id));
+    printf("Offset of data: %zu\n", offsetof(struct Packet, data));
+    printf("Offset of checksum: %zu\n", offsetof(struct Packet, checksum));
+
+    return 0;
+}
+
+
+
+4. Function Pointers in Structures
+Goal
+Learn how to include and use function pointers inside structures for callback mechanisms and dynamic behavior in embedded systems.
+
+Activity
+Define a structure containing function pointers.
+Initialize it with different functions and invoke them.
+Use this setup to simulate a hardware driver interface with different behavior implementations.
+Demonstrate dynamic assignment and execution of function pointers based on a condition or input.
+Tip: Use typedef for cleaner function pointer declarations.
+
+
+

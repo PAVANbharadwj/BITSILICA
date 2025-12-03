@@ -1,0 +1,10 @@
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/name=Local
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=win32
+configDescList=org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:1_GPIO_Bare_metal Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:2_LED_BUTTON_Bare_metal,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:3_Hello_world Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:stm32l4xx_drivers
+eclipse.preferences.version=1
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:1_GPIO_Bare_metal\ Debug/activeLaunchMode=debug
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:1_GPIO_Bare_metal\ Debug/activeLaunchTarget=null\:---
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:3_Hello_world\ Debug/activeLaunchMode=debug
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Sample_Hello\ Debug/activeLaunchMode=debug
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:sample_hello2\ Debug/activeLaunchMode=debug

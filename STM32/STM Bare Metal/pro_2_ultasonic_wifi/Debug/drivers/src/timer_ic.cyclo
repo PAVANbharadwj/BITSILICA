@@ -1,0 +1,5 @@
+../drivers/src/timer_ic.c:16:6:TIM3_IC_Init	1
+../drivers/src/timer_ic.c:44:10:TIM3_GetCapture_us	1
+../drivers/src/timer_ic.c:49:6:TIM3_StartCapture	1
+../drivers/src/timer_ic.c:58:6:TIM3_StopCapture	1
+../drivers/src/timer_ic.c:64:10:TIM3_WaitForRisingThenFalling_us	6

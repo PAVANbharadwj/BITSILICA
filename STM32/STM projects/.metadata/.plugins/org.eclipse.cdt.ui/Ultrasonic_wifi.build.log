@@ -1,0 +1,10 @@
+17:23:26 **** Incremental Build of configuration Debug for project Ultrasonic_wifi ****
+make -j8 all 
+arm-none-eabi-size  Ultrasonic_wifi.elf 
+   text	   data	    bss	    dec	    hex	filename
+  24656	     96	   3184	  27936	   6d20	Ultrasonic_wifi.elf
+Finished building: default.size.stdout
+ 
+
+17:23:26 Build Finished. 0 errors, 0 warnings. (took 316ms)
+

@@ -1,0 +1,4 @@
+Dependencies for Project 'adc_peripherals', Target 'Target 1': (DO NOT MODIFY !)
+F (.\Startup.s)(0x532C14EA)(--cpu ARM7TDMI --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Philips--list .\startup.lst --xref -o .\startup.o --depend .\startup.d)
+F (.\adc_10_bit.c)(0x69035B15)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Philips-o .\adc_10_bit.o --omf_browse .\adc_10_bit.crf --depend .\adc_10_bit.d)
+I (C:\Keil\ARM\Inc\Philips\LPC214x.h)(0x532C1500)

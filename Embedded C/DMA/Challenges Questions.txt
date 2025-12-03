@@ -1,0 +1,58 @@
+Challenges
+----------------
+
+1.Your program keeps using more memory as it runs, even though you use malloc and free. How would you find out what is wrong and fix it?
+
+2.What happens if you call free on the same pointer twice? How can you avoid this problem in your code?
+
+3.Give an example of a bug that happens when you use memory after you have freed it. How can you prevent such bugs?
+
+4.You want to make a memory block bigger using realloc. How can you do this safely, so you don’t lose your data if realloc fails?
+
+5.What is heap fragmentation? How can it become a problem in programs that run for a long time?
+
+6.What happens if you write outside the bounds of a dynamically allocated array? Why is this dangerous?
+
+7.You have a structure that ends with an array whose size is not fixed. How would you allocate and use this structure in C?
+
+8.What is the difference between malloc and calloc? When should you use one over the other?
+
+9.Why is it safe to use free(NULL) in C? Why was it designed this way?
+
+10.If you forget to free allocated memory before your program ends, what happens? Does it matter if you are on a desktop or an embedded device?
+
+11.When you use realloc, how does it work? What happens if there isn’t enough space to grow the block where it is?
+
+12.How can you find memory leaks in a big C program? What tools or methods can you use?
+
+13.What problems can happen if you access memory that is not aligned correctly, especially with dynamically allocated memory?
+
+14.Write a C function that allocates and frees an array of integers. First, make a version that causes a memory leak. Then, fix the leak.
+
+15.Write a function that allocates a 2D array of integers dynamically. Also, write a function that frees all of the memory for this array.
+
+16.Write a C function that adds an element to a dynamic array using realloc. Make sure your code is safe, even if realloc fails.
+
+17.Write a function that joins two strings together using dynamic memory allocation. Make sure your code works if either string is empty or NULL.
+
+18.Log Session your own version of calloc by using malloc and memset.
+
+19.Make a structure for a student record, where the name can be any length. Show how you would allocate and free this structure.
+
+20.Write code that handles the case where malloc or calloc returns NULL because there is not enough memory. What should your program do?
+
+21.Write a function that adds a new node at the end of a singly linked list. Make sure you handle memory allocation correctly.
+
+22.How could you build a simple memory pool using a fixed-size array in C? How would you write your own versions of malloc and free using this pool?
+
+23.Suppose you have a struct that points to other dynamically allocated structs. Write a function that frees all memory for these nested structs.
+
+24.Here is a C function. What is wrong with it? What happens if you use the returned pointer? How would you fix the problem?
+
+int* allocate_and_free() {
+    int* ptr = malloc(sizeof(int) * 10);
+    free(ptr);
+    return ptr;
+}
+
+25.Write a function that reads a line of any length from stdin, allocating more memory as needed. Make sure to handle errors if memory allocation fails.

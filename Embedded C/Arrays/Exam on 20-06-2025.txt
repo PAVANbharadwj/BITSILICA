@@ -1,0 +1,453 @@
+Exam on 20-06-2025
+-----------------------------
+
+
+1) Rearrange the array so that the first element is first max, second element is second min, third element is second max and so on.....
+
+	Input=[1,2,3,4,5,6]
+	Output=[6,1,5,2,4,3]
+
+
+#include<stdio.h>
+#include<stdlib.h>
+int main(){
+    int i,n,j,temp;
+    printf("Enter no of array elements:");
+    scanf("%d",&n);
+    int arr[n];
+    printf("Enter array elements:");
+    for(i=0;i<n;i++){
+        scanf("%d",&arr[i]);
+    }
+    for(i=0;i<n-1;i++){
+        for(j=0;j<n-1-i;j++){
+            if(arr[j]>arr[j+1]){
+                temp=arr[j];
+                arr[j]=arr[j+1];
+                arr[j+1]=temp;
+            }
+        }
+    }
+    int start = 0, end = n - 1;
+    printf("Output: ");
+    while (start <= end) {
+        if (start != end) {
+            printf("%d %d ", arr[end], arr[start]);
+        } else {
+            printf("%d ", arr[start]);
+        }
+        start++;
+        end--;
+    }
+    return 0;
+}
+
+
+
+
+2)Find the contiguous subarray within an array(containing at least one number) that hs the largest sum .
+For example,given the array[2,1,-3,4,-1,2,1,-5,4],the  contiguous array[4,-1,2,1] has the largest sum=6.
+
+
+#include <stdio.h>
+
+int main() {
+    int i, j, k, n;
+
+    printf("Enter number of array elements: ");
+    scanf("%d", &n);
+    int arr[n];
+
+    printf("Enter array elements: ");
+    for (i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    int max_sum = arr[0];
+    int start = 0, end = 0;
+
+    for (i = 0; i < n; i++) {
+        for (j = i; j < n; j++) {
+            int current_sum = 0;
+            for (k = i; k <= j; k++) {
+                current_sum += arr[k];
+            }
+
+            if (current_sum > max_sum) {
+                max_sum = current_sum;
+                start = i;
+                end = j;
+            }
+        }
+    }
+
+    printf("\nLargest sum is: %d\n", max_sum);
+    return 0;
+}
+
+
+
+
+3)Compare every element of the two arrays, listing down the common integers that appear in both.
+
+	Input:[1,2,4,5,6]  [2,3,5,7]
+	Output:[2,5]
+
+
+
+#include<stdio.h>
+#include<stdlib.h>
+int main(){
+    int i,n1,n2,j,temp;
+    printf("Enter no of array elements:");
+    scanf("%d",&n1);
+    int arr1[n1];
+    printf("Enter array elements:");
+    for(i=0;i<n1;i++){
+        scanf("%d",&arr1[i]);
+    }
+    printf("Enter no of array elements:");
+    scanf("%d",&n2);
+    int arr2[n2];
+    printf("Enter array elements:");
+    for(i=0;i<n2;i++){
+        scanf("%d",&arr2[i]);
+    }
+    for(i=0;i<n1;i++){
+        for(j=0;j<n2;j++){
+            if(arr1[i]==arr2[j]){
+                printf("%d\n",arr1[i]);
+            }
+        }
+    }
+    return 0;
+}
+
+
+
+
+4) Write a function to merge two sorted arrays into one sorted array.
+
+#include<stdio.h>
+#include<stdlib.h>
+int main(){
+    int i,n1,n2,j,temp;
+    printf("Enter no of array elements:");
+    scanf("%d",&n1);
+    int arr1[n1];
+    printf("Enter array elements:");
+    for(i=0;i<n1;i++){
+        scanf("%d",&arr1[i]);
+    }
+    printf("Enter no of array elements:");
+    scanf("%d",&n2);
+    int arr2[n2];
+    printf("Enter array elements:");
+    for(i=0;i<n2;i++){
+        scanf("%d",&arr2[i]);
+    }
+    int merged[n1+n2];
+    for(i=0;i<n1;i++){
+        merged[i]=arr1[i];   
+    }
+    for(i=0;i<n2;i++){
+        merged[n1+i]=arr2[i];
+    }
+    printf("Merged array: ");
+    for(i=0;i<n1+n2;i++){
+        printf("%d",merged[i]);
+    }
+    return 0;
+}
+
+
+
+5) Design a program that takes a 2D matrix as input and prints it in spiral order.
+
+	Input: 1 2 3
+	       4 5 6
+	       7 8 9
+	Output: Spiral order:[1 2 3 6 9 8 7 4 5]
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int i, j, rows, col;
+    printf("Enter no of rows and columns: ");
+    scanf("%d%d", &rows, &col);
+    
+    int arr[rows][col];
+    printf("Enter elements to matrix:\n");
+    for(i = 0; i < rows; i++) {
+        for(j = 0; j < col; j++) {
+            scanf("%d", &arr[i][j]);
+        }
+    }
+
+    int top = 0, bottom = rows - 1;
+    int left = 0, right = col - 1;
+
+    printf("Spiral order: ");
+    while(top <= bottom && left <= right) {
+        for(i = left; i <= right; i++) {
+            printf("%d ", arr[top][i]);
+        }
+        top++;
+
+        for(i = top; i <= bottom; i++) {
+            printf("%d ", arr[i][right]);
+        }
+        right--;
+
+        if(top <= bottom) {
+            for(i = right; i >= left; i--) {
+                printf("%d ", arr[bottom][i]);
+            }
+            bottom--;
+        }
+
+        if(left <= right) {
+            for(i = bottom; i >= top; i--) {
+                printf("%d ", arr[i][left]);
+            }
+            left++;
+        }
+    }
+
+    return 0;
+}
+
+
+
+6)Row wise column wise
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int i, j, rows, col;
+    printf("Enter no of rows and columns: ");
+    scanf("%d%d", &rows, &col);
+    
+    int arr[rows][col];
+    printf("Enter elements to matrix:\n");
+    for(i = 0; i < rows; i++) {
+        for(j = 0; j < col; j++) {
+            scanf("%d", &arr[i][j]);
+        }
+    }
+    printf("Row wise: ");
+    for(i=0;i<rows;i++){
+        for(j=0;j<col;j++){
+            printf("%d",arr[i][j]);
+        }
+    }
+    printf("\ncolumns wise: ");
+    for(j=0;j<col;j++){
+        for(i=0;i<rows;i++){
+            printf("%d",arr[i][j]);
+        }
+    }
+    return 0;
+}
+
+
+7)Sorted array
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int i, j, rows, col, k ,l;
+    printf("Enter no of rows and columns: ");
+    scanf("%d%d", &rows, &col);
+    
+    int arr[rows][col];
+    printf("Enter elements to matrix:\n");
+    for(i = 0; i < rows; i++) {
+        for(j = 0; j < col; j++) {
+            scanf("%d", &arr[i][j]);
+        }
+    }
+    for(i=0;i<rows;i++){
+        for(j=0;j<col;j++){
+            for(k=0;k<rows;k++){
+                for(l=0;l<col;l++){
+                    if(arr[i][j]<arr[k][l]){
+                        int temp=arr[i][j];
+                        arr[i][j]=arr[k][l];
+                        arr[k][l]=temp;
+                    }
+                }
+            }
+        }
+    }
+    printf("sorted array: ");
+    for(i=0;i<rows;i++){
+        for(j=0;j<col;j++){
+            printf("%d\n",arr[i][j]);
+        }
+    }
+    return 0;
+}
+
+
+8)transpose of matrix
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int i, j, rows, col;
+    printf("Enter no of rows and columns: ");
+    scanf("%d%d", &rows, &col);
+    
+    int arr[rows][col];
+    printf("Enter elements to matrix:\n");
+    for(i = 0; i < rows; i++) {
+        for(j = 0; j < col; j++) {
+            scanf("%d", &arr[i][j]);
+        }
+    }
+    printf("Transpose of matrix: ");
+    for(i=0;i<col;i++){
+        for(j=0;j<rows;j++){
+            printf("%d",arr[j][i]);
+        }   
+    }
+    return 0;
+}
+
+
+
+9)rotation of matrix
+
+
+ 270 Degree
+---------------
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int i, j, row, col;
+    printf("Enter no of rows and columns: ");
+    scanf("%d%d", &row, &col);
+    
+    int mat[row][col];
+    printf("Enter elements to matrix:\n");
+    for(i = 0; i < row; i++) {
+        for(j = 0; j < col; j++) {
+            scanf("%d", &mat[i][j]);
+        }
+    }
+    if(row<=1&&col<=1){
+    printf("No rotation performed");
+    return 1;
+    }
+    int rotated[row][col];
+    for(i=0;i<row;i++){
+        for(j=0;j<col;j++){
+            rotated[col-1-j][i]=mat[i][j];//logic for 270 degree
+        }
+    }
+    printf("Rotation matrix to 270 degrees: ");
+    for(i=0;i<row;i++){
+        for(j=0;j<col;j++){
+            printf("%d ",rotated[i][j]);
+    }
+    }
+    return 0;
+}
+
+
+
+
+180 Degree
+------------
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int i, j, row, col;
+    printf("Enter no of rows and columns: ");
+    scanf("%d%d", &row, &col);
+    
+    int mat[row][col];
+    printf("Enter elements to matrix:\n");
+    for(i = 0; i < row; i++) {
+        for(j = 0; j < col; j++) {
+            scanf("%d", &mat[i][j]);
+        }
+    }
+    if(row<=1&&col<=1){
+    printf("No rotation performed");
+    return 1;
+    }
+    int rotated[row][col];
+    for(i=0;i<row;i++){
+        for(j=0;j<col;j++){
+            rotated[row-1-i][col-1-j]=mat[i][j];//logic for 180 degree
+        }
+    }
+    printf("Rotation matrix to 270 degrees: ");
+    for(i=0;i<row;i++){
+        for(j=0;j<col;j++){
+            printf("%d ",rotated[i][j]);
+    }
+    }
+    return 0;
+}
+
+
+
+
+90 Degree
+-----------------
+
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int i, j, row, col;
+    printf("Enter no of rows and columns: ");
+    scanf("%d%d", &row, &col);
+    
+    int mat[row][col];
+    printf("Enter elements to matrix:\n");
+    for(i = 0; i < row; i++) {
+        for(j = 0; j < col; j++) {
+            scanf("%d", &mat[i][j]);
+        }
+    }
+    if(row<=1&&col<=1){
+    printf("No rotation performed");
+    return 1;
+    }
+    int rotated[row][col];
+    for(i=0;i<row;i++){
+        for(j=0;j<col;j++){
+             rotated[j][row-1-i]=mat[i][j];//logic for 90 degree
+        }
+    }
+    printf("Rotation matrix to 270 degrees: ");
+    for(i=0;i<row;i++){
+        for(j=0;j<col;j++){
+            printf("%d ",rotated[i][j]);
+    }
+    }
+    return 0;
+}
+
+
+
+
+
+
+
+
+

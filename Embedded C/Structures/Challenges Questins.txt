@@ -1,0 +1,202 @@
+Challenges
+--------------
+
+
+1.What is the difference in memory organization between a structure and an array, especially considering padding and alignment? For example, how are these stored in memory?
+
+struct Data {
+    char ch;
+    int num;
+    char flag;
+};
+int arr[3];
+
+2.If you change the order of members in a structure, how does it affect the overall size due to padding? Try predicting the size of these two structures.
+
+struct A {
+    char x;
+    int y;
+    char z;
+};
+struct B {
+    int y;
+    char x;
+    char z;
+};
+
+3.How would you programmatically determine the offset of a structure member? Consider why this might be important for low-level operations.
+
+struct Info {
+    short id;
+    float value;
+    char tag;
+};
+
+4.How would you design a structure suitable for a linked list or tree? What is special about the definition?
+
+struct Node {
+    int data;
+    struct Node *next;
+};
+
+5.What happens if you assign one structure variable with pointer members to another? What are the implications for memory safety?
+
+struct Box {
+    int *p;
+};
+struct Box a, b;
+b = a;
+
+6.How would you define and use a structure with a flexible array member for dynamic-length data storage?
+
+struct Packet {
+    int length;
+    char data[];
+};
+
+7.What is the difference between passing a structure to a function by value versus by pointer? What side effects could occur?
+
+void process(struct Packet pkt);
+void modify(struct Packet *pkt);
+
+8.How can you avoid problems with shallow copy when a structure has pointer members, for example, when copying one struct to another?
+
+struct Table {
+    int *rows;
+    int size;
+};
+
+9.Why would you use a typedef with a structure? How does this change the way you declare structure variables?
+
+typedef struct {
+    int id;
+    char label[10];
+} Record;
+
+10.What problems can arise if you access uninitialized members of a structure?
+
+struct Uninit {
+    int x;
+    float y;
+};
+struct Uninit u;
+printf("%d", u.x);
+
+11.How can you initialize every member of a structure—including nested structures and arrays—at the time of declaration?
+
+struct Point {
+    int x, y;
+};
+struct Shape {
+    struct Point center;
+    int points[4];
+};
+12.What are the memory implications of having a union as a member of a structure?
+
+struct Number {
+    char type;
+    union {
+        int i;
+        float f;
+    } value;
+};
+13.How would you compare two structures for equality when they include pointer members?
+
+struct Person {
+    char *name;
+    int age;
+};
+
+14.How do bit-fields work inside structures, and what issues could you face when using them for portability?
+
+struct Flags {
+    unsigned int a : 1;
+    unsigned int b : 3;
+    unsigned int c : 4;
+};
+
+15.Why can't a structure contain an instance of itself as a member, and how do you overcome this for recursive data structures?
+
+struct BadStruct {
+    // struct BadStruct child; // Not allowed
+    struct BadStruct *child;  // Allowed
+};
+
+16.How would you serialize a structure with pointer members so you can save and reload it from a file?
+
+struct Buffer {
+    int size;
+    char *data;
+};
+
+17.What effect does using a packing pragma have on a structure's layout and why might it be required?
+
+#pragma pack(1)
+struct Packed {
+    char a;
+    int b;
+};
+
+18.How can you implement a generic linked list in C that can store data of any type?
+
+struct GNode {
+    void *data;
+    struct GNode *next;
+};
+
+19.How does sizeof behave with structures containing bit-fields or a flexible array member?
+
+struct Flex {
+    int a:5;
+    char data[];
+};
+
+20.How can structures be used to access hardware registers directly in embedded systems, and what are potential risks?
+
+#define REG_ADDR 0x10000000
+struct HWReg {
+    volatile unsigned int ctrl;
+    volatile unsigned int status;
+};
+
+21.How would you mimic inheritance in C using structures to allow a form of code reuse?
+
+struct Animal {
+    char name[10];
+};
+struct Dog {
+    struct Animal base;
+    int barkVolume;
+};
+
+22.What are the potential compatibility and portability problems when exchanging structure data between different systems or compilers?
+
+struct CrossPlat {
+    int x;
+    char y;
+    short z;
+};
+
+23.How can you dynamically allocate an array of structures, each containing its own dynamic array?
+
+struct Block {
+    int n;
+    int *values;
+};
+struct Block *blocks = malloc(10 * sizeof(struct Block));
+
+24.What should you be careful about when returning a structure from a function, especially for large structures?
+
+struct Result {
+    int data[100];
+};
+struct Result getResult(void);
+
+25.Give an example where using a structure in C might result in undefined behavior, such as accessing freed or uninitialized members.
+
+struct Dangling {
+    int *ptr;
+};
+struct Dangling d;
+free(d.ptr);
+printf("%d", *(d.ptr)); // Undefined behaviour

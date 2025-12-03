@@ -1,0 +1,10 @@
+12:37:37 **** Incremental Build of configuration Debug for project Boosterpack_sensors ****
+make -j8 all 
+arm-none-eabi-size  Boosterpack_sensors.elf 
+   text	   data	    bss	    dec	    hex	filename
+  30624	    468	   2044	  33136	   8170	Boosterpack_sensors.elf
+Finished building: default.size.stdout
+ 
+
+12:37:37 Build Finished. 0 errors, 0 warnings. (took 281ms)
+

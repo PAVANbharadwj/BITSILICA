@@ -1,0 +1,139 @@
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file           : main.c
+  * @brief          : Main program body
+  ******************************************************************************
+  */
+/* USER CODE END Header */
+
+#include "main.h"
+#include "fatfs.h"
+#include <string.h>
+#include <stdio.h>
+
+/*************** SD + UART Handles ************************/
+FATFS FatFs;
+FIL fil;
+FRESULT fres;
+char buf[256];
+
+SPI_HandleTypeDef hspi2;
+UART_HandleTypeDef huart2;
+
+/*************** Function Prototypes ***********************/
+void process_SD_card(void);
+void write_string_to_SD(char *str);
+void read_SD_data(void);
+
+/*************** Redirect printf to UART2 *******************/
+int _write(int file, char *ptr, int len)
+{
+    HAL_UART_Transmit(&huart2, (uint8_t*)ptr, len, HAL_MAX_DELAY);
+    return len;
+}
+
+/*************** Button Interrupt **************************/
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+    if(GPIO_Pin == GPIO_PIN_13)
+    {
+        printf("\n\n[BUTTON] Reading SD Card...\n");
+        read_SD_data();
+    }
+}
+
+/********************* MAIN ********************************/
+int main(void)
+{
+    HAL_Init();
+    SystemClock_Config();
+
+    MX_GPIO_Init();
+    MX_SPI2_Init();
+    MX_FATFS_Init();
+    MX_USART2_UART_Init();
+
+    printf("System Started...\n");
+    printf("Initializing SD Card...\n");
+
+    process_SD_card();
+
+    char rx_buffer[128];
+
+    while (1)
+    {
+        printf("\nEnter text to save into SD card:\n");
+
+        memset(rx_buffer, 0, sizeof(rx_buffer));
+
+        HAL_UART_Receive(&huart2, (uint8_t*)rx_buffer, sizeof(rx_buffer)-1, HAL_MAX_DELAY);
+
+        write_string_to_SD(rx_buffer);
+        printf("Text saved to SD card.\n");
+    }
+}
+
+/******************** SD PROCESS ***************************/
+void process_SD_card(void)
+{
+    fres = f_mount(&FatFs, "", 1);
+    if (fres != FR_OK)
+    {
+        printf("SD Mount Error (%d)\n", fres);
+        return;
+    }
+
+    printf("SD Card Mounted Successfully!\n");
+
+    fres = f_open(&fil, "Logs.txt", FA_OPEN_ALWAYS | FA_WRITE);
+    if (fres != FR_OK)
+    {
+        printf("File Open Error (%d)\n", fres);
+        return;
+    }
+
+    f_puts("---- Log Started ----\n", &fil);
+
+    f_close(&fil);
+}
+
+/****************** WRITE STRING TO SD *********************/
+void write_string_to_SD(char *str)
+{
+    fres = f_open(&fil, "Logs.txt", FA_OPEN_APPEND | FA_WRITE);
+
+    if (fres != FR_OK)
+    {
+        printf("Open Error (%d)\n", fres);
+        return;
+    }
+
+    f_puts(str, &fil);
+    f_puts("\n", &fil);
+
+    f_close(&fil);
+}
+
+/****************** READ SD CARD FILE **********************/
+void read_SD_data(void)
+{
+    fres = f_open(&fil, "Logs.txt", FA_READ);
+
+    if (fres != FR_OK)
+    {
+        printf("Open Error (%d)\n", fres);
+        return;
+    }
+
+    printf("\n--- SD CARD CONTENT ---\n");
+
+    while (f_gets(buf, sizeof(buf), &fil))
+    {
+        printf("%s", buf);
+    }
+
+    printf("\n--- END OF FILE ---\n");
+
+    f_close(&fil);
+}

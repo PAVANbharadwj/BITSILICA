@@ -1,0 +1,392 @@
+Concepts
+Introduction
+A function in C is a set of statements that perform specific tasks when called. Functions are the basic building blocks of a C program that promote modularity and code reuse. They are also known as subroutines or procedures in other languages.
+
+Function Definition
+ 
+A function definition tells the compiler the function’s name, return type, and behavior. Defining a function before calling it is compulsory.
+
+return_type name() {
+    // Body of function
+}
+
+return_type: Type of value returned by the function.
+
+name: Function's name.
+
+Body of function: Code inside {} executed on function call.
+
+Example:
+
+void hello() {
+    printf("GeeksforGeeks");
+}
+
+
+hello is the function name, and its return type is void.
+
+Function Call
+ 
+Call a function by using its name followed by parentheses.
+
+#include <stdio.h>
+
+// Function definition
+void hello() {
+    printf("GeeksforGeeks");
+}
+
+int main() {
+    // Function call
+    hello();
+    return 0;
+}
+
+
+Output:
+
+GeeksforGeeks
+
+
+Return Type of Functions
+
+Functions can return one value to the caller using the return keyword. The return value type matches the function's return type.
+
+Example:
+
+#include <stdio.h>
+
+int getThree() {
+    int n = 3;
+    return n;
+}
+
+int main() {
+    printf("%d", getThree());
+    return 0;
+}
+
+
+Output:
+3
+
+Note: Use void return type when no value is returned.
+
+Function Parameters
+ 
+Functions can accept inputs known as arguments, passed to parameters defined in the function.
+
+return_type func(type1 name1, type2 name2, ...) {
+    // Function body
+}
+
+Example:
+
+#include <stdio.h>
+
+void printVal(int num, float real) {
+    printf("%d %f\n", num, real);
+}
+
+int main() {
+    int a = 3;
+    printVal(a, 1.5);
+    return 0;
+}
+
+Output:
+3 1.500000
+
+The number, types, and order of arguments must match the parameters.
+Forward Declaration
+ 
+To avoid compiler errors, declare functions before calling them using:
+
+return_type name();
+
+or with parameters:
+
+return_type name(type1, type2, ...);
+
+This is called a function prototype and can appear before the call or definition.
+
+If the function is defined before calling, forward declaration is optional.
+Local Variables
+Variables declared inside a function are local and accessible only within that function.
+
+ 
+Example:
+
+#include <stdio.h>
+
+int getThree() {
+    int n = 3;
+    return n;
+}
+
+int getThreeDummy() {
+    // Error: 'n' is not accessible here
+    return n;
+}
+
+int main() {
+    printf("%d", getThreeDummy());
+    return 0;
+}
+
+Output:
+main.c:12: error: ‘n’ undeclared
+
+Local variables cannot be accessed outside their function.
+Library Functions
+C provides many pre-defined library functions for common tasks. Using them saves time and reduces errors.
+
+Example:
+
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    int n = 3, m = 6;
+    printf("%.0f", fmax(n, m));
+    return 0;
+}
+
+Output:
+6
+
+fmax() returns the maximum of two values and is declared in <math.h>.
+
+Main Function in C
+main() is the entry point of any C program. It indicates program start and returns an integer status to the OS.
+
+Memory Management of C Functions
+When a function is called, memory for its variables is allocated in a stack frame on the function call stack. After execution, this memory is freed.
+
+Understanding Recursion in C
+Recursion is a programming technique where a function calls itself to solve smaller instances of the same problem. It is especially useful when solving problems that have a natural recursive structure, such as mathematical series, tree traversal, and divide-and-conquer algorithms.
+
+What is Recursion?
+A recursive function must have a base case to stop further calls and a recursive case where it calls itself with a modified input.
+
+Basic Recursive Function Structure
+
+returnType functionName(parameters) {
+    if (base_condition)
+        return result;
+    else
+        return functionName(modified_parameters);
+}
+
+Example: Factorial Calculation
+Calculate the factorial of a number using recursion.
+
+#include <stdio.h>
+
+int factorial(int n) {
+    if (n == 0)
+        return 1;
+    else
+        return n * factorial(n - 1);
+}
+
+int main() {
+    int num = 5;
+    printf("Factorial of %d is %d\n", num, factorial(num));
+    return 0;
+}
+
+Output:
+Factorial of 5 is 120
+
+Summary
+Recursion simplifies code for problems with repetitive structure.
+Must always define a clear base case.
+Be cautious of stack overflow for deep recursive calls.
+
+
+Advantages of Functions in C
+Reduce code repetition
+
+Enable recursion
+
+Improve readability
+
+Can be reused multiple times
+
+Hide internal details from the user
+
+Disadvantages of Functions in C
+Cannot return multiple values directly
+
+Overhead of stack memory allocation and control transfer
+
+Generic Functions in C
+In modern programming, the idea of writing reusable and type-independent code is crucial. While C is a powerful language, it doesn't natively support generic functions like C++ does through templates. However, with clever use of void*, macros, and memory handling functions, C can simulate generic behavior effectively.
+
+What is a Generic Function?
+A generic function is a function that can operate on data of different types using a single implementation. In C, this can be done using:
+
+void* pointers to handle data of any type
+sizeof to determine the size of the data
+memcpy() to manipulate raw memory
+Preprocessor macros for inline generic logic
+Why Does C Need This?
+In C, if you want to swap two variables of any type, you usually need to write a different function for each data type. For example:
+
+void swapInt(int* a, int* b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void swapFloat(float* a, float* b) {
+    float temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+This approach is repetitive. A better way is to use a single generic function.
+
+Generic Swap Function in C
+ 
+Here’s how you can write a generic function in C using void* and memcpy():
+
+#include <stdio.h>
+#include <string.h>
+
+void swap(void *a, void *b, size_t size) {
+    char temp[size];
+    memcpy(temp, a, size);
+    memcpy(a, b, size);
+    memcpy(b, temp, size);
+}
+
+int main() {
+    int x = 10, y = 20;
+    float f1 = 1.5f, f2 = 2.5f;
+
+    swap(&x, &y, sizeof(int));
+    swap(&f1, &f2, sizeof(float));
+
+    printf("x = %d, y = %d\n", x, y);
+    printf("f1 = %.1f, f2 = %.1f\n", f1, f2);
+
+    return 0;
+}
+
+Output
+
+x = 20, y = 10
+f1 = 2.5, f2 = 1.5
+
+Alternative: Generic Macros
+Macros provide another way to implement generic behavior, though they come with caveats like lack of type checking:
+
+#include <stdio.h>
+
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+
+int main() {
+    int x = 10, y = 25;
+    float p = 5.5, q = 2.2;
+
+    printf("Max int = %d\n", MAX(x, y));
+    printf("Max float = %.1f\n", MAX(p, q));
+
+    return 0;
+}
+
+Advantages of Generic Functions in C
+Minimize code duplication
+Improve maintainability
+Enable abstraction in system-level programming
+Essential for low-level tasks in embedded systems
+ 
+Summary
+
+Technique	Purpose
+void*		Allows handling of any data type
+memcpy()	Copies raw bytes from one memory location to another
+sizeof		Helps determine memory size dynamically
+Macros		Provide compile-time generic logic (less type-safe)
+
+While C doesn't have built-in support for generics, by understanding pointers, memory, and macros, you can implement reusable and type-independent functions that bring power and elegance to your C code.
+
+Variadic Functions in C
+Variadic functions are functions that accept a variable number of arguments. They are useful when the number of inputs is not known in advance. A classic example of a variadic function is printf.
+
+Why Use Variadic Functions?
+To handle functions with flexible parameters.
+To create custom versions of printf, logging, or aggregation functions.
+To simplify APIs that require flexible input.
+Header Required
+To work with variadic functions in C, include the header:
+
+
+#include <stdarg.h>
+
+Important Macros
+
+va_list: Declares a variable to store the arguments.
+va_start: Initializes the argument list.
+va_arg: Fetches the next argument.
+va_end: Cleans up the list.
+ 
+Example: Sum of Integers
+
+
+#include <stdio.h>
+#include <stdarg.h>
+
+int sum(int count, ...) {
+    va_list args;
+    va_start(args, count);
+
+    int total = 0;
+    for (int i = 0; i < count; i++) {
+        total += va_arg(args, int);
+    }
+
+    va_end(args);
+    return total;
+}
+
+int main() {
+    printf("Sum: %d\n", sum(4, 10, 20, 30, 40));  // Output: 100
+    return 0;
+}
+
+
+How It Works
+count tells how many arguments follow.
+va_start initializes processing of arguments.
+va_arg retrieves each argument one by one.
+va_end cleans up after we're done.
+Common Use Cases
+printf, scanf functions
+Logging and debugging utilities
+Statistical functions (e.g., average, sum)
+
+Tips and Best Practices
+Always use a fixed parameter (like count or a format string) to indicate how many arguments to expect.
+Don’t forget to call va_end at the end.
+Arguments beyond the fixed ones cannot be type-checked at compile time.
+
+Limitations
+No type safety beyond fixed arguments.
+Can lead to bugs if argument count/type is not properly managed.
+Only works with known types like int, char*; complex types are harder to handle.
+
+Summary
+Variadic functions provide flexibility to handle an unknown number of arguments. While powerful, they must be used carefully to avoid bugs and ensure safe memory handling.
+ 
+Explore more: Try writing your own version of printf or a variadic function for calculating the average of N numbers.
+
+
+
+https://www.youtube.com/watch?v=ngCos392W4w&ab_channel=Reducible
+
+
+https://www.youtube.com/watch?v=3lqgdqoY83o&list=PLBlnK6fEyqRi0Va6znG73P52rFfXD5fhs
+

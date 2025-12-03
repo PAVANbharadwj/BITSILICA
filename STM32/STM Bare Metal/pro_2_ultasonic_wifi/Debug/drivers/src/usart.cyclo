@@ -1,0 +1,10 @@
+C:/Users/pavan/Documents/STM Bare Metal/pro_2_ultasonic_wifi/drivers/inc/stm32l476xx.h:227:20:NVIC_SetPriority	1
+C:/Users/pavan/Documents/STM Bare Metal/pro_2_ultasonic_wifi/drivers/inc/stm32l476xx.h:233:20:NVIC_EnableIRQ	2
+../drivers/src/usart.c:19:6:USART2_Init	1
+../drivers/src/usart.c:54:6:USART2_SendChar	2
+../drivers/src/usart.c:60:6:USART2_Send	2
+../drivers/src/usart.c:65:5:USART2_SendBuf	2
+../drivers/src/usart.c:71:10:USART2_Available	1
+../drivers/src/usart.c:76:5:USART2_ReadCharBlocking	3
+../drivers/src/usart.c:88:6:USART2_FlushRX	1
+../drivers/src/usart.c:91:6:USART2_IRQHandler	3

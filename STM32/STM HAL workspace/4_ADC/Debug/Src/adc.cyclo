@@ -1,0 +1,3 @@
+../Src/adc.c:9:6:ADC1_Init	1
+../Src/adc.c:48:6:ADC1_Start	1
+../Src/adc.c:57:10:ADC1_ReadValue	1

@@ -1,0 +1,306 @@
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file           : main.c
+  * @brief          : Main program body
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2025 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  */
+/* USER CODE END Header */
+/* Includes ------------------------------------------------------------------*/
+#include "main.h"
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+#include "w25qxx.h"
+#include <stdio.h>
+#include <string.h>
+/* USER CODE END Includes */
+
+/* Private variables ---------------------------------------------------------*/
+SPI_HandleTypeDef hspi2;
+TIM_HandleTypeDef htim1;
+UART_HandleTypeDef huart2;
+
+/* USER CODE BEGIN PV */
+uint32_t IC_Val1 = 0;
+uint32_t IC_Val2 = 0;
+uint32_t Difference = 0;
+uint8_t Is_First_Captured = 0;
+uint16_t Distance = 0, object_present = 0;
+uint8_t flash_buffer[256];
+uint32_t ID;
+/* USER CODE END PV */
+
+/* USER CODE BEGIN PD */
+#define TRIG_PIN   GPIO_PIN_15
+#define TRIG_PORT  GPIOB
+/* USER CODE END PD */
+
+/* USER CODE BEGIN 0 */
+
+void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
+{
+    if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1)
+    {
+        if (Is_First_Captured == 0)
+        {
+            IC_Val1 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+            Is_First_Captured = 1;
+            __HAL_TIM_SET_CAPTUREPOLARITY(htim, TIM_CHANNEL_1,
+                                          TIM_INPUTCHANNELPOLARITY_FALLING);
+        }
+        else
+        {
+            IC_Val2 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+            __HAL_TIM_SET_COUNTER(htim, 0);
+
+            if (IC_Val2 > IC_Val1)
+                Difference = IC_Val2 - IC_Val1;
+            else
+                Difference = (0xffff - IC_Val1) + IC_Val2;
+
+            Distance = Difference * .034 / 2;
+
+            Is_First_Captured = 0;
+            __HAL_TIM_SET_CAPTUREPOLARITY(htim, TIM_CHANNEL_1,
+                                          TIM_INPUTCHANNELPOLARITY_RISING);
+            __HAL_TIM_DISABLE_IT(&htim1, TIM_IT_CC1);
+        }
+    }
+}
+
+uint16_t HCSR04_Read(void)
+{
+    uint32_t timeout = HAL_GetTick();
+
+    HAL_GPIO_WritePin(TRIG_PORT, TRIG_PIN, GPIO_PIN_SET);
+    for (volatile int i = 0; i < 800; i++);
+    HAL_GPIO_WritePin(TRIG_PORT, TRIG_PIN, GPIO_PIN_RESET);
+
+    __HAL_TIM_ENABLE_IT(&htim1, TIM_IT_CC1);
+
+    while (Is_First_Captured || Distance == 0)
+    {
+        if (HAL_GetTick() - timeout > 30)
+        {
+            Distance = 0;
+            break;
+        }
+    }
+    return Distance;
+}
+
+/* ---------------- BUTTON INTERRUPT HANDLER ---------------- */
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+    if (GPIO_Pin == B1_Pin)
+    {
+        HAL_UART_Transmit(&huart2,
+                          (uint8_t *)"\r\n--- FLASH LOG DUMP ---\r\n", 27, 200);
+
+        for (uint8_t i = 0; i < 10; i++)
+        {
+            memset(flash_buffer, 0, sizeof(flash_buffer));
+            W25q_Read(i, 0, 256, flash_buffer);   // FIXED HERE ✔
+
+            if (flash_buffer[0] != 0xFF && flash_buffer[0] != 0x00)
+            {
+                HAL_UART_Transmit(&huart2,
+                                  flash_buffer, strlen((char *)flash_buffer), 200);
+                HAL_UART_Transmit(&huart2, (uint8_t *)"\r\n", 2, 100);
+            }
+        }
+
+        HAL_UART_Transmit(&huart2,
+                          (uint8_t *)"--- END ---\r\n", 13, 100);
+    }
+}
+
+/* USER CODE END 0 */
+
+/**
+  * @brief  The application entry point.
+  * @retval int
+  */
+int main(void)
+{
+  HAL_Init();
+  SystemClock_Config();
+  MX_GPIO_Init();
+  MX_USART2_UART_Init();
+  MX_TIM1_Init();
+  MX_SPI2_Init();
+
+  HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);
+
+  W25Q_RESET();
+  ID = W25_ReadID();
+
+  uint8_t cnt = 0;
+  uint16_t last_d = 0;
+
+  while (1)
+  {
+      Distance = HCSR04_Read();
+
+      if (Distance > 0 && Distance < 150)
+      {
+          if (object_present == 0)
+          {
+              char msg[60];
+              sprintf(msg, "Object entered: %u cm\r\n", Distance);
+
+              HAL_UART_Transmit(&huart2, (uint8_t *)msg, strlen(msg), 100);
+              flash_write(cnt, 0, strlen(msg), (uint8_t *)msg);
+
+              last_d = Distance;
+              object_present = 1;
+              cnt++;
+          }
+      }
+      else
+      {
+          if (object_present == 1)
+          {
+              char msg[60];
+              sprintf(msg, "Object removed: %u cm\r\n", last_d);
+
+              HAL_UART_Transmit(&huart2, (uint8_t *)msg, strlen(msg), 100);
+              flash_write(cnt, 0, strlen(msg), (uint8_t *)msg);
+
+              object_present = 0;
+              cnt++;
+          }
+      }
+
+      if (cnt >= 10) cnt = 0;
+
+      HAL_Delay(200);
+  }
+}
+
+/* ---------------- SYSTEM CONFIG FUNCTIONS BELOW (UNCHANGED) ---------------- */
+
+void SystemClock_Config(void)
+{
+  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+
+  if (HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1) != HAL_OK)
+    Error_Handler();
+
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+  RCC_OscInitStruct.PLL.PLLM = 1;
+  RCC_OscInitStruct.PLL.PLLN = 10;
+  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV7;
+  RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV2;
+  RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV2;
+
+  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+    Error_Handler();
+
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|
+                                RCC_CLOCKTYPE_SYSCLK|
+                                RCC_CLOCKTYPE_PCLK1|
+                                RCC_CLOCKTYPE_PCLK2;
+
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4) != HAL_OK)
+    Error_Handler();
+}
+
+static void MX_SPI2_Init(void)
+{
+  hspi2.Instance = SPI2;
+  hspi2.Init.Mode = SPI_MODE_MASTER;
+  hspi2.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi2.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi2.Init.NSS = SPI_NSS_SOFT;
+  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_32;
+  hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+
+  if (HAL_SPI_Init(&hspi2) != HAL_OK)
+    Error_Handler();
+}
+
+static void MX_TIM1_Init(void)
+{
+  TIM_IC_InitTypeDef sConfigIC = {0};
+
+  htim1.Instance = TIM1;
+  htim1.Init.Prescaler = 80 - 1;
+  htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim1.Init.Period = 65535 - 1;
+  htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+
+  if (HAL_TIM_IC_Init(&htim1) != HAL_OK)
+    Error_Handler();
+
+  sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_RISING;
+  sConfigIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
+
+  HAL_TIM_IC_ConfigChannel(&htim1, &sConfigIC, TIM_CHANNEL_1);
+}
+
+static void MX_USART2_UART_Init(void)
+{
+  huart2.Instance = USART2;
+  huart2.Init.BaudRate = 115200;
+  huart2.Init.WordLength = UART_WORDLENGTH_8B;
+  huart2.Init.StopBits = UART_STOPBITS_1;
+  huart2.Init.Parity = UART_PARITY_NONE;
+  huart2.Init.Mode = UART_MODE_TX_RX;
+
+  HAL_UART_Init(&huart2);
+}
+
+static void MX_GPIO_Init(void)
+{
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+
+  GPIO_InitStruct.Pin = B1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+
+  GPIO_InitStruct.Pin = GPIO_PIN_15;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+}
+
+void Error_Handler(void)
+{
+  __disable_irq();
+  while (1)
+  {
+  }
+}

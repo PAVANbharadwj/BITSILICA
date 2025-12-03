@@ -1,0 +1,128 @@
+Worksheet 1
+--------------------
+
+Structures & Memory Management Worksheet
+
+1. Structure vs Union in Embedded Systems
+Goal
+Understand how structures and unions differ in terms of memory layout, access, and use in embedded systems, particularly in data interpretation and memory saving.
+
+Activity
+Define a structure and a union with three different data types (e.g., char, int, float).
+Print the size of each and compare.
+Write values to each member and observe the behavior.
+Map the union onto a byte buffer and visualize how different types share memory.
+Document a scenario where only one data type is valid at a time (e.g., packet command structure).
+Tip: Use sizeof() and printf() to track memory usage and value overlap.
+
+2. Bit-fields in Structures
+Goal
+Learn to define and use bit-fields to manage individual bits for hardware register simulation.
+
+Activity
+Log Session a structure using bit-fields to represent an 8-bit status register.
+Assign values to specific flags.
+Log Session a mock register with error, ready, and mode bits.
+Write code to toggle specific flags without using bitwise operators.
+Reflect on how compilers handle ordering and alignment of bit-fields.
+Tip: Bit-fields may behave differently on different compilers—don't assume portability.
+
+3. Structure Padding, Alignment, and Packing
+Goal
+Understand how padding affects structure size and how to control layout using packing directives.
+
+Activity
+Log Session a structure with mixed data types (char, int, short).
+Check the size and member offsets using sizeof() and pointer arithmetic.
+Reorder members to reduce padding and observe the change in size.
+Use #pragma pack(1) and compare memory layout.
+Simulate a communication packet where field alignment matters.
+Tip: Use offsetof() macro to determine the byte offset of each field.
+
+4. Function Pointers in Structures
+Goal
+Learn how to include and use function pointers inside structures for callback mechanisms and dynamic behavior in embedded systems.
+
+Activity
+Define a structure containing function pointers.
+Initialize it with different functions and invoke them.
+Use this setup to simulate a hardware driver interface with different behavior implementations.
+Demonstrate dynamic assignment and execution of function pointers based on a condition or input.
+Tip: Use typedef for cleaner function pointer declarations.
+
+5. Dynamic Memory with Structures
+Goal
+Understand how to allocate and free memory dynamically for structures, including use cases like linked lists and memory pools in embedded systems.
+
+Activity
+Use malloc() to allocate a structure dynamically and assign values to members.
+Build a simple singly linked list using structure and pointers.
+Implement a queue using structure-based nodes.
+Write a memory pool manager that uses an array of structures and a free list.
+Tip: Always check malloc() return and release memory using free() after usage.
+
+6. Structure Pointers and Memory Access
+Goal
+Understand the use of pointers to structures for efficient memory access and how to use the arrow operator for member access.
+
+Activity
+Declare a pointer to a structure and allocate memory using malloc().
+Use arrow operator to assign and print structure member values.
+Simulate memory-mapped peripheral access using structure pointers.
+Illustrate how structure pointers simplify code in register programming.
+Tip: Always initialize structure pointers and check for NULL before dereferencing.
+
+7. Nested Structures and Arrays within Structures
+Goal
+Explore how to organize complex data using nested structures and how to embed arrays inside structures for buffer management.
+
+Activity
+Log Session a structure with another structure as a member.
+Log Session an array of structures to hold multiple sensor values.
+Include arrays within a structure to buffer a set of samples.
+Model a protocol layer with header and payload sub-structures.
+Tip: Use typedef to simplify nested structure declarations.
+
+8. Structures and Functions
+Goal
+Learn how to pass structures to and return structures from functions and understand the trade-offs between pass-by-value and pass-by-reference.
+
+Activity
+Write a function that takes a structure as a value argument and modifies it.
+Write a function that takes a pointer to structure and modifies it.
+Return a structure from a function and print its values.
+Measure memory usage and performance difference between pass-by-value and reference.
+Tip: Prefer passing by pointer in embedded systems for performance and memory efficiency.
+
+9. Introduction to Structures in C
+Goal
+Grasp the basic concept of structures in C, including their need, syntax, and difference from arrays and unions.
+
+Activity
+Define a simple structure with multiple data types.
+Compare it with an array and a union with similar members.
+Initialize the structure in different ways and print values.
+Analyze why structures are preferred in peripheral register grouping.
+Tip: Structures allow logically grouping different data types under one name.
+
+10. Structure Declaration and Initialization
+Goal
+Understand the proper way to declare and initialize structures using multiple techniques and best practices.
+
+Activity
+Declare structure variables globally, locally, and statically.
+Use designated initializers for clarity.
+Use typedef to create aliases for complex structures.
+Discuss structure initialization in embedded register mapping.
+Tip: Static initialization is preferred for compile-time register definitions.
+
+11. Memory Layout of Structures
+Goal
+Analyze the internal memory layout of structures, including padding, alignment, and impact on memory optimization.
+
+Activity
+Define a structure and use sizeof() to observe unexpected sizes.
+Use different data type orderings and compare structure size.
+Simulate structure layout for peripheral memory mapping.
+Apply structure packing using #pragma and compare memory efficiency.
+Tip: Misaligned structures can cause performance hits on some architectures.

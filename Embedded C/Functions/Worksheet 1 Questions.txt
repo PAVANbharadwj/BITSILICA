@@ -1,0 +1,121 @@
+Worksheet 1
+
+
+1. Display all prime numbers between two intervals
+Question: Write a program to display all prime numbers between two given intervals using functions.
+Sample data: Interval: 10 to 30
+Expected output: 11 13 17 19 23 29
+
+2. Check prime and Armstrong number by making functions
+Question: Write a program to check whether a given number is prime and/or Armstrong by using functions.
+Sample data: Input: 153
+Expected output: 153 is an Armstrong number and not a prime number.
+
+3. Check whether a number can be expressed as the sum of two prime numbers
+Question: Write a program to check if a number can be expressed as the sum of two prime numbers using functions.
+Sample data: Input: 34
+Expected output: 34 = 3 + 31
+
+4. Find the sum of natural numbers using recursion
+Question: Write a recursive function to find the sum of natural numbers up to n.
+Sample data: Input: 10
+Expected output: Sum of natural numbers up to 10 is 55
+
+5. Calculate the factorial of a number using recursion
+Question: Write a recursive function to calculate the factorial of a given number.
+Sample data: Input: 5
+Expected output: Factorial of 5 is 120
+
+6. Find G.C.D using recursion
+Question: Write a recursive function to find the GCD of two numbers.
+Sample data: Input: 56 and 98
+Expected output: GCD of 56 and 98 is 14
+
+7. Reverse a sentence using recursion
+Question: Write a recursive function to reverse a sentence.
+Sample data: Input: "hello world"
+Expected output: "world hello"
+
+8. Calculate the power of a number using recursion
+Question: Write a recursive function to calculate the power of a number (base^exponent).
+Sample data: Input: base=2, exponent=5
+Expected output: 2^5 = 32
+
+9. Convert a binary number to decimal and vice-versa
+Question: Write functions to convert binary to decimal and decimal to binary.
+Sample data: Binary input: 1010, Decimal input: 10
+Expected output: Binary 1010 = Decimal 10, Decimal 10 = Binary 1010
+
+10. Convert an octal number to decimal and vice-versa
+Question: Write functions to convert octal to decimal and decimal to octal.
+Sample data: Octal input: 17, Decimal input: 15
+Expected output: Octal 17 = Decimal 15, Decimal 15 = Octal 17
+
+11. Convert a binary number to octal and vice-versa
+Question: Write functions to convert binary to octal and octal to binary.
+Sample data: Binary input: 110011, Octal input: 63
+Expected output: Binary 110011 = Octal 63, Octal 63 = Binary 110011
+
+12. Simple Function Structure Variants
+Question: Write a program in C to show the simple structure of a function.
+Expected output: The total is : 11
+
+13. Square Calculation Function Variants
+Question: Write a program in C to find the square of any number using the function.
+Sample data: Input: 20
+Expected output: The square of 20 is : 400.00
+
+14. Swap Numbers Function Variants
+Question: Write a program in C to swap two numbers using a function.
+Sample data: Input 1st number: 2, Input 2nd number: 4
+Expected output: Before swapping: n1 = 2, n2 = 4
+After swapping: n1 = 4, n2 = 2
+
+15. Even/Odd Check Function Variants
+Question: Write a program in C to check if a given number is even or odd using a function.
+Sample data: Input: 5
+Expected output: The entered number is odd.
+
+16. Series Sum Using Function Variants
+Question: Write a program in C to find the sum of the series 1!/1 + 2!/2 + 3!/3 + 4!/4 + 5!/5 using a function.
+Expected output: The sum of the series is : 34
+
+17. Decimal to Binary Conversion Function Variants
+Question: Write a program in C to convert a decimal number to a binary number using a function.
+Sample data: Input: 65
+Expected output: The Binary value is : 1000001
+
+18. Prime Check Function Variants
+Question: Write a program in C to check whether a number is prime or not using a function.
+Sample data: Input: 5
+Expected output: The number 5 is a prime number.
+
+19. Largest Element in Array Function Variants
+Question: Write a program in C to get the largest element of an array using a function.
+Sample data: Array size: 5
+Elements: 1 2 3 4 5
+Expected output: The largest element in the array is : 5
+
+20. Armstrong & Perfect Number Function Variants
+Question: Write a program in C to check Armstrong and Perfect numbers using a function.
+Sample data: Input: 371
+Expected output: 371 is an Armstrong number.
+371 is not a Perfect number.
+
+21. Perfect Numbers in Range Function Variants
+Question: Write a program in C to print all perfect numbers in a given range using a function.
+Sample data: Range: 1 to 100
+Expected output: The perfect numbers between 1 to 100 are : 6 28
+
+22. Anagram Check Function Variants
+Question: Write a program in C to check whether two given strings are an anagram.
+Sample data: String1: spare
+String2: pears
+Expected output: spare and pears are Anagram.
+
+23. Max & Min Array Values Function Variants
+Question: Write a C program to find the maximum and minimum of some values using a function that returns an array.
+Sample data: Input values: 25 11 35 65 20
+Expected output:
+Minimum value is: 11
+Maximum value is: 65

@@ -1,0 +1,8 @@
+--cpu ARM7TDMI
+".\startup.o"
+".\uart.o"
+".\main.o"
+--strict --scatter ".\pwm_motor.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\pwm_motor.map" -o .\pwm_motor.axf

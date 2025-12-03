@@ -1,0 +1,85 @@
+Worksheet 2
+----------------
+
+
+1. Check Least Significant Bit (LSB) of a number is set or not
+Question: Write a C program to check if the Least Significant Bit (LSB) of a number is set (1) or not.
+Sample data: Input: 5 (binary 0101)
+Expected output: LSB of 5 is set (1)
+
+2. Check Most Significant Bit (MSB) of a number is set or not
+Question: Write a C program to check if the Most Significant Bit (MSB) of a number is set (1) or not.
+Sample data: Input: 128 (binary 10000000 for 8-bit number)
+Expected output: MSB of 128 is set (1)
+
+3. Get nth bit of a number
+Question: Write a C program to get the value of the nth bit of a number.
+Sample data: Input number: 10 (binary 1010), bit position: 2
+Expected output: Bit 2 of 10 is 1
+
+4. Set nth bit of a number
+Question: Write a C program to set (make 1) the nth bit of a number.
+Sample data: Input number: 10 (binary 1010), bit position: 1
+Expected output: Number after setting bit 1: 10 (binary 1010) — no change
+Input number: 8 (binary 1000), bit position: 0
+Expected output: Number after setting bit 0: 9 (binary 1001)
+
+5. Clear nth bit of a number
+Question: Write a C program to clear (make 0) the nth bit of a number.
+Sample data: Input number: 10 (binary 1010), bit position: 3
+Expected output: Number after clearing bit 3: 2 (binary 0010)
+
+6. Toggle nth bit of a number
+Question: Write a C program to toggle (flip) the nth bit of a number.
+Sample data: Input number: 10 (binary 1010), bit position: 1
+Expected output: Number after toggling bit 1: 8 (binary 1000)
+
+7. Get highest set bit of a number
+Question: Write a C program to find the position of the highest set bit in a number.
+Sample data: Input: 18 (binary 10010)
+Expected output: Highest set bit of 18 is at position 4 (zero-based)
+
+8. Get lowest set bit of a number
+Question: Write a C program to find the position of the lowest set bit in a number.
+Sample data: Input: 18 (binary 10010)
+Expected output: Lowest set bit of 18 is at position 1 (zero-based)
+
+9. Count trailing zeros in a binary number
+Question: Write a C program to count the number of trailing zeros in the binary representation of a number.
+Sample data: Input: 40 (binary 101000)
+Expected output: Number of trailing zeros: 3
+
+10. Count leading zeros in a binary number
+Question: Write a C program to count the number of leading zeros in the binary representation of a number (assuming 32-bit integer).
+Sample data: Input: 16 (binary 00000000000000000000000000010000)
+Expected output: Number of leading zeros: 27
+
+11. Flip bits of a binary number using bitwise operator
+Question: Write a C program to flip all bits of a number using bitwise operators.
+Sample data: Input: 5 (binary 00000101)
+Expected output: Flipped bits: 250 (binary 11111010) (assuming 8-bit)
+
+12. Count total zeros and ones in a binary number
+Question: Write a C program to count the total number of zeros and ones in the binary representation of a number.
+Sample data: Input: 15 (binary 00001111)
+Expected output: Number of ones: 4, Number of zeros: 4 (assuming 8-bit)
+
+13. Rotate bits of a given number
+Question: Write a C program to rotate bits of a number to the left or right by a given number of positions.
+Sample data: Input: number=16 (binary 00010000), rotate left by 2
+Expected output: Result after rotation: 64 (binary 01000000)
+
+14. Convert decimal to binary using bitwise operator
+Question: Write a C program to convert a decimal number to binary representation using bitwise operators.
+Sample data: Input: 13
+Expected output: Binary representation: 1101
+
+15. Swap two numbers using bitwise operator
+Question: Write a C program to swap two numbers using bitwise XOR operator without using a temporary variable.
+Sample data: Input: a=5, b=9
+Expected output: After swapping: a=9, b=5
+
+16. Check whether a number is even or odd using bitwise operator
+Question: Write a C program to check whether a number is even or odd using bitwise AND operator.
+Sample data: Input: 7
+Expected output: 7 is odd

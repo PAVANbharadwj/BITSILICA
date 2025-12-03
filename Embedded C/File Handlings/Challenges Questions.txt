@@ -1,0 +1,41 @@
+Challenges
+------------
+
+1.How would you safely read a large file line-by-line in C, ensuring you never overflow your buffer, even if a line is extremely long? Describe your approach and key functions you’d use.
+
+2.Explain the difference between text mode and binary mode while opening a file in C. Provide scenarios where each is preferable and the possible issues if the wrong mode is chosen.
+
+3.Write a function that copies only the unique lines from a source text file to a destination file, preserving order. For example, if a line appears more than once, only its first occurrence is copied.
+
+4.Describe how you would implement a log file that never grows beyond a certain size (for example, 1 MB). What would you do when the file exceeds the limit?
+
+5.How do you handle concurrent access to the same file by multiple C programs? Discuss file locking mechanisms available in C and their limitations on different platforms.
+
+6.Given a binary file containing a list of structures, explain how you would search for and update a specific record in-place, without reading the entire file into memory.
+
+7.Design a robust C program to merge N sorted files (containing sorted lines) into a single sorted file with minimal RAM usage. What algorithms and file operations would you use?
+
+8.How would you detect if a file is a text file or a binary file in C? Write a function for this and discuss its limitations.
+
+9.Write a program that reverses the content of a large file in place (without using extra files or enough RAM to load the whole file). Hint: Consider using file seek operations.
+
+10.A file contains integers separated by commas. How would you efficiently find the maximum and minimum numbers without loading the file fully into memory, even if the file is several gigabytes in size?
+
+11.What are the consequences of not closing a file in C? Describe what can go wrong in a long-running server application and how to monitor and prevent such issues.
+
+12.How would you implement an undo feature for a text file editor written in C, considering file I/O and efficiency?
+13.Explain the use of tmpfile() and how it differs from manually creating temporary files. When is it safe or unsafe to use?
+
+14.Given a corrupted file where some data blocks are missing or replaced by zeros, how would you recover as much useful data as possible using C?
+
+15.Describe how buffered and unbuffered file I/O differs in C. When might you want to use setbuf() or setvbuf()?
+
+16.How do you ensure portability of file I/O code across Unix/Linux and Windows, especially when dealing with newline characters, file paths, and file modes?
+
+17.Implement a function in C to detect and remove duplicate files in a given directory by comparing their contents (not just filenames or sizes).
+
+18.How would you implement a database-like indexing mechanism to quickly access records in a very large file, given only the record’s ID?
+
+19.What is memory-mapped file I/O (mmap)? How does it differ from standard fread/fwrite? Give an example where it is advantageous.
+
+20.Describe how you would write a crash-resilient file update function that never leaves the file in a partially updated state, even if the power fails mid-write.

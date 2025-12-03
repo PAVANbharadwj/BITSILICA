@@ -1,0 +1,23 @@
+Worksheet 2
+--------------------
+
+
+1)Write a recursive function to generate the nth Fibonacci number.
+
+2)Reverse a string using recursion.
+
+3)Check if a string is a palindrome using recursion.
+
+4)Find the sum of digits of a number using recursion.
+
+5)Solve the Tower of Hanoi problem using recursion.
+
+6)Count the number of zeroes in an integer using recursion.
+
+7)Find the greatest common divisor (GCD) using recursion.
+
+8)Print numbers from N to 1 using recursion.
+
+9)Find the length of a string using recursion.
+
+10)Calculate the power of a number (x^y) using recursion.

@@ -1,0 +1,387 @@
+/*
+ * stm32l476xx_usart_driver.c
+ *
+ *  Created on: Nov 19, 2025
+ *      Author: pavan (fixed)
+ */
+
+#include "stm32l476xx_usart_driver.h"
+#include "stm32l476xx.h"
+#include <stdint.h>
+
+/* Peripheral Clock control */
+void USART_PeriClockControl(USART_TypeDef *pUSARTx, uint8_t EnOrDi)
+{
+    if(EnOrDi == ENABLE)
+    {
+        if(pUSARTx == USART1)   USART1_PCLK_EN();
+        else if(pUSARTx == USART2) USART2_PCLK_EN();
+        else if(pUSARTx == USART3) USART3_PCLK_EN();
+        else if(pUSARTx == UART4)  UART4_PCLK_EN();
+        else if(pUSARTx == UART5)  UART5_PCLK_EN();
+    }
+    else
+    {
+        if(pUSARTx == USART1)   USART1_PCLK_DI();
+        else if(pUSARTx == USART2) USART2_PCLK_DI();
+        else if(pUSARTx == USART3) USART3_PCLK_DI();
+        else if(pUSARTx == UART4)  UART4_PCLK_DI();
+        else if(pUSARTx == UART5)  UART5_PCLK_DI();
+    }
+}
+
+/* Helper: get PCLK for the USART instance (best effort; assumes typical L4 clock setup) */
+static uint32_t get_pclk_for_usart(USART_TypeDef *pUSARTx)
+{
+    uint32_t sws = (RCC->CFGR >> RCC_CFGR_SWS_Pos) & 0x3U;
+    uint32_t sysclk;
+
+    if(sws == 0)        sysclk = 4000000U;   // MSI default 4 MHz
+    else if(sws == 1)   sysclk = 16000000U;  // HSI16
+    else if(sws == 2)   sysclk = 8000000U;   // HSE assumed 8MHz
+    else                sysclk = 80000000U;  // assume PLL -> 80MHz (common)
+
+    /* AHB prescaler */
+    uint32_t hpre = (RCC->CFGR >> RCC_CFGR_HPRE_Pos) & 0xFU;
+    uint32_t ahb_div = 1U;
+    if(hpre >= 8) {
+        static const uint16_t ahb_tbl[8] = {2,4,8,16,64,128,256,512};
+        ahb_div = ahb_tbl[hpre - 8];
+    }
+    uint32_t hclk = sysclk / ahb_div;
+
+    /* APB prescaler selection */
+    if(pUSARTx == USART1)
+    {
+        uint32_t ppre2 = (RCC->CFGR >> RCC_CFGR_PPRE2_Pos) & 0x7U;
+        uint32_t apb2_div = 1U;
+        if(ppre2 >= 4) { static const uint8_t t[4] = {2,4,8,16}; apb2_div = t[ppre2-4]; }
+        return (hclk / apb2_div);
+    }
+    else
+    {
+        uint32_t ppre1 = (RCC->CFGR >> RCC_CFGR_PPRE1_Pos) & 0x7U;
+        uint32_t apb1_div = 1U;
+        if(ppre1 >= 4) { static const uint8_t t[4] = {2,4,8,16}; apb1_div = t[ppre1-4]; }
+        return (hclk / apb1_div);
+    }
+}
+
+/* Initialize USART peripheral */
+void USART_Init(USART_Handle_t *pUSARTHandle)
+{
+    /* 1. Enable peripheral clock */
+    USART_PeriClockControl(pUSARTHandle->pUSARTx, ENABLE);
+
+    /* Disable USART before configuration */
+    USART_PeripheralControl(pUSARTHandle->pUSARTx, DISABLE);
+
+    /* --- Configure CR1 --- */
+    uint32_t tempCR1 = 0U;
+
+    /* Mode: TE / RE */
+    if(pUSARTHandle->USART_Config.USART_Mode == USART_MODE_ONLY_RX)
+        tempCR1 |= USART_CR1_RE;
+    else if(pUSARTHandle->USART_Config.USART_Mode == USART_MODE_ONLY_TX)
+        tempCR1 |= USART_CR1_TE;
+    else
+        tempCR1 |= (USART_CR1_TE | USART_CR1_RE);
+
+    /* Word length: M0 / M1 handling (assumes macros defined in CMSIS header) */
+    if(pUSARTHandle->USART_Config.USART_WordLength == USART_WORDLEN_8BITS)
+    {
+        /* M0 = 0, M1 = 0 -> 8-bit */
+        tempCR1 &= ~(USART_CR1_M0 | USART_CR1_M1);
+    }
+    else /* 9 bits */
+    {
+        tempCR1 |= USART_CR1_M0;
+        tempCR1 &= ~USART_CR1_M1;
+    }
+
+    /* Parity */
+    if(pUSARTHandle->USART_Config.USART_ParityControl == USART_PARITY_DISABLE)
+    {
+        tempCR1 &= ~USART_CR1_PCE;
+    }
+    else if(pUSARTHandle->USART_Config.USART_ParityControl == USART_PARITY_EN_EVEN)
+    {
+        tempCR1 |= USART_CR1_PCE;
+        tempCR1 &= ~USART_CR1_PS;  /* Even */
+    }
+    else /* Odd */
+    {
+        tempCR1 |= USART_CR1_PCE;
+        tempCR1 |= USART_CR1_PS;
+    }
+
+    pUSARTHandle->pUSARTx->CR1 = tempCR1;
+
+    /* --- Configure CR2 --- */
+    uint32_t tempCR2 = 0U;
+    tempCR2 &= ~USART_CR2_STOP;
+
+    if(pUSARTHandle->USART_Config.USART_NoOfStopBits == USART_STOPBITS_1)
+        tempCR2 |= (USART_STOPBITS_1 << USART_CR2_STOP_Pos);
+    else if(pUSARTHandle->USART_Config.USART_NoOfStopBits == USART_STOPBITS_0_5)
+        tempCR2 |= (USART_STOPBITS_0_5 << USART_CR2_STOP_Pos);
+    else if(pUSARTHandle->USART_Config.USART_NoOfStopBits == USART_STOPBITS_2)
+        tempCR2 |= (USART_STOPBITS_2 << USART_CR2_STOP_Pos);
+    else /* 1.5 */
+        tempCR2 |= (USART_STOPBITS_1_5 << USART_CR2_STOP_Pos);
+
+    pUSARTHandle->pUSARTx->CR2 = tempCR2;
+
+    /* --- Configure CR3 --- */
+    uint32_t tempCR3 = 0U;
+    if(pUSARTHandle->USART_Config.USART_HWFlowControl == USART_HW_FLOW_CTRL_NONE)
+    {
+        tempCR3 &= ~(USART_CR3_CTSE | USART_CR3_RTSE);
+    }
+    else if(pUSARTHandle->USART_Config.USART_HWFlowControl == USART_HW_FLOW_CTRL_CTS)
+    {
+        tempCR3 |= USART_CR3_CTSE;
+    }
+    else if(pUSARTHandle->USART_Config.USART_HWFlowControl == USART_HW_FLOW_CTRL_RTS)
+    {
+        tempCR3 |= USART_CR3_RTSE;   /* FIXED: set RTSE for RTS */
+    }
+    else
+    {
+        tempCR3 |= (USART_CR3_CTSE | USART_CR3_RTSE);
+    }
+
+    pUSARTHandle->pUSARTx->CR3 = tempCR3;
+
+    /* Baud rate */
+    USART_SetBaudRate(pUSARTHandle->pUSARTx, pUSARTHandle->USART_Config.USART_Baud);
+
+    /* Enable USART */
+    USART_PeripheralControl(pUSARTHandle->pUSARTx, ENABLE);
+}
+
+/* De-initialize */
+void USART_DeInit(USART_TypeDef *pUSARTx)
+{
+    if(pUSARTx == USART1)   USART1_REG_RESET();
+    else if(pUSARTx == USART2) USART2_REG_RESET();
+    else if(pUSARTx == USART3) USART3_REG_RESET();
+    else if(pUSARTx == UART4)  UART4_REG_RESET();
+    else if(pUSARTx == UART5)  UART5_REG_RESET();
+}
+
+/* Blocking send data */
+void USART_SendData(USART_Handle_t *pUSARTHandle, uint8_t *pTxBuffer, uint32_t len)
+{
+    while(len > 0)
+    {
+        /* Wait for TXE (transmit data register empty) */
+        while(!USART_GetFlagStatus(pUSARTHandle->pUSARTx, USART_FLAG_TXE));
+
+        /* Write data to transmit data register (TDR) */
+        pUSARTHandle->pUSARTx->TDR = (*pTxBuffer & 0xFF);
+        pTxBuffer++;
+        len--;
+    }
+
+    /* Wait for TC (transmission complete) before returning */
+    while(!USART_GetFlagStatus(pUSARTHandle->pUSARTx, USART_FLAG_TC));
+}
+
+/* Blocking receive data */
+void USART_ReceiveData(USART_Handle_t *pUSARTHandle, uint8_t *pRxBuffer, uint32_t len)
+{
+    while(len > 0)
+    {
+        /* Wait until RXNE flag is set */
+        while(!USART_GetFlagStatus(pUSARTHandle->pUSARTx, USART_FLAG_RXNE));
+
+        /* Read from RDR */
+        *pRxBuffer = (uint8_t)(pUSARTHandle->pUSARTx->RDR & 0xFF);
+        pRxBuffer++;
+        len--;
+    }
+}
+
+/* Combined send & receive (blocking) - transmit one byte then read one byte, repeated */
+void USART_SendReceive(USART_Handle_t *pUSARTHandle, uint8_t *pTxBuffer, uint8_t *pRxBuffer, uint32_t len)
+{
+    while(len > 0)
+    {
+        /* Wait TXE */
+        while(!USART_GetFlagStatus(pUSARTHandle->pUSARTx, USART_FLAG_TXE));
+        pUSARTHandle->pUSARTx->TDR = (*pTxBuffer & 0xFF);
+
+        /* Wait RXNE */
+        while(!USART_GetFlagStatus(pUSARTHandle->pUSARTx, USART_FLAG_RXNE));
+        *pRxBuffer = (uint8_t)(pUSARTHandle->pUSARTx->RDR & 0xFF);
+
+        pTxBuffer++;
+        pRxBuffer++;
+        len--;
+    }
+
+    /* final TC */
+    while(!USART_GetFlagStatus(pUSARTHandle->pUSARTx, USART_FLAG_TC));
+}
+
+/* IT-based send: enable TXEIE and manage state */
+uint8_t USART_SendDataIT(USART_Handle_t *pUSARTHandle, uint8_t *pTxBuffer, uint32_t len)
+{
+    if(pUSARTHandle->TxBusyState != USART_BUSY_IN_TX)
+    {
+        pUSARTHandle->pTxBuffer = pTxBuffer;
+        pUSARTHandle->TxLen = len;
+        pUSARTHandle->TxBusyState = USART_BUSY_IN_TX;
+
+        /* Enable TXE interrupt */
+        pUSARTHandle->pUSARTx->CR1 |= USART_CR1_TXEIE;
+        return 1;
+    }
+    return 0;
+}
+
+/* IT-based receive: enable RXNEIE */
+uint8_t USART_ReceiveDataIT(USART_Handle_t *pUSARTHandle, uint8_t *pRxBuffer, uint32_t len)
+{
+    if(pUSARTHandle->RxBusyState != USART_BUSY_IN_RX)
+    {
+        pUSARTHandle->pRxBuffer = pRxBuffer;
+        pUSARTHandle->RxLen = len;
+        pUSARTHandle->RxBusyState = USART_BUSY_IN_RX;
+
+        /* Enable RXNE interrupt */
+        pUSARTHandle->pUSARTx->CR1 |= USART_CR1_RXNEIE;
+        return 1;
+    }
+    return 0;
+}
+
+/* IRQ configure (NVIC) */
+void USART_IRQConfig(uint8_t IRQNumber, uint8_t IRQPriority, uint8_t EnorDi)
+{
+    if(EnorDi == ENABLE)
+    {
+        if(IRQNumber <= 31)     *NVIC_ISER0 |= (1 << IRQNumber);
+        else if(IRQNumber <= 63) *NVIC_ISER1 |= (1 << (IRQNumber % 32));
+    }
+    else
+    {
+        if(IRQNumber <= 31)     *NVIC_ICER0 |= (1 << IRQNumber);
+        else if(IRQNumber <= 63) *NVIC_ICER1 |= (1 << (IRQNumber % 32));
+    }
+
+    /* Set priority */
+    uint8_t iprx = IRQNumber / 4;
+    uint8_t iprx_section = IRQNumber % 4;
+    uint8_t shift_amount = (8 * iprx_section) + (8 - NO_PR_BITS_IMPLEMENTED);
+    *((volatile uint32_t*)(NVIC_PR_BASE_ADDR + (iprx * 4U))) |= ((IRQPriority << shift_amount) & 0xFFU);
+}
+
+/* IRQ handler / dispatcher */
+void USART_IRQHandling(USART_Handle_t *pUSARTHandle)
+{
+    uint32_t isr = pUSARTHandle->pUSARTx->ISR;
+    uint32_t cr1 = pUSARTHandle->pUSARTx->CR1;
+
+    /* TXE interrupt */
+    if((isr & USART_ISR_TXE) && (cr1 & USART_CR1_TXEIE))
+    {
+        if(pUSARTHandle->TxLen > 0)
+        {
+            pUSARTHandle->pUSARTx->TDR = (*(pUSARTHandle->pTxBuffer) & 0xFF);
+            pUSARTHandle->pTxBuffer++;
+            pUSARTHandle->TxLen--;
+        }
+
+        if(pUSARTHandle->TxLen == 0)
+        {
+            /* TX finished: disable TXEIE and enable TCIE to catch final completion */
+            pUSARTHandle->pUSARTx->CR1 &= ~USART_CR1_TXEIE;
+            pUSARTHandle->pUSARTx->CR1 |= USART_CR1_TCIE;
+        }
+    }
+
+    /* TC interrupt */
+    if((isr & USART_ISR_TC) && (cr1 & USART_CR1_TCIE))
+    {
+        /* Clear TC flag via ICR */
+        pUSARTHandle->pUSARTx->ICR |= USART_ICR_TCCF;
+
+        pUSARTHandle->TxBusyState = USART_READY;
+        pUSARTHandle->pUSARTx->CR1 &= ~USART_CR1_TCIE;
+        USART_ApplicationEventCallback(pUSARTHandle, USART_EVENT_TX_CMPLT);
+    }
+
+    /* RXNE interrupt */
+    if((isr & USART_ISR_RXNE) && (cr1 & USART_CR1_RXNEIE))
+    {
+        if(pUSARTHandle->RxLen > 0)
+        {
+            *(pUSARTHandle->pRxBuffer) = (uint8_t)(pUSARTHandle->pUSARTx->RDR & 0xFF);
+            pUSARTHandle->pRxBuffer++;
+            pUSARTHandle->RxLen--;
+
+            if(pUSARTHandle->RxLen == 0)
+            {
+                pUSARTHandle->RxBusyState = USART_READY;
+                pUSARTHandle->pUSARTx->CR1 &= ~USART_CR1_RXNEIE;
+                USART_ApplicationEventCallback(pUSARTHandle, USART_EVENT_RX_CMPLT);
+            }
+        }
+    }
+
+    /* Overrun / Noise / Framing errors can be handled here if needed */
+    if(isr & USART_ISR_ORE)
+    {
+        /* Clear ORE by reading RDR then ISR/ICR as per ref manual, or by writing ICR if supported */
+        pUSARTHandle->pUSARTx->ICR |= USART_ICR_ORECF; /* clear if available */
+        USART_ApplicationEventCallback(pUSARTHandle, USART_ERR_ORE);
+    }
+}
+
+/* Check flag status (ISR register) */
+uint8_t USART_GetFlagStatus(USART_TypeDef *pUSARTx, uint8_t StatusFlagName)
+{
+    if(pUSARTx->ISR & StatusFlagName)
+        return SET;
+    return RESET;
+}
+
+/* Clear flags that are cleared via ICR (TC, IDLE, FE/NE/ORE via ICR masks) */
+void USART_ClearFlag(USART_TypeDef *pUSARTx, uint32_t FlagMask)
+{
+    /* Only use with ICR masks (e.g. USART_ICR_TCCF, USART_ICR_IDLECF ...) */
+    pUSARTx->ICR = FlagMask;
+}
+
+/* Peripheral enable/disable (UE bit) */
+void USART_PeripheralControl(USART_TypeDef *pUSARTx, uint8_t EnOrDi)
+{
+    if(EnOrDi == ENABLE)
+        pUSARTx->CR1 |= USART_CR1_UE;
+    else
+        pUSARTx->CR1 &= ~USART_CR1_UE; /* correct precedence */
+}
+
+/* Baud rate setter - oversampling by 16 assumed */
+void USART_SetBaudRate(USART_TypeDef *pUSARTx, uint32_t BaudRate)
+{
+    uint32_t pclk = get_pclk_for_usart(pUSARTx);
+
+    /* Assume oversampling by 16 (OVER8 = 0) */
+    /* Compute USARTDIV * 16 as integer: usartdiv_times16 = round(pclk*16 / BaudRate) */
+    uint64_t numerator = (uint64_t)pclk * 16ULL;
+    uint32_t usartdiv_times16 = (uint32_t)((numerator + (BaudRate / 2U)) / BaudRate);
+
+    /* BRR for oversampling by 16 expects mantissa<<4 | fraction (4 bits) */
+    pUSARTx->BRR = usartdiv_times16;
+}
+
+/* Application callback weak definition (user can override) */
+__weak void USART_ApplicationEventCallback(USART_Handle_t *pUSARTHandle, uint8_t ApEv)
+{
+    /* weak: user implements when needed */
+    (void)pUSARTHandle;
+    (void)ApEv;
+}

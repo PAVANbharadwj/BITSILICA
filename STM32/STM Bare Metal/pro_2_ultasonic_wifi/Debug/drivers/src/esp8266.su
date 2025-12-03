@@ -1,0 +1,6 @@
+../drivers/src/esp8266.c:17:5:read_response	32	static
+../drivers/src/esp8266.c:35:5:ESP_SendSimple	16	static
+../drivers/src/esp8266.c:43:5:ESP_Init	184	static
+../drivers/src/esp8266.c:66:5:ESP_SendHTTPPage	88	static
+../drivers/src/esp8266.c:84:5:ESP_StartTCPServer	80	static
+../drivers/src/esp8266.c:98:5:ESP_SendDataTCP	48	static

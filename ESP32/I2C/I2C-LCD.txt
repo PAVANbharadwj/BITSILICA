@@ -1,0 +1,94 @@
+#include <LiquidCrystal_I2C.h>
+#include <Wire.h>
+#include <Adafruit_Sensor.h>
+#include <DHT.h>
+
+// DHT22 sensor pins
+const int dhtPin1 = 2; // Replace with the actual pin connected to DHT22 sensor 1
+const int dhtPin2 = 4; // Replace with the actual pin connected to DHT22 sensor 2
+const int dhtPin3 = 5; // Replace with the actual pin connected to DHT22 sensor 3
+
+// I2C LCD display addresses
+const int lcdAddress1 = 0x27; // Replace with the actual I2C address of LCD 1
+const int lcdAddress2 = 0x28; // Replace with the actual I2C address of LCD 2
+const int lcdAddress3 = 0x29; // Replace with the actual I2C address of LCD 3
+
+// DHT sensors
+DHT dht1(dhtPin1, DHT22);
+DHT dht2(dhtPin2, DHT22);
+DHT dht3(dhtPin3, DHT22);
+
+// I2C LCD displays
+LiquidCrystal_I2C lcd1(lcdAddress1, 16, 2);
+LiquidCrystal_I2C lcd2(lcdAddress2, 16, 2);
+LiquidCrystal_I2C lcd3(lcdAddress3, 16, 2);
+
+void setup() {
+  // Start serial communication
+  Serial.begin(9600);
+
+  // Initialize DHT sensors
+  dht1.begin();
+  dht2.begin();
+  dht3.begin();
+
+  // Initialize the I2C LCD displays
+  lcd1.init();
+  lcd2.init();
+  lcd3.init();
+
+  // Backlight the LCD displays
+  lcd1.backlight();
+  lcd2.backlight();
+  lcd3.backlight();
+
+  // Clear the LCD displays
+  lcd1.clear();
+  lcd2.clear();
+  lcd3.clear();
+}
+
+void loop() {
+  // Read data from DHT22 sensors
+  float humidity1 = dht1.readHumidity();
+  float temperature1 = dht1.readTemperature();
+  float humidity2 = dht2.readHumidity();
+  float temperature2 = dht2.readTemperature();
+  float humidity3 = dht3.readHumidity();
+  float temperature3 = dht3.readTemperature();
+
+  // Display data on LCD 1
+  lcd1.clear();
+  lcd1.print("DHT1: ");
+  lcd1.setCursor(0, 1);
+  lcd1.print("Temp: ");
+  lcd1.print(temperature1);
+  lcd1.print("C Humidity: ");
+  lcd1.print(humidity1);
+  
+  // Display data on LCD 2
+  lcd2.clear();
+  lcd2.print("DHT2: ");
+  lcd2.setCursor(0, 1);
+  lcd2.print("Temp: ");
+  lcd2.print(temperature2);
+  lcd2.print("C Humidity: ");
+  lcd2.print(humidity2);
+
+  // Display data on LCD 3
+  lcd3.clear();
+  lcd3.print("DHT3: ");
+  lcd3.setCursor(0, 1);
+  lcd3.print("Temp: ");
+  lcd3.print(temperature3);
+  lcd3.print("C Humidity: ");
+  lcd3.print(humidity3);
+  for (int i = 0; i < 17; i++) {
+    lcd1.scrollDisplayLeft();
+    lcd2.scrollDisplayLeft();
+    lcd3.scrollDisplayLeft();
+    delay(700); // Adjust the scrolling speed by changing the delay
+  }
+  // Delay for a while before taking new readings
+  delay(2000);
+}

@@ -1,0 +1,134 @@
+/*
+ * stm32l476xx_usart_driver.h
+ *
+ *  Created on: Nov 19, 2025
+ *      Author: pavan (fixed header)
+ */
+
+#ifndef INC_STM32L476XX_USART_DRIVER_H_
+#define INC_STM32L476XX_USART_DRIVER_H_
+
+#include <stdint.h>
+#include "stm32l476xx.h"
+
+/*
+ * Configuration structure for USART peripheral
+ */
+typedef struct
+{
+    uint8_t  USART_Mode;            /* USART_MODE_ONLY_TX / USART_MODE_ONLY_RX / USART_MODE_TXRX */
+    uint32_t USART_Baud;            /* e.g. USART_STD_BAUD_115200 */
+    uint8_t  USART_NoOfStopBits;    /* USART_STOPBITS_1, ... */
+    uint8_t  USART_WordLength;      /* USART_WORDLEN_8BITS / USART_WORDLEN_9BITS */
+    uint8_t  USART_ParityControl;   /* USART_PARITY_DISABLE / EVEN / ODD */
+    uint8_t  USART_HWFlowControl;   /* CTS/RTS/None */
+} USART_Config_t;
+
+/*
+ * Handle structure for USARTx peripheral
+ */
+typedef struct
+{
+    USART_TypeDef *pUSARTx;     /* Base address of USART (USART1/USART2/...) */
+    USART_Config_t USART_Config;
+    uint8_t *pTxBuffer;         /* application Tx buffer pointer */
+    uint8_t *pRxBuffer;         /* application Rx buffer pointer */
+    uint32_t TxLen;             /* Tx len */
+    uint32_t RxLen;             /* Rx len */
+    uint8_t TxBusyState;        /* To store Tx state */
+    uint8_t RxBusyState;        /* To store Rx state */
+} USART_Handle_t;
+
+/* USART mode */
+#define USART_MODE_ONLY_TX      0
+#define USART_MODE_ONLY_RX      1
+#define USART_MODE_TXRX         2
+
+/* Baud rate macros (correct values) */
+#define USART_STD_BAUD_1200     1200U
+#define USART_STD_BAUD_2400     2400U
+#define USART_STD_BAUD_9600     9600U
+#define USART_STD_BAUD_19200    19200U
+#define USART_STD_BAUD_38400    38400U
+#define USART_STD_BAUD_57600    57600U
+#define USART_STD_BAUD_115200   115200U
+#define USART_STD_BAUD_230400   230400U
+#define USART_STD_BAUD_460800   460800U
+#define USART_STD_BAUD_921600   921600U
+#define USART_STD_BAUD_2M       2000000U
+#define USART_STD_BAUD_3M       3000000U
+
+/* Parity control */
+#define USART_PARITY_DISABLE    0
+#define USART_PARITY_EN_EVEN    1
+#define USART_PARITY_EN_ODD     2
+
+/* Word length */
+#define USART_WORDLEN_8BITS     0
+#define USART_WORDLEN_9BITS     1
+
+/* Stop bits encoding (match CR2 STOP[1:0] positioning when shifted) */
+#define USART_STOPBITS_1        0   /* 00 */
+#define USART_STOPBITS_0_5      1   /* 01 */
+#define USART_STOPBITS_2        2   /* 10 */
+#define USART_STOPBITS_1_5      3   /* 11 */
+
+/* Hardware flow control */
+#define USART_HW_FLOW_CTRL_NONE     0
+#define USART_HW_FLOW_CTRL_CTS      1
+#define USART_HW_FLOW_CTRL_RTS      2
+#define USART_HW_FLOW_CTRL_CTS_RTS  3
+
+/* USART flags (ISR register masks from CMSIS) */
+#define USART_FLAG_TXE            USART_ISR_TXE
+#define USART_FLAG_RXNE           USART_ISR_RXNE
+#define USART_FLAG_TC             USART_ISR_TC
+#define USART_FLAG_ORE            USART_ISR_ORE
+
+/* Application states */
+#define USART_READY               0
+#define USART_BUSY_IN_RX          1
+#define USART_BUSY_IN_TX          2
+
+/* Application events / errors */
+#define USART_EVENT_TX_CMPLT      0
+#define USART_EVENT_RX_CMPLT      1
+#define USART_EVENT_IDLE          2
+#define USART_EVENT_CTS           3
+#define USART_EVENT_PE            4
+#define USART_ERR_FE              5
+#define USART_ERR_NE              6
+#define USART_ERR_ORE             7
+
+/***************************************** APIs supported *************************************************/
+
+/* Peripheral Clock setup */
+void USART_PeriClockControl(USART_TypeDef *pUSARTx, uint8_t EnOrDi);
+
+/* Init and De-init */
+void USART_Init(USART_Handle_t *pUSARTHandle);
+void USART_DeInit(USART_TypeDef *pUSARTx);
+
+/* Data Send and Receive (blocking) */
+void USART_SendData(USART_Handle_t *pUSARTHandle, uint8_t *pTxBuffer, uint32_t len);
+void USART_ReceiveData(USART_Handle_t *pUSARTHandle, uint8_t *pRxBuffer, uint32_t len);
+void USART_SendReceive(USART_Handle_t *pUSARTHandle, uint8_t *pTxBuffer, uint8_t *pRxBuffer, uint32_t len);
+
+/* Data Send and Receive (interrupt) */
+uint8_t USART_SendDataIT(USART_Handle_t *pUSARTHandle, uint8_t *pTxBuffer, uint32_t len);
+uint8_t USART_ReceiveDataIT(USART_Handle_t *pUSARTHandle, uint8_t *pRxBuffer, uint32_t len);
+
+/* IRQ Configuration and ISR handling */
+void USART_IRQConfig(uint8_t IRQNumber, uint8_t IRQPriority, uint8_t EnorDi);
+void USART_IRQHandling(USART_Handle_t *pUSARTHandle);
+
+/* Other Peripheral Control APIs */
+uint8_t USART_GetFlagStatus(USART_TypeDef *pUSARTx, uint8_t StatusFlagName);
+void USART_ClearFlag(USART_TypeDef *pUSARTx, uint32_t FlagMask); /* Use ICR masks (e.g. USART_ICR_TCCF) */
+void USART_PeripheralControl(USART_TypeDef *pUSARTx, uint8_t EnOrDi);
+void USART_SetBaudRate(USART_TypeDef *pUSARTx, uint32_t BaudRate);
+
+/* Application callback (weak - override in application) */
+void USART_ApplicationEventCallback(USART_Handle_t *pUSARTHandle, uint8_t ApEv);
+
+#endif /* INC_STM32L476XX_USART_DRIVER_H_ */

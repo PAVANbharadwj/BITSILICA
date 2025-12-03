@@ -1,0 +1,4 @@
+../drivers/src/rcc.c:12:6:RCC_InitSystemClock	1
+../drivers/src/rcc.c:18:6:RCC_EnableGPIOA	1
+../drivers/src/rcc.c:19:6:RCC_EnableUSART2	1
+../drivers/src/rcc.c:20:6:RCC_EnableTIM3	1

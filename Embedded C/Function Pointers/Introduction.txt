@@ -1,0 +1,208 @@
+Concepts
+---------------
+
+Understanding Function Pointers
+
+Introduction
+
+In C, a function pointer is a type of pointer that stores the address of a function, allowing functions to be passed as arguments and invoked dynamically. It is useful in techniques such as callback functions, event-driven programs, and polymorphism (a concept where a function or operator behaves differently based on the context).
+
+Basic Example
+
+
+#include <stdio.h>
+
+int add(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    // Declare a function pointer that matches
+    // the signature of add() function
+    int (*fptr)(int, int);
+
+    // Assign to add()
+    fptr = &add;
+
+    // Call the function via ptr
+    printf("%d", fptr(10, 5));
+    return 0;
+}
+
+Output:
+
+1
+15
+
+Explanation: We define a function add(), assign its address to a function pointer fptr, and invoke the function through the pointer.
+
+
+Function Pointer Declaration
+
+Function pointers are declared according to the signature of the function they point to.
+
+Syntax:
+
+return_type (*pointer_name)(parameter_types);
+
+return_type: Return type of the function.
+
+pointer_name: Name of the function pointer.
+
+parameter_types: Parameter list of the function.
+
+Note: Parentheses around *pointer_name are necessary to avoid confusion with function declarations.
+
+Example:
+
+int (*fpr)(int, int);
+
+This matches the signature of the add() function.
+
+Initialization
+
+You can initialize a function pointer as:
+
+pointer_name = &function_name;
+// or simply
+pointer_name = function_name;
+
+The assigned function must match the signature of the function pointer.
+
+Properties of Function Pointers
+Point to code (not data)
+
+Must match function signature
+
+Can point to multiple functions with the same signature
+
+Cannot be incremented or decremented
+
+Can be used in function tables or arrays
+
+Applications with Examples
+
+Function Pointer as Arguments (Callbacks)
+
+
+#include <stdio.h>
+
+int add(int a, int b) {
+    return a + b;
+}
+
+int subtract(int a, int b) {
+    return a - b;
+}
+
+void calc(int a, int b, int (*op)(int, int)) {
+    printf("%d\n", op(a, b));
+}
+
+int main() {
+    calc(10, 5, add);
+    calc(10, 5, subtract);
+    return 0;
+}
+
+Output:
+
+1
+2
+15
+5
+
+Explanation: The calc function uses a function pointer to execute the correct operation dynamically.
+
+
+Emulate Member Functions in Structure
+
+
+#include <stdio.h>
+
+typedef struct Rect {
+    int w, h;
+    void (*set)(struct Rect*, int, int);
+    int (*area)(struct Rect*);
+    void (*show)(struct Rect*);
+} Rect;
+
+int area(Rect* r) {
+    return r->w * r->h;
+}
+
+void show(Rect* r) {
+    printf("Rectangle's Width: %d, Height: %d\n", r->w, r->h);
+}
+
+void set(Rect* r, int w, int h) {
+    r->w = w;
+    r->h = h;
+}
+
+void constructRect(Rect* r) {
+    r->w = 0;
+    r->h = 0;
+    r->set = set;
+    r->area = area;
+    r->show = show;
+}
+
+int main() {
+    Rect r;
+    constructRect(&r);
+
+    r.set(&r, 10, 5);
+    r.show(&r);
+    printf("Rectangle Area: %d", r.area(&r));
+    return 0;
+}
+
+Output:
+
+1
+2
+Rectangle's Width: 10, Height: 5
+Rectangle Area: 50
+
+
+Array of Function Pointers
+
+
+#include <stdio.h>
+
+int add(int a, int b) {
+    return a + b;
+}
+int sub(int a, int b) {
+    return a - b;
+}
+int mul(int a, int b) {
+    return a * b;
+}
+int divd(int a, int b) {
+    return a / b;
+}
+
+int main() {
+    int (*farr[])(int, int) = {add, sub, mul, divd};
+    int x = 10, y = 5;
+
+    printf("Sum: %d\n", farr[0](x, y));
+    printf("Difference: %d\n", farr[1](x, y));
+    printf("Product: %d", farr[2](x, y));
+
+    return 0;
+}
+
+Output:
+
+1
+2
+3
+Sum: 15
+Difference: 5
+Product: 50
+
+Function pointers are powerful features in C that allow greater flexibility and control in function calls. They are essential in designing callback mechanisms, implementing polymorphic behavior, and structuring modular code.
+

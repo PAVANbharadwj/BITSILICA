@@ -1,0 +1,17 @@
+const int ledPin = 2;   // LED connected to GPIO2 (D2)
+const int buttonPin = 0; // Button connected to GPIO0 (D0)
+
+void setup() {
+  pinMode(ledPin, OUTPUT); 
+  pinMode(buttonPin, INPUT_PULLUP); // Internal pull-up resistor
+}
+
+void loop() {
+  int buttonState = digitalRead(buttonPin);
+  
+  if (buttonState == LOW) { // Button pressed (pulls pin LOW)
+    digitalWrite(ledPin, HIGH); // Turn LED ON
+  } else {
+    digitalWrite(ledPin, LOW);  // Turn LED OFF
+  }
+}

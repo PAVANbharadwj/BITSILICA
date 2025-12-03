@@ -1,0 +1,185 @@
+10:50:39 **** Incremental Build of configuration Debug for project 10_SPI_test ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/spi.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/spi.d" -MT"Core/Src/spi.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/spi.o"
+In file included from ../Core/Src/spi.c:9:
+../Core/Inc/spi.h:19:8: error: unknown type name 'SPI_HandleTypeDef'
+   19 | extern SPI_HandleTypeDef hspi1;
+      |        ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:3:1: error: unknown type name 'SPI_HandleTypeDef'; did you mean 'DMA_HandleTypeDef'?
+    3 | SPI_HandleTypeDef hspi1;
+      | ^~~~~~~~~~~~~~~~~
+      | DMA_HandleTypeDef
+../Core/Src/spi.c:12:1: error: unknown type name 'SPI_HandleTypeDef'; did you mean 'DMA_HandleTypeDef'?
+   12 | SPI_HandleTypeDef hspi1;
+      | ^~~~~~~~~~~~~~~~~
+      | DMA_HandleTypeDef
+../Core/Src/spi.c: In function 'MX_SPI1_Init':
+../Core/Src/spi.c:17:8: error: request for member 'Instance' in something not a structure or union
+   17 |   hspi1.Instance = SPI1;
+      |        ^
+../Core/Src/spi.c:18:8: error: request for member 'Init' in something not a structure or union
+   18 |   hspi1.Init.Mode = SPI_MODE_MASTER;
+      |        ^
+../Core/Src/spi.c:18:21: error: 'SPI_MODE_MASTER' undeclared (first use in this function)
+   18 |   hspi1.Init.Mode = SPI_MODE_MASTER;
+      |                     ^~~~~~~~~~~~~~~
+../Core/Src/spi.c:18:21: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/spi.c:19:8: error: request for member 'Init' in something not a structure or union
+   19 |   hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+      |        ^
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:12:9: warning: implicit declaration of function 'HAL_SPI_TransmitReceive' [-Wimplicit-function-declaration]
+   12 |         HAL_SPI_TransmitReceive(&hspi,tx_buffer,rx_buffer,10,100);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:12:34: error: 'hspi' undeclared (first use in this function); did you mean 'hspi1'?
+   12 |         HAL_SPI_TransmitReceive(&hspi,tx_buffer,rx_buffer,10,100);
+      |                                  ^~~~
+      |                                  hspi1
+../Core/Src/main.c:12:34: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c: In function 'spi1_init':
+../Core/Src/main.c:31:14: error: request for member 'Instance' in something not a structure or union
+   31 |         hspi1.Instance = SPI1;
+      |              ^
+../Core/Src/main.c:32:14: error: request for member 'Init' in something not a structure or union
+   32 |         hspi1.Init.Mode = SPI_MODE_MASTER;
+      |              ^
+../Core/Src/spi.c:19:26: error: 'SPI_DIRECTION_2LINES' undeclared (first use in this function)
+   19 |   hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+      |                          ^~~~~~~~~~~~~~~~~~~~
+../Core/Src/spi.c:20:8: error: request for member 'Init' in something not a structure or union
+   20 |   hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
+      |        ^
+../Core/Src/main.c:32:27: error: 'SPI_MODE_MASTER' undeclared (first use in this function)
+   32 |         hspi1.Init.Mode = SPI_MODE_MASTER;
+      |                           ^~~~~~~~~~~~~~~
+../Core/Src/main.c:33:14: error: request for member 'Init' in something not a structure or union
+   33 |         hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+      |              ^
+../Core/Src/spi.c:20:25: error: 'SPI_DATASIZE_8BIT' undeclared (first use in this function)
+   20 |   hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
+      |                         ^~~~~~~~~~~~~~~~~
+../Core/Src/spi.c:21:8: error: request for member 'Init' in something not a structure or union
+   21 |   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+      |        ^
+../Core/Src/main.c:33:32: error: 'SPI_DIRECTION_2LINES' undeclared (first use in this function)
+   33 |         hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+      |                                ^~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:34:14: error: request for member 'Init' in something not a structure or union
+   34 |         hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
+      |              ^
+../Core/Src/spi.c:21:28: error: 'SPI_POLARITY_LOW' undeclared (first use in this function)
+   21 |   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+      |                            ^~~~~~~~~~~~~~~~
+../Core/Src/spi.c:22:8: error: request for member 'Init' in something not a structure or union
+   22 |   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+      |        ^
+../Core/Src/main.c:34:31: error: 'SPI_DATASIZE_8BIT' undeclared (first use in this function)
+   34 |         hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
+      |                               ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:35:14: error: request for member 'Init' in something not a structure or union
+   35 |         hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+      |              ^
+../Core/Src/spi.c:22:25: error: 'SPI_PHASE_1EDGE' undeclared (first use in this function)
+   22 |   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+      |                         ^~~~~~~~~~~~~~~
+../Core/Src/spi.c:23:8: error: request for member 'Init' in something not a structure or union
+   23 |   hspi1.Init.NSS = SPI_NSS_SOFT;
+      |        ^
+../Core/Src/spi.c:23:20: error: 'SPI_NSS_SOFT' undeclared (first use in this function)
+   23 |   hspi1.Init.NSS = SPI_NSS_SOFT;
+      |                    ^~~~~~~~~~~~
+../Core/Src/spi.c:24:8: error: request for member 'Init' in something not a structure or union
+   24 |   hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
+      |        ^
+../Core/Src/main.c:35:34: error: 'SPI_POLARITY_LOW' undeclared (first use in this function)
+   35 |         hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+      |                                  ^~~~~~~~~~~~~~~~
+../Core/Src/main.c:36:14: error: request for member 'Init' in something not a structure or union
+   36 |         hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+      |              ^
+../Core/Src/main.c:36:31: error: 'SPI_PHASE_1EDGE' undeclared (first use in this function)
+   36 |         hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+      |                               ^~~~~~~~~~~~~~~
+../Core/Src/main.c:37:14: error: request for member 'Init' in something not a structure or union
+   37 |         hspi1.Init.NSS = SPI_NSS_SOFT;
+      |              ^
+../Core/Src/spi.c:24:34: error: 'SPI_BAUDRATEPRESCALER_8' undeclared (first use in this function)
+   24 |   hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
+      |                                  ^~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/spi.c:25:8: error: request for member 'Init' in something not a structure or union
+   25 |   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+      |        ^
+../Core/Src/main.c:37:26: error: 'SPI_NSS_SOFT' undeclared (first use in this function)
+   37 |         hspi1.Init.NSS = SPI_NSS_SOFT;
+      |                          ^~~~~~~~~~~~
+../Core/Src/main.c:38:14: error: request for member 'Init' in something not a structure or union
+   38 |         hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
+      |              ^
+../Core/Src/spi.c:25:25: error: 'SPI_FIRSTBIT_MSB' undeclared (first use in this function)
+   25 |   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+      |                         ^~~~~~~~~~~~~~~~
+../Core/Src/spi.c:26:8: error: request for member 'Init' in something not a structure or union
+   26 |   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
+      |        ^
+../Core/Src/spi.c:26:23: error: 'SPI_TIMODE_DISABLE' undeclared (first use in this function); did you mean 'SPI_TIMODE_DISABLED'?
+   26 |   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
+      |                       ^~~~~~~~~~~~~~~~~~
+      |                       SPI_TIMODE_DISABLED
+../Core/Src/spi.c:27:8: error: request for member 'Init' in something not a structure or union
+   27 |   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+      |        ^
+../Core/Src/main.c:38:40: error: 'SPI_BAUDRATEPRESCALER_8' undeclared (first use in this function)
+   38 |         hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
+      |                                        ^~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:39:14: error: request for member 'Init' in something not a structure or union
+   39 |         hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+      |              ^
+../Core/Src/spi.c:27:31: error: 'SPI_CRCCALCULATION_DISABLE' undeclared (first use in this function); did you mean 'SPI_CRCCALCULATION_DISABLED'?
+   27 |   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+      |                               ^~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                               SPI_CRCCALCULATION_DISABLED
+../Core/Src/spi.c:28:8: error: request for member 'Init' in something not a structure or union
+   28 |   hspi1.Init.CRCPolynomial = 10;
+      |        ^
+../Core/Src/spi.c:29:7: warning: implicit declaration of function 'HAL_SPI_Init'; did you mean 'HAL_GPIO_Init'? [-Wimplicit-function-declaration]
+   29 |   if (HAL_SPI_Init(&hspi1) != HAL_OK)
+      |       ^~~~~~~~~~~~
+      |       HAL_GPIO_Init
+../Core/Src/main.c:39:31: error: 'SPI_FIRSTBIT_MSB' undeclared (first use in this function)
+   39 |         hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+      |                               ^~~~~~~~~~~~~~~~
+../Core/Src/main.c:40:14: error: request for member 'Init' in something not a structure or union
+   40 |         hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
+      |              ^
+../Core/Src/spi.c: At top level:
+../Core/Src/spi.c:43:22: error: unknown type name 'SPI_HandleTypeDef'; did you mean 'DMA_HandleTypeDef'?
+   43 | void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
+      |                      ^~~~~~~~~~~~~~~~~
+      |                      DMA_HandleTypeDef
+../Core/Src/main.c:40:29: error: 'SPI_TIMODE_DISABLE' undeclared (first use in this function); did you mean 'SPI_TIMODE_DISABLED'?
+   40 |         hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
+      |                             ^~~~~~~~~~~~~~~~~~
+      |                             SPI_TIMODE_DISABLED
+../Core/Src/main.c:41:14: error: request for member 'Init' in something not a structure or union
+   41 |         hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+      |              ^
+../Core/Src/spi.c:72:24: error: unknown type name 'SPI_HandleTypeDef'; did you mean 'DMA_HandleTypeDef'?
+   72 | void HAL_SPI_MspDeInit(SPI_HandleTypeDef* hspi)
+      |                        ^~~~~~~~~~~~~~~~~
+      |                        DMA_HandleTypeDef
+../Core/Src/main.c:41:37: error: 'SPI_CRCCALCULATION_DISABLE' undeclared (first use in this function); did you mean 'SPI_CRCCALCULATION_DISABLED'?
+   41 |         hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+      |                                     ^~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                     SPI_CRCCALCULATION_DISABLED
+make: *** [Core/Src/subdir.mk:37: Core/Src/spi.o] Error 1
+make: *** Waiting for unfinished jobs....
+../Core/Src/main.c:42:9: warning: implicit declaration of function 'HAL_SPI_Init'; did you mean 'HAL_GPIO_Init'? [-Wimplicit-function-declaration]
+   42 |         HAL_SPI_Init(&hspi1);
+      |         ^~~~~~~~~~~~
+      |         HAL_GPIO_Init
+make: *** [Core/Src/subdir.mk:37: Core/Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+
+10:50:39 Build Failed. 52 errors, 3 warnings. (took 740ms)
+

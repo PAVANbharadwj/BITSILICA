@@ -1,0 +1,106 @@
+Worksheet 1
+
+
+1. Program: Reverse order of words in a given string
+          Input: "hello world from C"
+
+         Output: "C from world hello"
+
+2. Program: Remove all repeated characters from a given string
+         Input: "programming"
+
+        Output: "progamin"
+
+3. Program: Find highest frequency character in a string
+          Input: "engineering"
+
+          Output: 'e' appears 3 times
+
+4. Program: Find lowest frequency character in a string
+          Input: "engineering"
+
+         Output: 'g', 'r', 'n' each appear once
+
+5. Program: Reverse a string without using library functions
+         Input: "OpenAI"
+
+         Output: "IAnepO"
+
+6. Program: Remove all extra blank spaces from a given string
+         Input: " This is ChatGPT "
+
+         Output: "This is ChatGPT"
+
+7. Program: Replace all occurrences of a character with another in a string
+         Input: "banana", replace 'a' with 'o'
+
+         Output: "bonono"
+
+8. Program: Count frequency of each character in a string
+         Input: "success"
+
+         Output:
+          s = 3
+         u = 1
+         c = 2
+         e = 1
+
+9. Program: Find first occurrence of a word in a given string
+         Input: "this is a test string", word: "test"
+
+         Output: Found at position 11
+
+10. Program: Remove all occurrence of a word in given string
+           Input: "hello world hello universe", remove: "hello"
+
+          Output: "world universe"
+
+11. Program: Count total number of words in a string
+          Input: "C programming is fun"
+
+          Output: 4
+
+12. Program: Toggle case of each character of a string
+         Input: "HeLLo"
+
+         Output: "hEllO"
+
+13. Program: Remove last occurrence of a character from string
+          Input: "mississippi", remove 's'
+
+          Output: "missispippi"
+
+14. Program: Replace first occurrence of a character with another in a string
+         Input: "google", replace 'o' with 'a'
+
+         Output: "gaagle"
+
+15. Program: Count occurrences of a word in a given string
+          Input: "hi hello hi hey hi", word: "hi"
+
+         Output: 3
+
+16. Program: Check whether a string is palindrome or not
+        Input: "madam"
+
+       Output: "Palindrome"
+
+17. Program: Find last occurrence of a character in a string
+        Input: "ababcabc", find 'b'
+
+        Output: Position: 6
+
+18. Program: Trim both leading and trailing white space characters from given string
+        Input: " Hello World "
+
+        Output: "Hello World"
+
+19. Program: Find first occurrence of a character in a given string
+       Input: "elephant", find 'e'
+
+        Output: Position: 0
+
+20. Program: Find all occurrences of a word in given string
+        Input: "the sky is the limit in the sky", search "the"
+ 
+       Output: Found at positions: 0, 15, 30
