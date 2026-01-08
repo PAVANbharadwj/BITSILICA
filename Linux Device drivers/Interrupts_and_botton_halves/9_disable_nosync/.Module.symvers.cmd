@@ -1,0 +1,1 @@
+savedcmd_/home/subhash/Documents/workspace/ldd/Interrupts_and_botton_halves/9_disable_nosync/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/subhash/Documents/workspace/ldd/Interrupts_and_botton_halves/9_disable_nosync/Module.symvers -T /home/subhash/Documents/workspace/ldd/Interrupts_and_botton_halves/9_disable_nosync/modules.order -i Module.symvers -e 

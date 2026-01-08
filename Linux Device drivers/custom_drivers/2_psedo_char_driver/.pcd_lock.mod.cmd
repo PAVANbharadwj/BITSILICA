@@ -1,0 +1,1 @@
+savedcmd_/home/subhash/Documents/workspace/ldd/custom_drivers/2_psedo_char_driver/pcd_lock.mod := printf '%s\n'   pcd_lock.o | awk '!x[$$0]++ { print("/home/subhash/Documents/workspace/ldd/custom_drivers/2_psedo_char_driver/"$$0) }' > /home/subhash/Documents/workspace/ldd/custom_drivers/2_psedo_char_driver/pcd_lock.mod

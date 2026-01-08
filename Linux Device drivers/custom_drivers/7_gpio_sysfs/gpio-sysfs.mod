@@ -1,0 +1,2 @@
+/home/subhash/Documents/workspace/ldd/custom_drivers/7_gpio_sysfs/gpio-sysfs.o
+

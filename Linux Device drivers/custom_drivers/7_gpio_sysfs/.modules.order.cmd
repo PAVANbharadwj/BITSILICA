@@ -1,0 +1,1 @@
+cmd_/home/subhash/Documents/workspace/ldd/custom_drivers/7_gpio_sysfs/modules.order := {   echo /home/subhash/Documents/workspace/ldd/custom_drivers/7_gpio_sysfs/gpio-sysfs.ko; :; } | awk '!x[$$0]++' - > /home/subhash/Documents/workspace/ldd/custom_drivers/7_gpio_sysfs/modules.order

@@ -1,0 +1,1 @@
+savedcmd_/home/subhash/Documents/workspace/ldd/custom_drivers/6_pcd_sysfs/pcd_sysfs.o := ld -m elf_x86_64 -z noexecstack --no-warn-rwx-segments   -r -o /home/subhash/Documents/workspace/ldd/custom_drivers/6_pcd_sysfs/pcd_sysfs.o @/home/subhash/Documents/workspace/ldd/custom_drivers/6_pcd_sysfs/pcd_sysfs.mod 

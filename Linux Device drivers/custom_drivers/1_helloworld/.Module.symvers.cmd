@@ -1,0 +1,1 @@
+cmd_/home/subhash/Documents/workspace/ldd/custom_drivers/1_helloworld/Module.symvers := sed 's/ko$$/o/' /home/subhash/Documents/workspace/ldd/custom_drivers/1_helloworld/modules.order | scripts/mod/modpost -m    -o /home/subhash/Documents/workspace/ldd/custom_drivers/1_helloworld/Module.symvers -e -i Module.symvers   -T -

@@ -1,0 +1,1 @@
+savedcmd_/home/subhash/Documents/workspace/ldd/custom_drivers/6_pcd_sysfs/pcd_sysfs.mod := printf '%s\n'   pcd_platform_driver_dt_sysfs.o pcd_syscalls.o | awk '!x[$$0]++ { print("/home/subhash/Documents/workspace/ldd/custom_drivers/6_pcd_sysfs/"$$0) }' > /home/subhash/Documents/workspace/ldd/custom_drivers/6_pcd_sysfs/pcd_sysfs.mod

@@ -1,0 +1,1 @@
+savedcmd_/home/subhash/Documents/workspace/ldd/Interrupts_and_botton_halves/2_kerboard_scancode/keyboard_scan.mod := printf '%s\n'   keyboard_scan.o | awk '!x[$$0]++ { print("/home/subhash/Documents/workspace/ldd/Interrupts_and_botton_halves/2_kerboard_scancode/"$$0) }' > /home/subhash/Documents/workspace/ldd/Interrupts_and_botton_halves/2_kerboard_scancode/keyboard_scan.mod

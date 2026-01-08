@@ -1,0 +1,1 @@
+cmd_/home/subhash/Documents/workspace/ldd/custom_drivers/1_helloworld/hello.mod := { echo  /home/subhash/Documents/workspace/ldd/custom_drivers/1_helloworld/hello.o;  echo; } > /home/subhash/Documents/workspace/ldd/custom_drivers/1_helloworld/hello.mod

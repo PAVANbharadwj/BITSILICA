@@ -1,0 +1,1 @@
+savedcmd_/home/subhash/Documents/workspace/ldd/custom_drivers/6_pcd_sysfs/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/subhash/Documents/workspace/ldd/custom_drivers/6_pcd_sysfs/Module.symvers -T /home/subhash/Documents/workspace/ldd/custom_drivers/6_pcd_sysfs/modules.order -i Module.symvers -e 

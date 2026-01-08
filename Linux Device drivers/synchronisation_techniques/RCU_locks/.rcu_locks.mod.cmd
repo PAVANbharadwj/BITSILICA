@@ -1,0 +1,1 @@
+cmd_/home/subhash/Documents/workspace/ldd/synchronisation_techniques/RCU_locks/rcu_locks.mod := { echo  /home/subhash/Documents/workspace/ldd/synchronisation_techniques/RCU_locks/rcu_locks.o;  echo; } > /home/subhash/Documents/workspace/ldd/synchronisation_techniques/RCU_locks/rcu_locks.mod

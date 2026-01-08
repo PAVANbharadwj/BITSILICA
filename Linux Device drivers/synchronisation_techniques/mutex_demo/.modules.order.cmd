@@ -1,0 +1,1 @@
+cmd_/home/subhash/Documents/workspace/ldd/synchronisation_techniques/semaphore_demo/mutex_demo/modules.order := {   echo /home/subhash/Documents/workspace/ldd/synchronisation_techniques/semaphore_demo/mutex_demo/mutex_demo.ko; :; } | awk '!x[$$0]++' - > /home/subhash/Documents/workspace/ldd/synchronisation_techniques/semaphore_demo/mutex_demo/modules.order

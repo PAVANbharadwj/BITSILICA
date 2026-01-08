@@ -1,0 +1,1 @@
+cmd_/home/subhash/Documents/workspace/ldd/synchronisation_techniques/atomic_demo/atomic_demo.mod := { echo  /home/subhash/Documents/workspace/ldd/synchronisation_techniques/atomic_demo/atomic_demo.o;  echo; } > /home/subhash/Documents/workspace/ldd/synchronisation_techniques/atomic_demo/atomic_demo.mod

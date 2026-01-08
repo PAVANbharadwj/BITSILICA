@@ -1,0 +1,1 @@
+cmd_/home/subhash/Documents/workspace/ldd/synchronisation_techniques/semaphore_RW/Module.symvers := sed 's/ko$$/o/' /home/subhash/Documents/workspace/ldd/synchronisation_techniques/semaphore_RW/modules.order | scripts/mod/modpost -m    -o /home/subhash/Documents/workspace/ldd/synchronisation_techniques/semaphore_RW/Module.symvers -e -i Module.symvers   -T -

@@ -1,0 +1,2 @@
+/home/subhash/Documents/workspace/ldd/synchronisation_techniques/atomic_demo/atomic_demo.o
+

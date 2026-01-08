@@ -1,0 +1,1 @@
+savedcmd_/home/subhash/Documents/workspace/ldd/Interrupts_and_botton_halves/9_disable_nosync/test.mod := printf '%s\n'   test.o | awk '!x[$$0]++ { print("/home/subhash/Documents/workspace/ldd/Interrupts_and_botton_halves/9_disable_nosync/"$$0) }' > /home/subhash/Documents/workspace/ldd/Interrupts_and_botton_halves/9_disable_nosync/test.mod

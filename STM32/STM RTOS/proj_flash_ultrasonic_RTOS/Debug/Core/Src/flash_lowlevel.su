@@ -1,0 +1,9 @@
+../Core/Src/flash_lowlevel.c:12:13:CS_LOW	8	static
+../Core/Src/flash_lowlevel.c:17:13:CS_HIGH	8	static
+../Core/Src/flash_lowlevel.c:22:6:FlashLL_Init	8	static
+../Core/Src/flash_lowlevel.c:28:6:FlashLL_WriteEnable	16	static
+../Core/Src/flash_lowlevel.c:36:9:FlashLL_ReadStatus	16	static
+../Core/Src/flash_lowlevel.c:48:6:FlashLL_WaitWhileBusy	8	static
+../Core/Src/flash_lowlevel.c:56:6:FlashLL_SectorErase	24	static
+../Core/Src/flash_lowlevel.c:72:6:FlashLL_PageProgram	32	static
+../Core/Src/flash_lowlevel.c:89:6:FlashLL_ReadData	32	static

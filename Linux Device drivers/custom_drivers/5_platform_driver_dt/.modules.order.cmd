@@ -1,0 +1,1 @@
+cmd_/home/subhash/Documents/workspace/ldd/custom_drivers/5_platform_driver_dt/modules.order := {   echo /home/subhash/Documents/workspace/ldd/custom_drivers/5_platform_driver_dt/pcd_platform_driver_dt.ko; :; } | awk '!x[$$0]++' - > /home/subhash/Documents/workspace/ldd/custom_drivers/5_platform_driver_dt/modules.order

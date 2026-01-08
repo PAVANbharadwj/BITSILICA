@@ -1,0 +1,1 @@
+savedcmd_/home/subhash/Documents/workspace/ldd/custom_drivers/4_pcd_platform_driver/pcd_device_setup.mod := printf '%s\n'   pcd_device_setup.o | awk '!x[$$0]++ { print("/home/subhash/Documents/workspace/ldd/custom_drivers/4_pcd_platform_driver/"$$0) }' > /home/subhash/Documents/workspace/ldd/custom_drivers/4_pcd_platform_driver/pcd_device_setup.mod

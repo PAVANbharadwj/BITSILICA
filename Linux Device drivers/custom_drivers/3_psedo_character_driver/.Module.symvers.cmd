@@ -1,0 +1,1 @@
+savedcmd_/home/subhash/Documents/workspace/ldd/custom_drivers/3_psedo_character_driver/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/subhash/Documents/workspace/ldd/custom_drivers/3_psedo_character_driver/Module.symvers -T /home/subhash/Documents/workspace/ldd/custom_drivers/3_psedo_character_driver/modules.order -i Module.symvers -e 

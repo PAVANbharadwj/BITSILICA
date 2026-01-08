@@ -1,0 +1,1 @@
+cmd_/home/subhash/Documents/workspace/ldd/synchronisation_techniques/read_write_locks/read_write.mod := { echo  /home/subhash/Documents/workspace/ldd/synchronisation_techniques/read_write_locks/read_write.o;  echo; } > /home/subhash/Documents/workspace/ldd/synchronisation_techniques/read_write_locks/read_write.mod

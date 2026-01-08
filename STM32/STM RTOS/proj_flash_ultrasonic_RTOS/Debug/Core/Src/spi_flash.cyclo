@@ -1,0 +1,9 @@
+../Core/Src/spi_flash.c:14:13:CS_LOW	1
+../Core/Src/spi_flash.c:19:13:CS_HIGH	1
+../Core/Src/spi_flash.c:24:13:SPIFlash_WriteEnable	1
+../Core/Src/spi_flash.c:32:16:SPIFlash_ReadStatus1	1
+../Core/Src/spi_flash.c:44:13:SPIFlash_WaitBusy	2
+../Core/Src/spi_flash.c:51:6:SPIFlash_Init	3
+../Core/Src/spi_flash.c:75:6:SPIFlash_EraseSector	1
+../Core/Src/spi_flash.c:93:6:SPIFlash_WritePage	3
+../Core/Src/spi_flash.c:114:6:SPIFlash_Read	1

@@ -1,0 +1,1 @@
+cmd_/home/subhash/Documents/workspace/ldd/synchronisation_techniques/semaphore_RW/sema_RW.mod := { echo  /home/subhash/Documents/workspace/ldd/synchronisation_techniques/semaphore_RW/sema_RW.o;  echo; } > /home/subhash/Documents/workspace/ldd/synchronisation_techniques/semaphore_RW/sema_RW.mod

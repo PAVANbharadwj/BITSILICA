@@ -1,0 +1,1 @@
+cmd_/home/subhash/Documents/workspace/ldd/synchronisation_techniques/read_write_locks/Module.symvers := sed 's/ko$$/o/' /home/subhash/Documents/workspace/ldd/synchronisation_techniques/read_write_locks/modules.order | scripts/mod/modpost -m    -o /home/subhash/Documents/workspace/ldd/synchronisation_techniques/read_write_locks/Module.symvers -e -i Module.symvers   -T -

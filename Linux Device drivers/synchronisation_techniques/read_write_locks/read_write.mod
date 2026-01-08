@@ -1,0 +1,2 @@
+/home/subhash/Documents/workspace/ldd/synchronisation_techniques/read_write_locks/read_write.o
+

@@ -1,0 +1,1 @@
+cmd_/home/subhash/Documents/workspace/ldd/custom_drivers/7_gpio_sysfs/Module.symvers := sed 's/ko$$/o/' /home/subhash/Documents/workspace/ldd/custom_drivers/7_gpio_sysfs/modules.order | scripts/mod/modpost -m    -o /home/subhash/Documents/workspace/ldd/custom_drivers/7_gpio_sysfs/Module.symvers -e -i Module.symvers   -T -

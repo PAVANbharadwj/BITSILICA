@@ -1,0 +1,43 @@
+#include <linux/module.h>
+#define INCLUDE_VERMAGIC
+#include <linux/build-salt.h>
+#include <linux/vermagic.h>
+#include <linux/compiler.h>
+
+BUILD_SALT;
+
+MODULE_INFO(vermagic, VERMAGIC_STRING);
+MODULE_INFO(name, KBUILD_MODNAME);
+
+__visible struct module __this_module
+__section(".gnu.linkonce.this_module") = {
+	.name = KBUILD_MODNAME,
+	.init = init_module,
+#ifdef CONFIG_MODULE_UNLOAD
+	.exit = cleanup_module,
+#endif
+	.arch = MODULE_ARCH_INIT,
+};
+
+#ifdef CONFIG_RETPOLINE
+MODULE_INFO(retpoline, "Y");
+#endif
+
+static const struct modversion_info ____versions[]
+__used __section("__versions") = {
+	{ 0xf28efea0, "module_layout" },
+	{ 0xe558c8f5, "kthread_stop" },
+	{ 0x1b697652, "wake_up_process" },
+	{ 0xf782161f, "kthread_create_on_node" },
+	{ 0xb85192e6, "_raw_read_unlock" },
+	{ 0x5bda4214, "_raw_read_lock" },
+	{ 0xf9a482f9, "msleep" },
+	{ 0x858721fe, "_raw_write_unlock" },
+	{ 0xc5850110, "printk" },
+	{ 0xa69d151c, "_raw_write_lock" },
+	{ 0xb3f7646e, "kthread_should_stop" },
+	{ 0xb1ad28e0, "__gnu_mcount_nc" },
+};
+
+MODULE_INFO(depends, "");
+

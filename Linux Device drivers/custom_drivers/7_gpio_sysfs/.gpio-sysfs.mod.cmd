@@ -1,0 +1,1 @@
+cmd_/home/subhash/Documents/workspace/ldd/custom_drivers/7_gpio_sysfs/gpio-sysfs.mod := { echo  /home/subhash/Documents/workspace/ldd/custom_drivers/7_gpio_sysfs/gpio-sysfs.o;  echo; } > /home/subhash/Documents/workspace/ldd/custom_drivers/7_gpio_sysfs/gpio-sysfs.mod

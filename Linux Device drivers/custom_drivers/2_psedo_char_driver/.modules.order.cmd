@@ -1,0 +1,1 @@
+savedcmd_/home/subhash/Documents/workspace/ldd/custom_drivers/2_psedo_char_driver/modules.order := {   echo /home/subhash/Documents/workspace/ldd/custom_drivers/2_psedo_char_driver/pcd.o;   echo /home/subhash/Documents/workspace/ldd/custom_drivers/2_psedo_char_driver/pcd_lock.o; :; } > /home/subhash/Documents/workspace/ldd/custom_drivers/2_psedo_char_driver/modules.order
