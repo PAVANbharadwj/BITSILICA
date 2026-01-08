@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/synchronization_in_kernel_programming/22_semaphore_down_trylock/sema_trylock.mod := printf '%s\n'   sema_trylock.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/synchronization_in_kernel_programming/22_semaphore_down_trylock/"$$0) }' > /home/pavanb/Documents/synchronization_in_kernel_programming/22_semaphore_down_trylock/sema_trylock.mod

@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/linux_DD/5_export_symbol/mathlib.mod := printf '%s\n'   mathlib.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/linux_DD/5_export_symbol/"$$0) }' > /home/pavanb/Documents/linux_DD/5_export_symbol/mathlib.mod

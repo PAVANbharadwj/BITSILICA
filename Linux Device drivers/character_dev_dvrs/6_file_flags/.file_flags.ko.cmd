@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/character_dev_dvrs/6_file_flags/file_flags.ko := ld -r -m elf_x86_64 -z noexecstack --build-id=sha1  -T scripts/module.lds -o /home/pavanb/Documents/character_dev_dvrs/6_file_flags/file_flags.ko /home/pavanb/Documents/character_dev_dvrs/6_file_flags/file_flags.o /home/pavanb/Documents/character_dev_dvrs/6_file_flags/file_flags.mod.o

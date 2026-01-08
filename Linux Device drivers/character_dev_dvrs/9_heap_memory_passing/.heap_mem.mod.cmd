@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/character_dev_dvrs/9_heap_memory_passing/heap_mem.mod := printf '%s\n'   heap_mem.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/character_dev_dvrs/9_heap_memory_passing/"$$0) }' > /home/pavanb/Documents/character_dev_dvrs/9_heap_memory_passing/heap_mem.mod

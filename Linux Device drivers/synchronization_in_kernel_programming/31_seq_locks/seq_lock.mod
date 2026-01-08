@@ -1,0 +1,1 @@
+/home/pavanb/Documents/synchronization_in_kernel_programming/31_seq_locks/seq_lock.o

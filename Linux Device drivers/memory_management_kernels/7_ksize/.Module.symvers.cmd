@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/memory_management_kernels/7_ksize/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/pavanb/Documents/memory_management_kernels/7_ksize/Module.symvers -T /home/pavanb/Documents/memory_management_kernels/7_ksize/modules.order -i Module.symvers -e 

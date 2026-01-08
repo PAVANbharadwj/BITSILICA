@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/linux_embetronics/7_wait_queue/waitqueue.mod := printf '%s\n'   waitqueue.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/linux_embetronics/7_wait_queue/"$$0) }' > /home/pavanb/Documents/linux_embetronics/7_wait_queue/waitqueue.mod

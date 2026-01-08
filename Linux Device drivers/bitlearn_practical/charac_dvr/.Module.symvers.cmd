@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/bitlearn_practical/charac_dvr/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/pavanb/Documents/bitlearn_practical/charac_dvr/Module.symvers -T /home/pavanb/Documents/bitlearn_practical/charac_dvr/modules.order -i Module.symvers -e 

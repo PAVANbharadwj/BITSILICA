@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/linux_basic_DD/19_exit_data/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/pavanb/Documents/linux_basic_DD/19_exit_data/Module.symvers -T /home/pavanb/Documents/linux_basic_DD/19_exit_data/modules.order -i Module.symvers -e 

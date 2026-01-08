@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/bitlearn_practical/multi_dev/multidev.ko := ld -r -m elf_x86_64 -z noexecstack --build-id=sha1  -T scripts/module.lds -o /home/pavanb/Documents/bitlearn_practical/multi_dev/multidev.ko /home/pavanb/Documents/bitlearn_practical/multi_dev/multidev.o /home/pavanb/Documents/bitlearn_practical/multi_dev/multidev.mod.o

@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/linux_embetronics/5_ioctl/sample_ioctl.mod := printf '%s\n'   sample_ioctl.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/linux_embetronics/5_ioctl/"$$0) }' > /home/pavanb/Documents/linux_embetronics/5_ioctl/sample_ioctl.mod

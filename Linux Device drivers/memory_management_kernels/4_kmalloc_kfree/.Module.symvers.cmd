@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/memory_management_kernels/4_kmalloc_kfree/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/pavanb/Documents/memory_management_kernels/4_kmalloc_kfree/Module.symvers -T /home/pavanb/Documents/memory_management_kernels/4_kmalloc_kfree/modules.order -i Module.symvers -e 

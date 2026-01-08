@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/character_dev_dvrs/19_ioctl_info/info.mod := printf '%s\n'   info.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/character_dev_dvrs/19_ioctl_info/"$$0) }' > /home/pavanb/Documents/character_dev_dvrs/19_ioctl_info/info.mod

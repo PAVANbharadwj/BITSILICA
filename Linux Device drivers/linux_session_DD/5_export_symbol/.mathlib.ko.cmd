@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/linux_DD/5_export_symbol/mathlib.ko := ld -r -m elf_x86_64 -z noexecstack --build-id=sha1  -T scripts/module.lds -o /home/pavanb/Documents/linux_DD/5_export_symbol/mathlib.ko /home/pavanb/Documents/linux_DD/5_export_symbol/mathlib.o /home/pavanb/Documents/linux_DD/5_export_symbol/mathlib.mod.o

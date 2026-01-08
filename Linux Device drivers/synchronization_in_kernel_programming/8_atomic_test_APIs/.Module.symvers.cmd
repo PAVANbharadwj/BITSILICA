@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/synchronization_in_kernel_programming/8_atomic_test_APIs/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/pavanb/Documents/synchronization_in_kernel_programming/8_atomic_test_APIs/Module.symvers -T /home/pavanb/Documents/synchronization_in_kernel_programming/8_atomic_test_APIs/modules.order -i Module.symvers -e 

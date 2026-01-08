@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/linux_embetronics/7_wait_queue/waitqueue.ko := ld -r -m elf_x86_64 -z noexecstack --build-id=sha1  -T scripts/module.lds -o /home/pavanb/Documents/linux_embetronics/7_wait_queue/waitqueue.ko /home/pavanb/Documents/linux_embetronics/7_wait_queue/waitqueue.o /home/pavanb/Documents/linux_embetronics/7_wait_queue/waitqueue.mod.o

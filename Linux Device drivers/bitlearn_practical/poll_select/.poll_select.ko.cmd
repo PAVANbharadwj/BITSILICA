@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/bitlearn_practical/poll_select/poll_select.ko := ld -r -m elf_x86_64 -z noexecstack --build-id=sha1  -T scripts/module.lds -o /home/pavanb/Documents/bitlearn_practical/poll_select/poll_select.ko /home/pavanb/Documents/bitlearn_practical/poll_select/poll_select.o /home/pavanb/Documents/bitlearn_practical/poll_select/poll_select.mod.o

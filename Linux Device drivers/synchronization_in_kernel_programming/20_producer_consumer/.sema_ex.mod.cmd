@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/synchronization_in_kernel_programming/20_producer_consumer/sema_ex.mod := printf '%s\n'   sema_ex.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/synchronization_in_kernel_programming/20_producer_consumer/"$$0) }' > /home/pavanb/Documents/synchronization_in_kernel_programming/20_producer_consumer/sema_ex.mod

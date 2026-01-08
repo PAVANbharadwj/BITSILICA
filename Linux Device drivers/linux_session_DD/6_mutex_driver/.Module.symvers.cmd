@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/linux_DD/6_mutex_driver/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/pavanb/Documents/linux_DD/6_mutex_driver/Module.symvers -T /home/pavanb/Documents/linux_DD/6_mutex_driver/modules.order -i Module.symvers -e 

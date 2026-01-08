@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/synchronization_in_kernel_programming/28_semaphore_RW/modules.order := {   echo /home/pavanb/Documents/synchronization_in_kernel_programming/28_semaphore_RW/sema_rw.o; :; } > /home/pavanb/Documents/synchronization_in_kernel_programming/28_semaphore_RW/modules.order

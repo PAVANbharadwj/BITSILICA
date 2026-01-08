@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/character_dev_dvrs/major_minor/major_minor.mod := printf '%s\n'   major_minor.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/character_dev_dvrs/major_minor/"$$0) }' > /home/pavanb/Documents/character_dev_dvrs/major_minor/major_minor.mod

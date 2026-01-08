@@ -1,0 +1,1 @@
+/home/pavanb/Documents/synchronization_in_kernel_programming/28_semaphore_RW/sema_rw.o

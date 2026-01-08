@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/character_dev_dvrs/21_atomic_open/single_open.ko := ld -r -m elf_x86_64 -z noexecstack --build-id=sha1  -T scripts/module.lds -o /home/pavanb/Documents/character_dev_dvrs/21_atomic_open/single_open.ko /home/pavanb/Documents/character_dev_dvrs/21_atomic_open/single_open.o /home/pavanb/Documents/character_dev_dvrs/21_atomic_open/single_open.mod.o

@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/linux_basic_DD/18_init_data/initdata.ko := ld -r -m elf_x86_64 -z noexecstack --build-id=sha1  -T scripts/module.lds -o /home/pavanb/Documents/linux_basic_DD/18_init_data/initdata.ko /home/pavanb/Documents/linux_basic_DD/18_init_data/initdata.o /home/pavanb/Documents/linux_basic_DD/18_init_data/initdata.mod.o

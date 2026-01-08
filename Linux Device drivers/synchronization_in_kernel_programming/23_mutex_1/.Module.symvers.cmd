@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/synchronization_in_kernel_programming/23_mutex_1/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/pavanb/Documents/synchronization_in_kernel_programming/23_mutex_1/Module.symvers -T /home/pavanb/Documents/synchronization_in_kernel_programming/23_mutex_1/modules.order -i Module.symvers -e 

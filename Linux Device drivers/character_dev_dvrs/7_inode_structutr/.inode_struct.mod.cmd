@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/character_dev_dvrs/7_inode_structutr/inode_struct.mod := printf '%s\n'   inode_struct.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/character_dev_dvrs/7_inode_structutr/"$$0) }' > /home/pavanb/Documents/character_dev_dvrs/7_inode_structutr/inode_struct.mod

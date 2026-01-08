@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/bitlearn_practical/first_module/frist_mod.mod := printf '%s\n'   frist_mod.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/bitlearn_practical/first_module/"$$0) }' > /home/pavanb/Documents/bitlearn_practical/first_module/frist_mod.mod

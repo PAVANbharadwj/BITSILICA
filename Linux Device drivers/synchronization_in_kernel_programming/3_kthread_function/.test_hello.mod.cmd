@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/synchronization_in_kernel_programming/3_kthread_function/test_hello.mod := printf '%s\n'   test_hello.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/synchronization_in_kernel_programming/3_kthread_function/"$$0) }' > /home/pavanb/Documents/synchronization_in_kernel_programming/3_kthread_function/test_hello.mod

@@ -1,0 +1,1 @@
+/home/pavanb/Documents/linux_DD/5_export_symbol/mathlib.o

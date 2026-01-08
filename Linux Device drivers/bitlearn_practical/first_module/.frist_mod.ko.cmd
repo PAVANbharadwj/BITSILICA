@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/bitlearn_practical/first_module/frist_mod.ko := ld -r -m elf_x86_64 -z noexecstack --build-id=sha1  -T scripts/module.lds -o /home/pavanb/Documents/bitlearn_practical/first_module/frist_mod.ko /home/pavanb/Documents/bitlearn_practical/first_module/frist_mod.o /home/pavanb/Documents/bitlearn_practical/first_module/frist_mod.mod.o

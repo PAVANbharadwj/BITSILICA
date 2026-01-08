@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/bitlearn_practical/first_module/modules.order := {   echo /home/pavanb/Documents/bitlearn_practical/first_module/frist_mod.o; :; } > /home/pavanb/Documents/bitlearn_practical/first_module/modules.order

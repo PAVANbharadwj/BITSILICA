@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/linux_DD/5_export_symbol/modules.order := {   echo /home/pavanb/Documents/linux_DD/5_export_symbol/mathlib.o;   echo /home/pavanb/Documents/linux_DD/5_export_symbol/calc.o; :; } > /home/pavanb/Documents/linux_DD/5_export_symbol/modules.order

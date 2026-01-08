@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/character_dev_dvrs/18_ioctl_symbolic_names/ioctl_sym.mod := printf '%s\n'   ioctl_sym.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/character_dev_dvrs/18_ioctl_symbolic_names/"$$0) }' > /home/pavanb/Documents/character_dev_dvrs/18_ioctl_symbolic_names/ioctl_sym.mod

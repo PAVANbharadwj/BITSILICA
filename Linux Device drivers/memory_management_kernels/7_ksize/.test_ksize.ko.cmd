@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/memory_management_kernels/7_ksize/test_ksize.ko := ld -r -m elf_x86_64 -z noexecstack --build-id=sha1  -T scripts/module.lds -o /home/pavanb/Documents/memory_management_kernels/7_ksize/test_ksize.ko /home/pavanb/Documents/memory_management_kernels/7_ksize/test_ksize.o /home/pavanb/Documents/memory_management_kernels/7_ksize/test_ksize.mod.o

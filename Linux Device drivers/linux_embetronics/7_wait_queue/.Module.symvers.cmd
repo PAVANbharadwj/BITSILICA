@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/linux_embetronics/7_wait_queue/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/pavanb/Documents/linux_embetronics/7_wait_queue/Module.symvers -T /home/pavanb/Documents/linux_embetronics/7_wait_queue/modules.order -i Module.symvers -e 

@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/character_dev_dvrs/5_file_operations/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/pavanb/Documents/character_dev_dvrs/5_file_operations/Module.symvers -T /home/pavanb/Documents/character_dev_dvrs/5_file_operations/modules.order -i Module.symvers -e 

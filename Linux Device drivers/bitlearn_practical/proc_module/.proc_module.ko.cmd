@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/bitlearn_practical/proc_module/proc_module.ko := ld -r -m elf_x86_64 -z noexecstack --build-id=sha1  -T scripts/module.lds -o /home/pavanb/Documents/bitlearn_practical/proc_module/proc_module.ko /home/pavanb/Documents/bitlearn_practical/proc_module/proc_module.o /home/pavanb/Documents/bitlearn_practical/proc_module/proc_module.mod.o

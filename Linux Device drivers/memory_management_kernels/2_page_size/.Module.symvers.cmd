@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/memory_management_kernels/2_page_size/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/pavanb/Documents/memory_management_kernels/2_page_size/Module.symvers -T /home/pavanb/Documents/memory_management_kernels/2_page_size/modules.order -i Module.symvers -e 

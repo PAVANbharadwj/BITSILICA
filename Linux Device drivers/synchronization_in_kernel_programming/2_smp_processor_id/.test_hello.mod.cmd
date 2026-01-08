@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/synchronization_in_kernel_programming/2_smp_processor_id/test_hello.mod := printf '%s\n'   test_hello.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/synchronization_in_kernel_programming/2_smp_processor_id/"$$0) }' > /home/pavanb/Documents/synchronization_in_kernel_programming/2_smp_processor_id/test_hello.mod

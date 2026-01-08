@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/character_dev_dvrs/18_ioctl_symbolic_names/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/pavanb/Documents/character_dev_dvrs/18_ioctl_symbolic_names/Module.symvers -T /home/pavanb/Documents/character_dev_dvrs/18_ioctl_symbolic_names/modules.order -i Module.symvers -e 

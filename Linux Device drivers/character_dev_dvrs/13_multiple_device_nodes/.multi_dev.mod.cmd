@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/character_dev_dvrs/13_multiple_device_nodes/multi_dev.mod := printf '%s\n'   multi_dev.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/character_dev_dvrs/13_multiple_device_nodes/"$$0) }' > /home/pavanb/Documents/character_dev_dvrs/13_multiple_device_nodes/multi_dev.mod

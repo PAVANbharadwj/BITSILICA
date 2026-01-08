@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/character_dev_dvrs/format_dev_t_usage/code.ko := ld -r -m elf_x86_64 -z noexecstack --build-id=sha1  -T scripts/module.lds -o /home/pavanb/Documents/character_dev_dvrs/format_dev_t_usage/code.ko /home/pavanb/Documents/character_dev_dvrs/format_dev_t_usage/code.o /home/pavanb/Documents/character_dev_dvrs/format_dev_t_usage/code.mod.o

@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/synchronization_in_kernel_programming/23_mutex_1/mutex_ex.mod := printf '%s\n'   mutex_ex.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/synchronization_in_kernel_programming/23_mutex_1/"$$0) }' > /home/pavanb/Documents/synchronization_in_kernel_programming/23_mutex_1/mutex_ex.mod

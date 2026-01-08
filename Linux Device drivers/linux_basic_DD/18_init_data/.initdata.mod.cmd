@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/linux_basic_DD/18_init_data/initdata.mod := printf '%s\n'   initdata.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/linux_basic_DD/18_init_data/"$$0) }' > /home/pavanb/Documents/linux_basic_DD/18_init_data/initdata.mod

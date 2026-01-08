@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/linux_embetronics/9_bottom_half/driver.ko := ld -r -m elf_x86_64 -z noexecstack --build-id=sha1  -T scripts/module.lds -o /home/pavanb/Documents/linux_embetronics/9_bottom_half/driver.ko /home/pavanb/Documents/linux_embetronics/9_bottom_half/driver.o /home/pavanb/Documents/linux_embetronics/9_bottom_half/driver.mod.o

@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/synchronization_in_kernel_programming/4_per_cpu_example/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/pavanb/Documents/synchronization_in_kernel_programming/4_per_cpu_example/Module.symvers -T /home/pavanb/Documents/synchronization_in_kernel_programming/4_per_cpu_example/modules.order -i Module.symvers -e 

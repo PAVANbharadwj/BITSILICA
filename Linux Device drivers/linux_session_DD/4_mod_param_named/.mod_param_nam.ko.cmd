@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/linux_DD/4_mod_param_named/mod_param_nam.ko := ld -r -m elf_x86_64 -z noexecstack --build-id=sha1  -T scripts/module.lds -o /home/pavanb/Documents/linux_DD/4_mod_param_named/mod_param_nam.ko /home/pavanb/Documents/linux_DD/4_mod_param_named/mod_param_nam.o /home/pavanb/Documents/linux_DD/4_mod_param_named/mod_param_nam.mod.o

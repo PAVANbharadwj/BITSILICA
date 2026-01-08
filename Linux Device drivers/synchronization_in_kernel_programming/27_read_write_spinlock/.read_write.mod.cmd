@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/synchronization_in_kernel_programming/27_read_write_spinlock/read_write.mod := printf '%s\n'   read_write.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/synchronization_in_kernel_programming/27_read_write_spinlock/"$$0) }' > /home/pavanb/Documents/synchronization_in_kernel_programming/27_read_write_spinlock/read_write.mod

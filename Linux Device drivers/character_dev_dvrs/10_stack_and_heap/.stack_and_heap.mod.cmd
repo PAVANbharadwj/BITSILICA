@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/character_dev_dvrs/10_stack_and_heap/stack_and_heap.mod := printf '%s\n'   stack_and_heap.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/character_dev_dvrs/10_stack_and_heap/"$$0) }' > /home/pavanb/Documents/character_dev_dvrs/10_stack_and_heap/stack_and_heap.mod

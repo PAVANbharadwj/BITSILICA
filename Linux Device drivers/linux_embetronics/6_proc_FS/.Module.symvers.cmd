@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/linux_embetronics/6_proc_FS/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/pavanb/Documents/linux_embetronics/6_proc_FS/Module.symvers -T /home/pavanb/Documents/linux_embetronics/6_proc_FS/modules.order -i Module.symvers -e 

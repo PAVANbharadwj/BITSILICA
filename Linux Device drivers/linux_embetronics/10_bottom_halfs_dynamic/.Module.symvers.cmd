@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/linux_embetronics/10_bottom_halfs_dynamic/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/pavanb/Documents/linux_embetronics/10_bottom_halfs_dynamic/Module.symvers -T /home/pavanb/Documents/linux_embetronics/10_bottom_halfs_dynamic/modules.order -i Module.symvers -e 

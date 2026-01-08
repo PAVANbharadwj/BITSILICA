@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/memory_management_kernels/11_vmalloc/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/pavanb/Documents/memory_management_kernels/11_vmalloc/Module.symvers -T /home/pavanb/Documents/memory_management_kernels/11_vmalloc/modules.order -i Module.symvers -e 

@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/memory_management_kernels/10_contigueos_mem_alloc/test.mod := printf '%s\n'   test.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/memory_management_kernels/10_contigueos_mem_alloc/"$$0) }' > /home/pavanb/Documents/memory_management_kernels/10_contigueos_mem_alloc/test.mod

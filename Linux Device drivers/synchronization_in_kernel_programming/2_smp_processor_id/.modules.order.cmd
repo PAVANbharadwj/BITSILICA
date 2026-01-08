@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/synchronization_in_kernel_programming/2_smp_processor_id/modules.order := {   echo /home/pavanb/Documents/synchronization_in_kernel_programming/2_smp_processor_id/test_hello.o; :; } > /home/pavanb/Documents/synchronization_in_kernel_programming/2_smp_processor_id/modules.order

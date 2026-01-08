@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/linux_exercises/atomic_exercises/2_exercise/temperature_alerts.mod := printf '%s\n'   temperature_alerts.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/linux_exercises/atomic_exercises/2_exercise/"$$0) }' > /home/pavanb/Documents/linux_exercises/atomic_exercises/2_exercise/temperature_alerts.mod

@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/character_dev_dvrs/3_dynamic_allocation/dynamic_alloc.mod := printf '%s\n'   dynamic_alloc.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/character_dev_dvrs/3_dynamic_allocation/"$$0) }' > /home/pavanb/Documents/character_dev_dvrs/3_dynamic_allocation/dynamic_alloc.mod

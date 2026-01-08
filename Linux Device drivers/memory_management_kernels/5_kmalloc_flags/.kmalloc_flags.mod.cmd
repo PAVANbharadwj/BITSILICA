@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/memory_management_kernels/5_kmalloc_flags/kmalloc_flags.mod := printf '%s\n'   kmalloc_flags.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/memory_management_kernels/5_kmalloc_flags/"$$0) }' > /home/pavanb/Documents/memory_management_kernels/5_kmalloc_flags/kmalloc_flags.mod

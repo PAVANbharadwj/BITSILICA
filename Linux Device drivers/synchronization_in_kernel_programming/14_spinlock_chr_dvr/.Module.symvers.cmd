@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/synchronization_in_kernel_programming/14_spinlock_chr_dvr/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/pavanb/Documents/synchronization_in_kernel_programming/14_spinlock_chr_dvr/Module.symvers -T /home/pavanb/Documents/synchronization_in_kernel_programming/14_spinlock_chr_dvr/modules.order -i Module.symvers -e 

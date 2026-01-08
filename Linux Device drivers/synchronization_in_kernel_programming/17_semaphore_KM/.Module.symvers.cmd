@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/synchronization_in_kernel_programming/17_semaphore_KM/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/pavanb/Documents/synchronization_in_kernel_programming/17_semaphore_KM/Module.symvers -T /home/pavanb/Documents/synchronization_in_kernel_programming/17_semaphore_KM/modules.order -i Module.symvers -e 

@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/character_dev_dvrs/6_file_flags/file_flags.mod := printf '%s\n'   file_flags.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/character_dev_dvrs/6_file_flags/"$$0) }' > /home/pavanb/Documents/character_dev_dvrs/6_file_flags/file_flags.mod

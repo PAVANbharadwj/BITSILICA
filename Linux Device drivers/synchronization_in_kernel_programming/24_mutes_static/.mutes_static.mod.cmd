@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/synchronization_in_kernel_programming/24_mutes_static/mutes_static.mod := printf '%s\n'   mutes_static.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/synchronization_in_kernel_programming/24_mutes_static/"$$0) }' > /home/pavanb/Documents/synchronization_in_kernel_programming/24_mutes_static/mutes_static.mod

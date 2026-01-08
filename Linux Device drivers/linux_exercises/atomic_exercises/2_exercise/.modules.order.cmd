@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/linux_exercises/atomic_exercises/2_exercise/modules.order := {   echo /home/pavanb/Documents/linux_exercises/atomic_exercises/2_exercise/temperature_alerts.o; :; } > /home/pavanb/Documents/linux_exercises/atomic_exercises/2_exercise/modules.order

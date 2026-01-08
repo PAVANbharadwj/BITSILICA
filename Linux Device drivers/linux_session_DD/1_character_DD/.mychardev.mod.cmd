@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/linux_DD/1_character_DD/mychardev.mod := printf '%s\n'   mychardev.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/linux_DD/1_character_DD/"$$0) }' > /home/pavanb/Documents/linux_DD/1_character_DD/mychardev.mod

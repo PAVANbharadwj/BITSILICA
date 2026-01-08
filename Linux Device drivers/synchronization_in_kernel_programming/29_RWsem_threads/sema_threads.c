@@ -1,0 +1,63 @@
+#include <linux/kernel.h>
+#include <linux/module.h>
+#include <linux/init.h>
+#include <linux/rwsem.h>
+#include <linux/kthread.h>
+#include <linux/delay.h>
+#include <linux/smp.h>
+
+MODULE_LICENSE("GPL");
+
+DECLARE_RWSEM(mylock);
+static struct task_struct *thread1, *thread2, *thread3;
+int counter = 0;
+
+static int write_threadfn(void *arg)
+{
+    while (!kthread_should_stop()) {
+        pr_info("processor:%d trying to acquire write lock\n", smp_processor_id());
+        down_write(&mylock);
+        pr_info("processor:%d acquired write lock\n", smp_processor_id());
+        counter++;
+        pr_info("processor:%d updated counter:%d\n", smp_processor_id(), counter);
+        msleep(5000);
+        up_write(&mylock);
+        pr_info("processor:%d released write lock\n", smp_processor_id());
+        msleep(1000);
+    }
+    return 0;
+}
+
+static int read_threadfn(void *arg)
+{
+    while (!kthread_should_stop()) {
+        pr_info("processor:%d trying to acquire read lock\n", smp_processor_id());
+        down_read(&mylock);
+        pr_info("processor:%d acquired read lock\n", smp_processor_id());
+        pr_info("processor:%d counter:%d\n", smp_processor_id(), counter);
+        msleep(2000);
+        up_read(&mylock);
+        pr_info("processor:%d releasing read lock\n", smp_processor_id());
+        msleep(1000);
+    }
+    return 0;
+}
+
+static int __init test_hello_init(void)
+{
+    thread1 = kthread_run(read_threadfn,  NULL, "reader1");
+    thread2 = kthread_run(read_threadfn,  NULL, "reader2");
+    thread3 = kthread_run(write_threadfn, NULL, "writer");
+    return 0;
+}
+
+static void __exit test_hello_exit(void)
+{
+    kthread_stop(thread1);
+    kthread_stop(thread2);
+    kthread_stop(thread3);
+}
+
+module_init(test_hello_init);
+module_exit(test_hello_exit);
+

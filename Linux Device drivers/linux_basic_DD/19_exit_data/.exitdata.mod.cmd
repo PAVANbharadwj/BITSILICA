@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/linux_basic_DD/19_exit_data/exitdata.mod := printf '%s\n'   exitdata.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/linux_basic_DD/19_exit_data/"$$0) }' > /home/pavanb/Documents/linux_basic_DD/19_exit_data/exitdata.mod

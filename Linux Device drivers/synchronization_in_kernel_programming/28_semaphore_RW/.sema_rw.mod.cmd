@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/synchronization_in_kernel_programming/28_semaphore_RW/sema_rw.mod := printf '%s\n'   sema_rw.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/synchronization_in_kernel_programming/28_semaphore_RW/"$$0) }' > /home/pavanb/Documents/synchronization_in_kernel_programming/28_semaphore_RW/sema_rw.mod

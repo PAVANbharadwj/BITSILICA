@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/synchronization_in_kernel_programming/1_NR_CPUS/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/pavanb/Documents/synchronization_in_kernel_programming/1_NR_CPUS/Module.symvers -T /home/pavanb/Documents/synchronization_in_kernel_programming/1_NR_CPUS/modules.order -i Module.symvers -e 

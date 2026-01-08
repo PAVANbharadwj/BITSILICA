@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/synchronization_in_kernel_programming/13_twothreads_spin_lock/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/pavanb/Documents/synchronization_in_kernel_programming/13_twothreads_spin_lock/Module.symvers -T /home/pavanb/Documents/synchronization_in_kernel_programming/13_twothreads_spin_lock/modules.order -i Module.symvers -e 

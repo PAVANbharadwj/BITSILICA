@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/character_dev_dvrs/static_allocation/static_alloc.mod := printf '%s\n'   static_alloc.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/character_dev_dvrs/static_allocation/"$$0) }' > /home/pavanb/Documents/character_dev_dvrs/static_allocation/static_alloc.mod

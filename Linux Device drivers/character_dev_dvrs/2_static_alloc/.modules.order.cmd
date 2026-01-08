@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/character_dev_dvrs/static_allocation/modules.order := {   echo /home/pavanb/Documents/character_dev_dvrs/static_allocation/static_alloc.o; :; } > /home/pavanb/Documents/character_dev_dvrs/static_allocation/modules.order

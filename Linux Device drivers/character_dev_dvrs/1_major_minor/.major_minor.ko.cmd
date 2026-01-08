@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/character_dev_dvrs/major_minor/major_minor.ko := ld -r -m elf_x86_64 -z noexecstack --build-id=sha1  -T scripts/module.lds -o /home/pavanb/Documents/character_dev_dvrs/major_minor/major_minor.ko /home/pavanb/Documents/character_dev_dvrs/major_minor/major_minor.o /home/pavanb/Documents/character_dev_dvrs/major_minor/major_minor.mod.o

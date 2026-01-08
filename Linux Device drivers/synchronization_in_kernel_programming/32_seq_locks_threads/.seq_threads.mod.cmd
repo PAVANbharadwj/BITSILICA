@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/synchronization_in_kernel_programming/32_seq_locks_threads/seq_threads.mod := printf '%s\n'   seq_threads.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/synchronization_in_kernel_programming/32_seq_locks_threads/"$$0) }' > /home/pavanb/Documents/synchronization_in_kernel_programming/32_seq_locks_threads/seq_threads.mod

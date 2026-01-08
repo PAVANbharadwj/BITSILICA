@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/bitlearn_practical/automatic_device_creation/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/pavanb/Documents/bitlearn_practical/automatic_device_creation/Module.symvers -T /home/pavanb/Documents/bitlearn_practical/automatic_device_creation/modules.order -i Module.symvers -e 

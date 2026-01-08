@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/synchronization_in_kernel_programming/29_RWsem_threads/sema_threads.mod := printf '%s\n'   sema_threads.o | awk '!x[$$0]++ { print("/home/pavanb/Documents/synchronization_in_kernel_programming/29_RWsem_threads/"$$0) }' > /home/pavanb/Documents/synchronization_in_kernel_programming/29_RWsem_threads/sema_threads.mod

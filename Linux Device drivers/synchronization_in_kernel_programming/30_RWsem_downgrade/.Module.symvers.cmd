@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/synchronization_in_kernel_programming/30_RWsem_downgrade/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/pavanb/Documents/synchronization_in_kernel_programming/30_RWsem_downgrade/Module.symvers -T /home/pavanb/Documents/synchronization_in_kernel_programming/30_RWsem_downgrade/modules.order -i Module.symvers -e 

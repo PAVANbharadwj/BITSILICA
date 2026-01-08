@@ -1,0 +1,1 @@
+savedcmd_/home/pavanb/Documents/synchronization_in_kernel_programming/31_seq_locks/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/pavanb/Documents/synchronization_in_kernel_programming/31_seq_locks/Module.symvers -T /home/pavanb/Documents/synchronization_in_kernel_programming/31_seq_locks/modules.order -i Module.symvers -e 
