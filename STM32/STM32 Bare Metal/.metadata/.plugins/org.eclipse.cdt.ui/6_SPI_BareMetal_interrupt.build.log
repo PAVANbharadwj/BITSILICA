@@ -1,0 +1,17 @@
+18:00:49 **** Incremental Build of configuration Debug for project 6_SPI_BareMetal_interrupt ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L476xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "6_SPI_BareMetal_interrupt.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\pavan\Documents\BITSILICA_GIT\STM32\STM32 Bare Metal\6_SPI_BareMetal_interrupt\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="6_SPI_BareMetal_interrupt.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 6_SPI_BareMetal_interrupt.elf
+ 
+arm-none-eabi-size  6_SPI_BareMetal_interrupt.elf 
+arm-none-eabi-objdump -h -S 6_SPI_BareMetal_interrupt.elf  > "6_SPI_BareMetal_interrupt.list"
+   text	   data	    bss	    dec	    hex	filename
+   8440	     96	   1944	  10480	   28f0	6_SPI_BareMetal_interrupt.elf
+Finished building: default.size.stdout
+ 
+Finished building: 6_SPI_BareMetal_interrupt.list
+ 
+
+18:00:50 Build Finished. 0 errors, 0 warnings. (took 1s.310ms)
+

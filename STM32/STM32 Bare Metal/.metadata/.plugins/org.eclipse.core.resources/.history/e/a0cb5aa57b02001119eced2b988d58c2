@@ -1,0 +1,70 @@
+#include "main.h"
+
+#define RX_BUF_SIZE 16
+
+volatile uint8_t tx_data = 0xA5;
+volatile uint8_t rx_buffer[RX_BUF_SIZE];
+volatile uint8_t rx_index = 0;
+
+void delay(volatile uint32_t d)
+{
+    while (d--);
+}
+
+void SPI1_Init(void)
+{
+    /* Enable clocks */
+    RCC->AHB2ENR |= (1 << 0);      // GPIOA
+    RCC->APB2ENR |= (1 << 12);     // SPI1
+
+    /* PA5 (SCK), PA6 (MISO), PA7 (MOSI) AF mode */
+    GPIOA->MODER &= ~((3 << (5*2)) | (3 << (6*2)) | (3 << (7*2)));
+    GPIOA->MODER |=  ((2 << (5*2)) | (2 << (6*2)) | (2 << (7*2)));
+
+    /* AF5 */
+    GPIOA->AFR[0] &= ~((0xF << (5*4)) | (0xF << (6*4)) | (0xF << (7*4)));
+    GPIOA->AFR[0] |=  ((5   << (5*4)) | (5   << (6*4)) | (5   << (7*4)));
+
+    /* Reset SPI */
+    SPI1->CR1 = 0;
+    SPI1->CR2 = 0;
+
+    /* Configure SPI */
+    SPI1->CR1 |= (1 << 2);    // Master
+    SPI1->CR1 |= (3 << 3);    // fPCLK/16
+    SPI1->CR1 |= (1 << 9);    // SSM
+    SPI1->CR1 |= (1 << 8);    // SSI = 1
+
+    /* Enable SPI LAST */
+    SPI1->CR1 |= (1 << 6);    // SPE
+}
+
+uint8_t SPI1_TransmitReceive(uint8_t data)
+{
+    /* Wait TXE */
+    while (!(SPI1->SR & (1 << 1)));
+
+    /* Write 8-bit */
+    *((volatile uint8_t *)&SPI1->DR) = data;
+
+    /* Wait RXNE */
+    //while (!(SPI1->SR & (1 << 0)));
+
+    /* Read 8-bit */
+    return *((volatile uint8_t *)&SPI1->DR);
+}
+
+int main(void)
+{
+    SPI1_Init();
+
+    while (1)
+    {
+        rx_buffer[rx_index++] = SPI1_TransmitReceive(tx_data);
+
+        if (rx_index >= RX_BUF_SIZE)
+            rx_index = 0;
+
+        delay(200000);
+    }
+}

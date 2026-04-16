@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;8_ADC_BareMetal/Core/Src/stm32lxx_gpio_header.c&apos; to &apos;stm32lxx_gpio_driver.c&apos;" description="Rename resource &apos;stm32lxx_gpio_header.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Core/Src/stm32lxx_gpio_header.c" name="stm32lxx_gpio_driver.c" stamp="1770368724496" updateReferences="true"/>
+</session>

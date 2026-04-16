@@ -1,0 +1,75 @@
+#include "main.h"
+
+#define RX_BUF_SIZE 16
+
+/* ===== Debug-visible variables ===== */
+volatile char tx_char = 'A';
+volatile char rx_buffer[RX_BUF_SIZE];
+volatile uint8_t rx_index = 0;
+
+/* ===== Small delay ===== */
+void delay(volatile uint32_t d)
+{
+    while (d--);
+}
+
+/* ===== USART2 Init (PA2 TX, PA3 RX) ===== */
+void USART2_Init(void)
+{
+    /* Enable clocks */
+    RCC->AHB2ENR  |= (1 << 0);     // GPIOA
+    RCC->APB1ENR1 |= (1 << 17);    // USART2
+
+    /* PA2, PA3 -> Alternate Function */
+    GPIOA->MODER &= ~((3 << (2 * 2)) | (3 << (3 * 2)));
+    GPIOA->MODER |=  ((2 << (2 * 2)) | (2 << (3 * 2)));
+
+    /* AF7 for USART2 */
+    GPIOA->AFR[0] &= ~((0xF << (2 * 4)) | (0xF << (3 * 4)));
+    GPIOA->AFR[0] |=  ((7   << (2 * 4)) | (7   << (3 * 4)));
+
+    /* Reset USART registers */
+    USART2->CR1 = 0;
+    USART2->CR2 = 0;
+    USART2->CR3 = 0;
+
+    /* Baud rate (PCLK1 = 16 MHz assumed) */
+    USART2->BRR = 16000000 / 9600;
+
+    /* Enable TX and RX */
+    USART2->CR1 |= (1 << 3) | (1 << 2);  // TE, RE
+
+    /* Enable USART */
+    USART2->CR1 |= (1 << 0);             // UE
+}
+
+/* ===== Send one character (polling) ===== */
+void USART2_SendChar(char c)
+{
+    while (!(USART2->ISR & (1 << 7)));   // TXE
+    USART2->TDR = c;
+}
+
+int main(void)
+{
+    USART2_Init();
+
+    while (1)
+    {
+        /* 1. Send character */
+        USART2_SendChar(tx_char);
+
+        /* 2. Wait for RX (loopback) */
+        if (USART2->ISR & (1 << 5))   // RXNE
+        {
+            rx_buffer[rx_index++] = USART2->RDR; // Read clears RXNE
+
+            if (rx_index >= RX_BUF_SIZE - 1)
+                rx_index = 0;
+
+            rx_buffer[rx_index] = '\0'; // for string view
+        }
+
+        delay(200000);
+    }
+}

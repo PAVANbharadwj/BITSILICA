@@ -1,0 +1,11 @@
+../Core/Src/stm32lxx_gpio_header.c:38:6:GPIO_PeriClockControl	19
+../Core/Src/stm32lxx_gpio_header.c:165:6:GPIO_Init	14
+../Core/Src/stm32lxx_gpio_header.c:308:6:GPIO_DeInit	9
+../Core/Src/stm32lxx_gpio_header.c:369:9:GPIO_ReadFromInputPin	1
+../Core/Src/stm32lxx_gpio_header.c:385:10:GPIO_ReadFromInputPort	1
+../Core/Src/stm32lxx_gpio_header.c:401:6:GPIO_WriteToOutputPin	3
+../Core/Src/stm32lxx_gpio_header.c:425:6:GPIO_WriteToOutputPort	1
+../Core/Src/stm32lxx_gpio_header.c:435:6:GPIO_TogglePin	1
+../Core/Src/stm32lxx_gpio_header.c:445:6:GPIO_IRQITConfig	13
+../Core/Src/stm32lxx_gpio_header.c:487:6:GPIO_IRQProrityConfig	1
+../Core/Src/stm32lxx_gpio_header.c:501:6:GPIO_IRQHandler	2

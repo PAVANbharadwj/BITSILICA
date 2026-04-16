@@ -1,0 +1,10 @@
+14:31:43 **** Incremental Build of configuration Debug for project 7_I2C_BareMetal ****
+make -j8 all 
+arm-none-eabi-size  7_I2C_BareMetal.elf 
+   text	   data	    bss	    dec	    hex	filename
+   2336	     16	   1592	   3944	    f68	7_I2C_BareMetal.elf
+Finished building: default.size.stdout
+ 
+
+14:31:44 Build Finished. 0 errors, 0 warnings. (took 585ms)
+

@@ -1,0 +1,72 @@
+#include "main.h"
+
+#define RX_BUF_SIZE 16
+
+/* ===== Debug-visible variables ===== */
+volatile uint8_t tx_data = 0x55;
+volatile uint8_t rx_buffer[RX_BUF_SIZE];
+volatile uint8_t rx_index = 0;
+
+/* ===== Small delay ===== */
+void delay(volatile uint32_t d)
+{
+    while (d--);
+}
+
+/* ===== SPI1 Init (Polling) ===== */
+void SPI1_Init(void)
+{
+    /* 1. Enable clocks */
+    RCC->AHB2ENR  |= (1 << 0);     // GPIOA
+    RCC->APB2ENR  |= (1 << 12);    // SPI1
+
+    /* 2. PA5, PA6, PA7 -> Alternate Function */
+    GPIOA->MODER &= ~((3 << (5 * 2)) | (3 << (6 * 2)) | (3 << (7 * 2)));
+    GPIOA->MODER |=  ((2 << (5 * 2)) | (2 << (6 * 2)) | (2 << (7 * 2)));
+
+    /* 3. AF5 for SPI1 */
+    GPIOA->AFR[0] &= ~((0xF << (5 * 4)) | (0xF << (6 * 4)) | (0xF << (7 * 4)));
+    GPIOA->AFR[0] |=  ((5   << (5 * 4)) | (5   << (6 * 4)) | (5   << (7 * 4)));
+
+    /* 4. Reset SPI */
+    SPI1->CR1 = 0;
+    SPI1->CR2 = 0;
+
+    /* 5. SPI configuration */
+    SPI1->CR1 |= (1 << 2);    // Master mode
+    SPI1->CR1 |= (3 << 3);    // Baud rate = fPCLK / 16
+    SPI1->CR1 |= (1 << 9);    // Software NSS
+    SPI1->CR1 |= (1 << 8);    // SSI = 1
+    SPI1->CR1 |= (1 << 6);    // SPI enable
+}
+
+/* ===== SPI Send & Receive (Polling) ===== */
+uint8_t SPI1_TransmitReceive(uint8_t data)
+{
+    /* Wait until TX buffer empty */
+    while (!(SPI1->SR & (1 << 1)));   // TXE
+
+    /* Write data */
+    *((__IO uint8_t *)&SPI1->DR) = data;
+
+    /* Wait until RX buffer not empty */
+    while (!(SPI1->SR & (1 << 0)));   // RXNE
+
+    /* Read received data */
+    return *((__IO uint8_t *)&SPI1->DR);
+}
+
+int main(void)
+{
+    SPI1_Init();
+
+    while (1)
+    {
+        rx_buffer[rx_index++] = SPI1_TransmitReceive(tx_data);
+
+        if (rx_index >= RX_BUF_SIZE)
+            rx_index = 0;
+
+        delay(200000);
+    }
+}

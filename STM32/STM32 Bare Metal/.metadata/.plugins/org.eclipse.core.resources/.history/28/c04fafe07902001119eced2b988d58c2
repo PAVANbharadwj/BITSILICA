@@ -1,0 +1,36 @@
+#include "main.h"
+
+void SPI1_Init(void)
+{
+    RCC->AHB2ENR |= (1 << 0);      // GPIOA
+    RCC->APB2ENR |= (1 << 12);     // SPI1
+
+    /* PA5 SCK, PA7 MOSI */
+    GPIOA->MODER &= ~((3 << (5*2)) | (3 << (7*2)));
+    GPIOA->MODER |=  ((2 << (5*2)) | (2 << (7*2)));
+
+    GPIOA->AFR[0] &= ~((0xF << (5*4)) | (0xF << (7*4)));
+    GPIOA->AFR[0] |=  ((5 << (5*4)) | (5 << (7*4)));
+
+    SPI1->CR1 = 0;
+
+    SPI1->CR1 |= (1 << 2);   // MSTR
+    SPI1->CR1 |= (3 << 3);   // Baud = PCLK/16
+    SPI1->CR1 |= (1 << 9);   // SSM
+    SPI1->CR1 |= (1 << 8);   // SSI (THIS IS CRITICAL)
+
+    SPI1->CR1 |= (1 << 6);   // SPE (ENABLE LAST)
+}
+
+int main(void)
+{
+    SPI1_Init();
+
+    while (1)
+    {
+        while (!(SPI1->SR & (1 << 1)));   // TXE
+        *((volatile uint8_t *)&SPI1->DR) = 0xAA;
+
+        for (volatile int i = 0; i < 100000; i++);
+    }
+}

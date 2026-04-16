@@ -1,0 +1,69 @@
+#include "stm32l476xx.h"
+
+uint16_t adc_value;
+
+void ADC_Init(void)
+{
+    /* 1. Enable GPIOA clock */
+    RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
+
+    /* 2. PA0 -> Analog mode */
+    GPIOA->MODER |= (3U << (0 * 2));   // Analog mode
+    GPIOA->PUPDR &= ~(3U << (0 * 2));  // No pull-up/down
+
+    /* 3. Enable ADC clock */
+    RCC->AHB2ENR |= RCC_AHB2ENR_ADCEN;
+
+    /* 4. Exit deep power-down */
+    if (ADC1->CR & ADC_CR_ADEN)
+    {
+        ADC1->CR |= ADC_CR_ADDIS;
+        while (ADC1->CR & ADC_CR_ADEN);
+    }
+
+    /* Exit deep power-down */
+    ADC1->CR &= ~ADC_CR_DEEPPWD;
+
+    /* Enable ADC voltage regulator */
+    ADC1->CR |= ADC_CR_ADVREGEN;
+
+    /* Wait for regulator startup (>=20us) */
+    //for (volatile int i = 0; i < 2000; i++);
+
+    /* START CALIBRATION */
+    ADC1->CR |= ADC_CR_ADCAL;
+    while (ADC1->CR & ADC_CR_ADCAL);
+
+    /* 8. Configure ADC */
+    ADC1->CFGR = 0;              // Single conversion
+    ADC1->SMPR1 |= (4U << 15);   // Channel 5 sampling time (47.5 cycles)
+
+    /* 9. Select channel 5 */
+    ADC1->SQR1 = (5U << 6);      // 1st conversion = channel 5
+
+    /* 10. Enable ADC */
+    ADC1->CR |= ADC_CR_ADEN;
+    while (!(ADC1->ISR & ADC_ISR_ADRDY));
+}
+
+uint16_t ADC_Read(void)
+{
+    /* Start conversion */
+    ADC1->CR |= ADC_CR_ADSTART;
+
+    /* Wait for end of conversion */
+    while (!(ADC1->ISR & ADC_ISR_EOC));
+
+    /* Read data */
+    return (uint16_t)ADC1->DR;
+}
+
+int main(void)
+{
+    ADC_Init();
+
+    while (1)
+    {
+        adc_value = ADC_Read();
+    }
+}

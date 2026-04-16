@@ -1,0 +1,44 @@
+#include "main.h"
+
+void delay_ms(volatile uint32_t t)
+{
+    while (t--);
+}
+
+int main(void)
+{
+    RCC->AHB2ENR |= (1 << 0);
+    RCC->AHB2ENR |= (1 << 2);
+    RCC->APB2ENR |= (1 << 0);
+
+    GPIOA->MODER &= ~(3 << (5 * 2));
+    GPIOA->MODER |=  (1 << (5 * 2));
+
+    GPIOC->MODER &= ~(3 << (13 * 2));
+
+    GPIOC->PUPDR &= ~(3 << (13 * 2));
+    GPIOC->PUPDR |=  (1 << (13 * 2));
+
+    SYSCFG->EXTICR[3] &= ~(0xF << 4);
+    SYSCFG->EXTICR[3] |=  (0x2 << 4);
+
+    EXTI->IMR1  |= (1 << 13);
+    EXTI->FTSR1 |= (1 << 13);
+    EXTI->RTSR1 &= ~(1 << 13);
+
+    NVIC_EnableIRQ(EXTI15_10_IRQn);
+
+    while (1);
+
+}
+
+void EXTI15_10_IRQHandler(void)
+{
+    if (EXTI->PR1 & (1 << 13))
+    {
+        delay_ms(200000);
+        GPIOA->ODR ^= (1 << 5);
+        EXTI->PR1 |= (1 << 13);
+    }
+}
+

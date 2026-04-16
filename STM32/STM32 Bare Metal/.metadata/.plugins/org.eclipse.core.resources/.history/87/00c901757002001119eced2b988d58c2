@@ -1,0 +1,61 @@
+#include "main.h"
+
+#define RX_BUF_SIZE 64
+
+/* ===== Global variables (for Live Expressions) ===== */
+volatile char rx_buffer[RX_BUF_SIZE];
+volatile uint8_t rx_index = 0;
+
+/* ===== USART2 Init ===== */
+void USART2_Init(void)
+{
+    /* 1. Enable clocks */
+    RCC->AHB2ENR  |= (1 << 0);     // GPIOA
+    RCC->APB1ENR1 |= (1 << 17);    // USART2
+
+    /* 2. PA2 (TX), PA3 (RX) -> Alternate Function */
+    GPIOA->MODER &= ~((3 << (2 * 2)) | (3 << (3 * 2)));
+    GPIOA->MODER |=  ((2 << (2 * 2)) | (2 << (3 * 2)));   // AF mode
+
+    /* 3. AF7 for USART2 */
+    GPIOA->AFR[0] &= ~((0xF << (2 * 4)) | (0xF << (3 * 4)));
+    GPIOA->AFR[0] |=  ((7   << (2 * 4)) | (7   << (3 * 4)));
+
+    /* 4. Reset USART config */
+    USART2->CR1 = 0;
+    USART2->CR2 = 0;
+    USART2->CR3 = 0;
+
+    /* 5. Baud rate
+       NOTE: assuming PCLK1 = 16 MHz
+       If clock differs, RXNE will never set
+    */
+    USART2->BRR = 0x0683;
+
+    /* 6. Enable RX and TX */
+    USART2->CR1 |= (1 << 2) | (1 << 3);   // RE, TE
+
+    /* 7. Enable USART */
+    USART2->CR1 |= (1 << 0);              // UE
+}
+
+int main(void)
+{
+    USART2_Init();
+
+    while (1)
+    {
+        /* ===== NON-BLOCKING UART RX ===== */
+        if (USART2->ISR & (1 << 5))   // RXNE
+        {
+            rx_buffer[rx_index++] = USART2->RDR;  // Read clears RXNE
+
+            /* Wrap buffer */
+            if (rx_index >= RX_BUF_SIZE - 1)
+                rx_index = 0;
+
+            /* Optional: null-terminate for string view */
+            rx_buffer[rx_index] = '\0';
+        }
+    }
+}

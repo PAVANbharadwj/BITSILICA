@@ -1,0 +1,12 @@
+../Core/Src/stm32lxx_USART_Driver.c:12:6:USART_PeriClockControl	12
+../Core/Src/stm32lxx_USART_Driver.c:103:6:USART_Init	9
+../Core/Src/stm32lxx_USART_Driver.c:164:6:USART_SendData	6
+../Core/Src/stm32lxx_USART_Driver.c:200:6:USART_ReceiveData	6
+../Core/Src/stm32lxx_USART_Driver.c:238:9:USART_SendDataIT	2
+../Core/Src/stm32lxx_USART_Driver.c:258:9:USART_ReceiveDataIT	2
+../Core/Src/stm32lxx_USART_Driver.c:278:6:USART_IRQInterruptConfig	12
+../Core/Src/stm32lxx_USART_Driver.c:312:6:USART_IRQPriorityConfig	1
+../Core/Src/stm32lxx_USART_Driver.c:322:6:USART_IRQHandling	31
+../Core/Src/stm32lxx_USART_Driver.c:496:6:USART_PeripheralControl	2
+../Core/Src/stm32lxx_USART_Driver.c:507:9:USART_GetFlagStatus	2
+../Core/Src/stm32lxx_USART_Driver.c:517:6:USART_ClearFlag	1

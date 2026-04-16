@@ -1,0 +1,13 @@
+/*
+ * stm32lxx_I2Cx_header.h
+ *
+ *  Created on: Feb 6, 2026
+ *      Author: pavan
+ */
+
+#ifndef INC_STM32LXX_I2CX_HEADER_H_
+#define INC_STM32LXX_I2CX_HEADER_H_
+
+
+
+#endif /* INC_STM32LXX_I2CX_HEADER_H_ */
