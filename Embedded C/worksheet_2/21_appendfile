@@ -1,0 +1,28 @@
+#include <stdio.h>
+
+int main()
+ {
+    FILE *src, *dst;
+    int ch; 
+
+    src = fopen("file.txt", "r");
+    dst = fopen("file1.txt", "a");
+
+    if (src == NULL || dst == NULL) {
+        printf("Error while opening file");
+        return 1;
+    }
+
+    while ((ch = getc(src)) != EOF) 
+    {   
+        
+        fputc(ch, dst);
+    }
+
+    printf("File appended\n");
+
+    fclose(src);
+    fclose(dst);
+
+    return 0;
+}
